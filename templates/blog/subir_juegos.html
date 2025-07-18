@@ -1,0 +1,15 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">📤 Subir Juego</h2>
+
+    <form method="post" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary">Subir</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <h2>{{ juego.titulo }}</h2>
+  <p><strong>Autor:</strong> {{ juego.autor }}</p>
+  <p><strong>Categoría:</strong> {{ juego.categoria }}</p>
+  <p>{{ juego.descripcion }}</p>
+
+  {% if juego.imagen %}
+    <img src="{{ juego.imagen.url }}" width="400">
+  {% endif %}
+
+  {% if juego.archivo %}
+    <p><a href="{{ juego.archivo.url }}" class="btn btn-success mt-3" download>⬇ Descargar juego</a></p>
+  {% endif %}
+
+  <!-- Botón centrado debajo de la imagen -->
+  <div class="mt-4 text-center">
+    <a href="{% url 'lista_juegos' %}" class="btn btn-primary">← Volver a la lista</a>
+  </div>
+{% endblock %}

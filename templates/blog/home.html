@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>Listado de Juegos</h2>
+    {% if juegos %}
+      <div class="row">
+        {% for juego in juegos %}
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              {% if juego.imagen %}
+                <img src="{{ juego.imagen.url }}" class="card-img-top" alt="{{ juego.titulo }}">
+              {% endif %}
+              <div class="card-body">
+                <h5 class="card-title">{{ juego.titulo }}</h5>
+                <p class="card-text">{{ juego.descripcion|truncatechars:100 }}</p>
+                <a href="{% url 'juego_detalle' juego.pk %}" class="btn btn-primary">Ver más</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No hay reseñas publicadas aún.</p>
+    {% endif %}
+  </div>
+{% endblock %}

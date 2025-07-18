@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <div class="card mx-auto mt-4" style="max-width: 600px;">
+    {% if juego.imagen %}
+      <img src="{{ juego.imagen.url }}" class="card-img-top" alt="{{ juego.titulo }}">
+    {% endif %}
+
+    <div class="card-body text-center">
+      <h2 class="card-title">{{ juego.titulo }}</h2>
+      <p><strong>Autor:</strong> {{ juego.autor }}</p>
+      <p><strong>Categoría:</strong> {{ juego.categoria }}</p>
+      <p class="card-text">{{ juego.descripcion }}</p>
+
+      {% if juego.archivo %}
+        <a href="{{ juego.archivo.url }}" class="btn btn-success my-2" download>⬇ Descargar juego</a>
+      {% endif %}
+
+      <!-- Botón de volver a la lista -->
+      <a href="{% url 'home' %}" class="btn btn-primary mt-2">← Volver a la lista</a>
+    </div>
+  </div>
+{% endblock %}
