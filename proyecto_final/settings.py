@@ -8,16 +8,12 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
-"""
 
+"""
 import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
-
-from dotenv import load_dotenv
-import os
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -84,18 +80,21 @@ WSGI_APPLICATION = 'proyecto_final.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-NAME_DB = os.getenv("NAME_DB")
-USER_DB = os.getenv("USER_DB")
-PASSWORD_DB = os.getenv("PASSWORD_DB")
+NAME_DB = os.environ.get("NAME_DB")
+USER_DB = os.environ.get("USER_DB")
+PASSWORD_DB = os.environ.get("PASSWORD_DB")
+PORT_DB = os.environ.get("PORT_DB")
+
+
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '3306'),
+        'NAME': NAME_DB,
+        'USER': USER_DB,
+        'PASSWORD': PASSWORD_DB,
+        # 'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': PORT_DB,
     }
 }
 
@@ -134,11 +133,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = "static/"
-STATICFILES_DIR = BASE_DIR / "static" ,
-# STATICFILES_DIR = [os.path.join(BASE_DIR, 'static'),
-#                     os.path.join(BASE_DIR, 'proyecto_final/static'),]
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [ BASE_DIR / 'static',] # ME FALTABA UNA 'S'
 STATIC_ROOT = "staticfiles/"
+
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
