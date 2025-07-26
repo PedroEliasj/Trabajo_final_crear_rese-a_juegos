@@ -10,11 +10,15 @@
         <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">🎮 Blog de Juegos</a>
             <div>
-                <a class="btn btn-outline-light me-2" href="{% url 'crear_resena' %}">Publicar Reseña</a>
-                <a class="btn btn-outline-light" href="{% url 'descargar_juegos' %}">Descargar Juegos</a>
-
                 {% if request.user.is_authenticated and request.user.is_staff %}
+                <a class="btn btn-outline-light" href="{% url 'logout' %}">cerrar session</a>
                 <a class="btn btn-warning" href="{% url 'subir_juego' %}">Subir Juego</a>
+                <a class="btn btn-outline-light me-2" href="{% url 'crear_resena' %}">Publicar Reseña</a>
+                {% else %}
+                <a class="btn btn-outline-light" href="{% url 'descargar_juegos' %}">Descargar Juegos</a>
+                <a class="btn btn-outline-light" href="{% url 'signin' %}">Iniciar sesion</a>
+                <a class="btn btn-outline-light" href="{% url 'signup' %}">Registrar</a>
+
                 {% endif %}
             </div>
         </div>

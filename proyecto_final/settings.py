@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Instalar nuestras propias aplicaciones
+    "apps.login",
     "apps.blog",
+    
 ]
 
 MIDDLEWARE = [
