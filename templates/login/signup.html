@@ -1,11 +1,42 @@
 {% load static %}
 
-<!-- {% block content %} -->
-
 <link rel="stylesheet" href="{% static 'css/estilos_login.css' %}">
 <div class="login-base">
     <div class="login-container">
-        <form action="#" method="POST">
+            <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label for="username">Nombre de usuario:</label><br>
+        <input type="text" name="username" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <label for="password">Contraseña:</label><br>
+        <input type="password" name="password" required><br><br>
+
+        <label for="apellido">Apellido:</label><br>
+        <input type="text" name="apellido" required><br><br>
+
+        <label for="fecha_nacimiento">Fecha de nacimiento:</label><br>
+        <input type="date" name="fecha_nacimiento" required><br><br>
+
+        <label for="imagen">Foto de perfil:</label><br>
+        <input type="file" name="imagen" accept="image/*"><br><br>
+        
+        {% if request.user.is_staff %}
+        <label>
+            <input type="checkbox" name="is_superuser">
+            ¿Es superusuario?
+        </label><br><br>
+        {% endif %}
+
+        <button type="submit">Registrarse</button>
+    </form>
+    </div>
+</div>
+
+        <!-- <form action="#" method="POST" enctype="multipart/form-data">
             <input type="checkbox" class="input-check" id="input-check">
             <label for="input-check"></label>
 
@@ -18,7 +49,16 @@
                     <ion-icon name="mail"><i class="fa-solid fa-user"></i></ion-icon>
                 </span>
                 <input type="text" required="required" name="username" id="username">
-                <label for="username">Email</label>
+                <label for="username">Nombre</label>
+                <div class="input-line"></div>
+            </div>
+
+                        <div class="input-box">
+                <span class="icon">
+                    <ion-icon name="mail"><i class="fa-solid fa-user"></i></ion-icon>
+                </span>
+                <input type="text" required="required" name="username" id="username">
+                <label for="username">apellido</label>
                 <div class="input-line"></div>
             </div>
 
@@ -26,7 +66,7 @@
                 <span class="icon">
                     <ion-icon name="lock-closed"><i class="fa-solid fa-lock"></i></ion-icon>
                 </span>
-                <input type="password" required="required" name="password1" id="password1">
+                <input type="password" required name="password" id="password">
                 <label for="password">Password</label>
                 <div class="input-line"></div>
             </div>
@@ -35,77 +75,41 @@
                 <span class="icon">
                     <ion-icon name="lock-closed"><i class="fa-solid fa-lock"></i></ion-icon>
                 </span>
-                <input type="password" required="required" name="password2" id="password2">
-                <label for="password">repeat password</label>
+                <input type="email" required="required" name="email" id="email" required>
+                <label for="email">Email</label>
+                <div class="input-line"></div>
+            </div>
+
+            <div class="input-box">
+                <span class="icon">
+                    <ion-icon name="lock-closed"><i class="fa-solid fa-lock"></i></ion-icon>
+                </span>
+                <input type="date" required name="fecha_nacimiento" id="fecha_nacimiento">
+                <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                <div class="input-line"></div>
+            </div>
+
+            <div class="input-box">
+                <span class="icon">
+                    <ion-icon name="lock-closed"><i class="fa-solid fa-lock"></i></ion-icon>
+                </span>
+                <input type="file" required name="imagen" id="imagen" accept="image"> 
+                <label for="imagen"></label>
                 <div class="input-line"></div>
             </div>
 
             <div class="remember-forgot">
                 <label for="">
-                    <input type="checkbox">
-                    Remember Me
+                    <input type="checkbox" name="is_superuser">
+                    ¿Es super usuario?
                 </label>
                 <a href="#">Forgot Password?</a>
             </div>
+
 
             <button type="submit">Register</button>
 
             <div class="register-link">
                 <p>Don't have an account? <a href="#">Sign Up</a></p>
             </div>
-        </form>
-    </div>
-</div>
-<!-- {% endblock %} -->
-
-    <!-- <div class="login-container">
-        <form action="#" method="POST">
-            <input type="checkbox" class="input-check" id="input-check">
-            <label for="input-check"></label>
-
-            <h2>Ingresar usuario</h2>
-                {{error}}
-                {% csrf_token %}
-
-            <div class="input-box">
-                <span class="icon">
-                    <ion-icon name="mail"></ion-icon>
-                </span>
-                <input type="text" required="required" name="username" id="username" placeholder="">
-                <label for="username">Email</label>
-                <div class="input-line"></div>
-            </div>
-
-            <div class="input-box">
-                <span class="icon">
-                    <ion-icon name="lock-closed"></ion-icon>
-                </span>
-                <input type="password1" required="required" name="password1" id="password1" placeholder="">
-                <label for="password">Password</label>
-                <div class="input-line"></div>
-            </div>
-
-                        <div class="input-box">
-                <span class="icon">
-                    <ion-icon name="lock-closed"></ion-icon>
-                </span>
-                <input type="password2" required="required" name="password2" id="password2" placeholder="">
-                <label for="password">repeat password</label>
-                <div class="input-line"></div>
-            </div>
-
-            <div class="remember-forgot">
-                <label for="">
-                    <input type="checkbox">
-                    recordarme
-                </label>
-                <a href="#">¿Has olvidado tu contraseña?</a>
-            </div>
-
-            <button type="submit">acceder</button>
-
-            <div class="register-link">
-                <p>No tienes cuenta? <a href="/signup/">Inscribirse</a></p>
-            </div>
-        </form>
-    </div> -->
+        </form> -->

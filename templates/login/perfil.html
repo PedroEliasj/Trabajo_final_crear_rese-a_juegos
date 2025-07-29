@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Perfil</title>
+</head>
+<body>
+    <h1>Perfil de {{ perfil.user.username }}</h1>
+
+    <p><strong>Apellido:</strong> {{ perfil.apellido }}</p>
+    <p><strong>Email:</strong> {{ perfil.user.email }}</p>
+    <p><strong>Fecha de nacimiento:</strong> {{ perfil.fecha_nacimiento }}</p>
+
+    {% if perfil.imagen %}
+        <p><strong>Foto de perfil:</strong></p>
+        <img src="{{ perfil.imagen.url }}" alt="Imagen de perfil" width="200">
+    {% else %}
+        <p>No hay imagen cargada.</p>
+    {% endif %}
+</body>
+</html>

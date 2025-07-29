@@ -20,7 +20,7 @@
 .login-container {
     position: relative;
     width: 400px;
-    height: 450px;
+    height: auto;
     background-color: #39393961;
     border-radius: 40px;
     display: flex;
