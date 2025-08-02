@@ -1,0 +1,52 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <h1 class="mb-4 text-center">Contacto</h1>
+      <p class="text-center">¿Tenés alguna consulta, sugerencia o simplemente querés saludar? Completá el formulario y te responderemos lo antes posible.</p>
+
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+
+      <form method="post" class="mb-5">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="d-grid mt-3">
+          <button type="submit" class="btn btn-primary btn-sm">Enviar</button>
+        </div>
+      </form>
+
+      <hr>
+
+      <div class="text-center">
+        <h4 class="mb-4">También podés encontrarnos en:</h4>
+        <div class="row gx-5">
+          <div class="col-md-6 mb-3">
+            <h5 class="mb-3">Redes Sociales</h5>
+            <div class="d-flex flex-wrap justify-content-center gap-3 fs-4 text-primary">
+              <a href="https://www.facebook.com/TuPagina" target="_blank"><i class="fab fa-facebook"></i></a>
+              <a href="https://www.instagram.com/TuPagina" target="_blank"><i class="fab fa-instagram"></i></a>
+              <a href="https://twitter.com/TuPagina" target="_blank"><i class="fab fa-twitter"></i></a>
+              <a href="https://www.youtube.com/TuCanal" target="_blank"><i class="fab fa-youtube"></i></a>
+              <a href="https://discord.gg/TuServidor" target="_blank"><i class="fab fa-discord"></i></a>
+              <a href="https://www.twitch.tv/TuCanal" target="_blank"><i class="fab fa-twitch"></i></a>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <h5 class="mb-3">Contacto Directo</h5>
+            <p><i class="fab fa-whatsapp text-primary"></i> <a href="https://wa.me/5491123456789" target="_blank" class="text-decoration-none text-dark">+54 9 11 2345-6789</a></p>
+            <p><i class="fas fa-map-marker-alt text-primary"></i> Las Breñas, Chaco, Argentina</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

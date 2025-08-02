@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     # Instalar nuestras propias aplicaciones
     "apps.login",
     "apps.blog",
-    
+    "apps.contacto",
+    "apps.nosotros",
 ]
 
 MIDDLEWARE = [
@@ -92,9 +93,9 @@ PORT_DB = os.environ.get("PORT_DB")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': NAME_DB,
-        'USER': USER_DB,
-        'PASSWORD': PASSWORD_DB,
+        'NAME': "proyecto_db",
+        'USER': "root",
+        'PASSWORD': "root",
         # 'HOST': os.getenv('DB_HOST', 'localhost'),
         'PORT': PORT_DB,
     }

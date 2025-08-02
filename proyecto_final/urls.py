@@ -22,6 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.blog.urls')),# Usamos la app libros
     path('login/', include('apps.login.urls')),
+    path('contacto/', include('apps.contacto.urls')),
+    path('nosotros/', include('apps.nosotros.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()
