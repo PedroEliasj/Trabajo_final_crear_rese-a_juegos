@@ -4,29 +4,15 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+
+from apps.login.funcionesMod import RegistroUsuario
 from .models import PerfilUsuario
+from django.core.paginator import Paginator
+from django.core.mail import send_mail
+from django.http import HttpResponse
 
 
 # Create your views here.
-
-def registrar_usuario(username, password, email, is_superuser=False, apellido=None, fecha_nacimiento=None, imagen=None):
-    if is_superuser:
-        user = User.objects.create_superuser(username=username, email=email, password=password)
-    else:
-        user = User.objects.create_user(username=username, email=email, password=password)
-        user.is_staff = False
-    user.save()
-
-    # Crear perfil asociado
-    perfil = PerfilUsuario.objects.create(
-        user=user,
-        apellido=apellido,
-        fecha_nacimiento=fecha_nacimiento,
-        imagen=imagen
-    )
-    perfil.save()
-
-    return user
 
 def signup(request):
     if request.method == "POST":
@@ -36,18 +22,19 @@ def signup(request):
         is_superuser = request.POST.get("is_superuser") == "on"
         apellido = request.POST.get("apellido")
         fecha_nacimiento = request.POST.get("fecha_nacimiento")
-        imagen = request.FILES.get("imagen")  # importante usar request.FILES
+        imagen = request.FILES.get("imagen")
 
         try:
-            registrar_usuario(
+            servicio = RegistroUsuario(
                 username=username,
+                email=email,
                 password=password,
                 is_superuser=is_superuser,
-                email=email,
                 apellido=apellido,
                 fecha_nacimiento=fecha_nacimiento,
                 imagen=imagen
             )
+            servicio.registrar()
             mensaje = "Usuario registrado correctamente."
         except Exception as e:
             mensaje = f"Error al registrar usuario: {e}"
@@ -84,10 +71,12 @@ def ver_perfil(request):
     perfil = PerfilUsuario.objects.get(user=request.user)
     return render(request, 'login/perfil.html', {'perfil': perfil})
 
+@login_required
 def usuarios_list(request):
     usuarios = User.objects.all()
     return render(request, 'login/usuarios_list.html', {'usuarios': usuarios})
 
+@login_required
 def editar_usuario(request, user_id):
     user = get_object_or_404(User, id=user_id)
     perfil = get_object_or_404(PerfilUsuario, user=user)
@@ -110,7 +99,9 @@ def editar_usuario(request, user_id):
         'perfil': perfil
     })
 
+@login_required
 def eliminar_usuario(request, user_id):
+
     user = get_object_or_404(User, id=user_id)
 
     try:
@@ -129,3 +120,18 @@ def eliminar_usuario(request, user_id):
 
     user.delete()
     return redirect('login/usuarios_list')
+
+# Viste prueba recuperacion usuario
+
+def enviar_correo_prueba(request):
+    try:
+        send_mail(
+            subject='Correo de prueba desde Django',
+            message='¡Este es un correo de prueba! Si lo recibiste, tu configuración SMTP está funcionando.',
+            from_email=None,  # Usa DEFAULT_FROM_EMAIL del settings
+            recipient_list=['tucorreo@gmail.com'],  # Reemplazalo por el correo que querés probar
+            fail_silently=False,
+        )
+        return HttpResponse("Correo enviado correctamente.")
+    except Exception as e:
+        return HttpResponse(f"Error al enviar correo: {e}")

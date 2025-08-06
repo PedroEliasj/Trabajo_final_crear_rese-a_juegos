@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Orbitron', sans-serif;
+}
+
+body {
+    background: url('img/bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #ccc;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 10px;
+}
+
+h1 {
+    color: #15f4ee;
+    text-shadow: 0 0 10px #15f4ee;
+    margin-bottom: 30px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+    max-width: 1000px;
+    background-color: rgba(57, 57, 57, 0.4);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 10px #15f4ee;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ccc;
+}
+
+th {
+    background-color: rgba(21, 244, 238, 0.1);
+    color: #15f4ee;
+    text-shadow: 0 0 10px #15f4ee;
+}
+
+td {
+    backdrop-filter: blur(4px);
+}
+
+a.button {
+    padding: 8px 15px;
+    background-color: #15f4ee;
+    color: #000;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 0 10px #15f4ee;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+a.button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #15f4ee;
+}
+
+a.button.delete {
+    background-color: #f44336;
+    box-shadow: 0 0 10px #f44336;
+}
+
+a.button.delete:hover {
+    box-shadow: 0 0 15px #f44336;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+@media screen and (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    th {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    td {
+        padding-left: 50%;
+        position: relative;
+    }
+    td:before {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        width: 45%;
+        white-space: nowrap;
+        font-weight: bold;
+        color: #15f4ee;
+    }
+    td:nth-of-type(1):before { content: "ID"; }
+    td:nth-of-type(2):before { content: "Usuario"; }
+    td:nth-of-type(3):before { content: "Email"; }
+    td:nth-of-type(4):before { content: "Acciones"; }
+}

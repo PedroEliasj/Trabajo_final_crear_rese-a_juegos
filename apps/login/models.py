@@ -5,7 +5,12 @@ class PerfilUsuario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     apellido = models.CharField(max_length=100)
     fecha_nacimiento = models.DateField()
-    imagen = models.ImageField(upload_to='usuarios/', blank=True, null=True)
+    imagen = models.ImageField(
+        upload_to='usuarios/',
+        blank=True,
+        null=True,
+        default='img/default.png'
+    )
 
     def __str__(self):
         return f"Perfil de {self.user.username}"

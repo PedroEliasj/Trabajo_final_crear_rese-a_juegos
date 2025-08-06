@@ -4,7 +4,11 @@
 
 <link rel="stylesheet" href="{% static 'css/estilos_login.css' %}">
 
+<div class="volver">
+    <button  onclick="window.history.back()">Volver</button>
+</div>
 <div class="login-base">
+
     <div class="login-container">
         <form action="#" method="POST">
             <input type="checkbox" class="input-check" id="input-check">
@@ -19,7 +23,7 @@
                     <ion-icon name="mail"><i class="fa-solid fa-user"></i></ion-icon>
                 </span>
                 <input type="text" required="required" name="username" id="username">
-                <label for="username">Email</label>
+                <label for="username">Usuario</label>
                 <div class="input-line"></div>
             </div>
 
@@ -37,13 +41,13 @@
                     <input type="checkbox">
                     Remember Me
                 </label>
-                <a href="#">Forgot Password?</a>
+                <a href="{% url 'password_reset' %}">Forgot Password?</a>
             </div>
 
             <button type="submit">Login</button>
 
             <div class="register-link">
-                <p>Don't have an account? <a href="#">Sign Up</a></p>
+                <p>Don't have an account? <a href="/login/signup/">Sign Up</a></p>
             </div>
         </form>
     </div>
