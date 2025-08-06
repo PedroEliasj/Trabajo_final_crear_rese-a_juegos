@@ -1,25 +1,27 @@
-{% load static %}
-
-{% block content %}
-
-<link rel="stylesheet" href="{% static 'css/estilos_login.css' %}">
-
-<div class="login-base">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="img/png" href="img/favicon-game.png">
+    <title>TGZ | Login</title>
+    <link rel="stylesheet" href="estilos_signin.css" />
+    <script src="https://kit.fontawesome.com/cd10d9582d.js" crossorigin="anonymous"></script>
+</head>
+<body>
     <div class="login-container">
-        <form action="#" method="POST">
+        <form action="#">
             <input type="checkbox" class="input-check" id="input-check">
             <label for="input-check"></label>
 
             <h2>Auth Login</h2>
-                {{error}}
-                {% csrf_token %}
 
             <div class="input-box">
                 <span class="icon">
                     <ion-icon name="mail"><i class="fa-solid fa-user"></i></ion-icon>
                 </span>
-                <input type="text" required="required" name="username" id="username">
-                <label for="username">Email</label>
+                <input type="email" required="required">
+                <label for="">Email</label>
                 <div class="input-line"></div>
             </div>
 
@@ -27,8 +29,8 @@
                 <span class="icon">
                     <ion-icon name="lock-closed"><i class="fa-solid fa-lock"></i></ion-icon>
                 </span>
-                <input type="password" required="required" name="password" id="password">
-                <label for="password">Password</label>
+                <input type="password" required="required">
+                <label for="">Password</label>
                 <div class="input-line"></div>
             </div>
 
@@ -47,52 +49,5 @@
             </div>
         </form>
     </div>
-</div>
-
-{% endblock %}
-
-<!-- <div class="loginBase">
-    <div class="login-container">
-        <form action="#" method="POST">
-            <input type="checkbox" class="input-check" id="input-check">
-            <label for="input-check"></label>
-
-            <h2>Ingresar a su usuario</h2>
-                {{error}}
-                {% csrf_token %}
-
-            <div class="input-box">
-                <span class="icon">
-                    <ion-icon name="mail"></ion-icon>
-                </span>
-                <input type="text" required="required" name="username" id="username" placeholder="">
-                <label for="username">Email</label>
-                <div class="input-line"></div>
-            </div>
-
-            <div class="input-box">
-                <span class="icon">
-                    <ion-icon name="lock-closed"></ion-icon>
-                </span>
-                <input type="password" required="required" name="password" id="password"
-                placeholder="">
-                <label for="password">Password</label>
-                <div class="input-line"></div>
-            </div>
-
-            <div class="remember-forgot">
-                <label for="">
-                    <input type="checkbox">
-                    Recordarme
-                </label>
-                <a href="#">¿Has olvidado tu contraseña?</a>
-            </div>
-
-            <button type="submit">Login</button>
-
-            <div class="register-link">
-                <p>No tienes cuenta? <a href="/signup/">Inscribirse</a></p>
-            </div>
-        </form>
-    </div>
-</div> -->
+</body>
+</html>
