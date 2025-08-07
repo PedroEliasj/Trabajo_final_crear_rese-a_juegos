@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="icon" type="img/png" href="img/favicon-game.png">
+    <script src="https://kit.fontawesome.com/cd10d9582d.js" crossorigin="anonymous"></script>
+    <title>TGZ | Blog</title>
+</head>
+<body>
+
+    <label class="ir">
+        <input type="checkbox" class="toggle-neon">
+        <i class="arriba fa-solid fa-angles-up"></i>
+    </label>
+
+    <header>
+        <nav class="navbar">
+            <input type="checkbox" class="menu-checkbox" id="hamburger-menu">
+            <label class="hamburger-label" for="hamburger-menu">
+                <i class="fas fa-bars"></i>
+            </label>
+            <div class="perfil-usuario">
+                <input type="checkbox" class="menu-checkbox" id="perfil-menu">
+                <label class="menu-label" for="perfil-menu">
+                    <img src="img/perfiles/perfil1.jpg" alt="Perfil de Juan Gamer">
+                    <span>Juan Gamer</span>
+                </label>
+                <p>@juangamer1234</p>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">Ver Perfil</a>
+                    <a href="#" class="dropdown-item">Editar Perfil</a>
+                    <a href="crear_post.html" class="dropdown-item">Crear Posteo</a>
+                    <a href="#" class="dropdown-item">Cerrar Sesión</a>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">ABOUT</a></li>
+                <li><a href="#">GAMEPLAY</a></li>
+                <li><a href="#">NEWS</a></li>
+            </ul>
+            <div class="hamburger-menu">
+                <ul class="hamburger-links">
+                    <li class="perfil-mobile">
+                        <input type="checkbox" class="menu-checkbox" id="perfil-menu-mobile">
+                        <label class="menu-label" for="perfil-menu-mobile">
+                            <div class="perfil-usuario-mobile">
+                                <img src="img/perfiles/perfil1.jpg" alt="Perfil de Juan Gamer">
+                                <span>Juan Gamer</span>
+                            </div>
+                        </label>
+                        <ul class="perfil-submenu">
+                            <li><a href="#" class="dropdown-item">Ver Perfil</a></li>
+                            <li><a href="#" class="dropdown-item">Editar Perfil</a></li>
+                            <li><a href="crear_post.html" class="dropdown-item">Crear Posteo</a></li>
+                            <li><a href="#" class="dropdown-item">Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">HOME</a></li>
+                    <li><a href="#">ABOUT</a></li>
+                    <li><a href="#">GAMEPLAY</a></li>
+                    <li><a href="#">NEWS</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="content">
+        <div class="neon-text flickering">
+            <span class="flickering-h2"><h2 class="title">
+                <span>B<span class="flickering-l">L</span>OG</span><span class="flickering-s">S</span>
+            </h2></span>
+        </div>
+    </div>
+
+    <section class="blog">
+        
+        <section class="filtros-container">
+            <h3>Filtrar por categoría</h3>
+            <div class="carrusel-filtros">
+                <button class="carrusel-btn prev-btn" aria-label="Deslizar hacia la izquierda">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="carrusel-track">
+                    <button class="filtro-btn" data-categoria="all">Todos</button>
+                    <button class="filtro-btn" data-categoria="NES">NES</button>
+                    <button class="filtro-btn" data-categoria="SEGA Genesis">SEGA</button>
+                    <button class="filtro-btn" data-categoria="PlayStation">PlayStation</button>
+                    <button class="filtro-btn" data-categoria="NeoGeo">NeoGeo</button>
+                    <button class="filtro-btn" data-categoria="ARCADE">ARCADE</button>
+                    <button class="filtro-btn" data-categoria="GameBoy">GameBoy</button>
+                    <button class="filtro-btn" data-categoria="PC">PC</button>
+                </div>
+                <button class="carrusel-btn next-btn" aria-label="Deslizar hacia la derecha">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <div class="card">
+
+            <!--REUTILIZACION DEL CODIGOPARA OPCIONES DEL POST-->
+            <div class="post-actions">
+                <input type="checkbox" class="menu-checkbox" id="post-menu-1">
+                <label class="menu-label" for="post-menu-1"><i class="fas fa-ellipsis-v"></i></label>
+                <div class="dropdown-menu">
+                    <form action="#" method="get">
+                        <button type="submit" class="edit-btn"><i class="fas fa-edit"></i> Editar</button>
+                    </form>
+                    <form action="#" method="post">
+                        <button type="submit" class="delete-btn"><i class="fas fa-trash"></i> Eliminar</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="post-usuario">
+                <a href="#">
+                    <img src="img/perfiles/perfil2.jpg" alt="Perfil del Usuario" class="perfil-img">
+                    <span>Maria Gamer</span>
+                    <div class="arroba">@maria_gamer1234</div>
+                </a>
+            </div>
+            <div class="content-container">
+                <img src="img/img-blog/Battletoads.webp" alt="BATTLETOADS" class="main-img" loading="lazy">
+                <div class="text-content">
+                    <h3>BATTLETOADS</h3>
+                    <span class="categoria">NES</span>
+                    <span class="fecha-post">Julio 20, 2025 - 6:33 pm</span>
+                    <p>Battletoads es un videojuego del género beat 'em up donde el personaje principal debe luchar contra muchos enemigos (como en Double Dragon o Final Fight). 
+                        Fue publicado por primera vez para la videoconsola Nintendo Entertainment System, en el año 1991.
+                        En este juego, debíamos manejar a unos sapos, los cuales debían luchar contra distintos enemigos, con caracteres de monstruos. 
+                        El haber usado anfibios como personajes principales luchadores, les significó críticas, 
+                        al ser similares a sus competidoras reptiles las Tortugas Ninja.
+                    Battletoads fue desarrollado en respuesta al auge de las Tortugas Ninja.
+                    </p>
+                    <a href="#" class="btn-descarga"><i class="fas fa-download"></i>Descargar</a>
+                    <div class="rating-container">
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <span class="rating-score">5/5</span>
+                    </div>
+                    <div class="like-container"><!--BOTON LIKE-->
+                        <input type="checkbox" class="like-checkbox" id="like-1">
+                        <label class="like-label" for="like-1">
+                            <i class="fas fa-heart"></i>
+                            <span class="sr-only">Me gusta</span>
+                        </label>
+                        <span class="like-count">0</span>
+                    </div><!--TERMINA BOTON LIKE-->
+                </div>
+            </div>
+            <div class="comentario-container">
+                <form class="com-form" action="#" method="post" id="com-form">
+                    <label for="comment-input-1" class="com-label">Comentar</label>
+                    <input type="text" name="comentario" placeholder="Comenta aquí...">
+                    <button type="submit" class="com-btn">ENVIAR</button>
+                </form>
+            </div>
+            <div class="lista-com">
+                <div class="comentarios">
+                    <span>Usuario1:</span> Batteltoads! orem ipsum dolor sit amet consectetur adipisicing elit. 
+                Et rerum, facere accusamus soluta non rem corrupti aliquam optio possimus alias nulla, 
+                temporibus debitis quod obcaecati fugiat dolorem placeat. 
+                    <div class="comment-actions"> <!--BOTON EDIT/ELIMINAR, TODO ESTE CODIGO ESTA DENTRO DEL DIV "COMENTARIOS"-->
+                        <input type="checkbox" class="menu-checkbox" id="menu-1">
+                        <label class="menu-label" for="menu-1"><i class="fas fa-ellipsis-v"></i></label>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <form action="#" method="get">
+                                    <button type="submit" class="edit-btn" aria-label="Editar comentario"><i class="fas fa-edit"></i> Editar</button>
+                                </form>
+                                <form action="#" method="post">
+                                    <button type="submit" class="delete-btn" aria-label="Eliminar comentario"><i class="fas fa-trash"></i>Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div><!--TERMINA ACA-->
+                </div>
+                <div class="comentarios"><span>Usuario1:</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                Et rerum, facere accusamus soluta non rem corrupti aliquam optio possimus alias nulla, 
+                temporibus debitis quod obcaecati fugiat dolorem placeat. 
+                Dolorum, dolore.
+                <div class="comment-actions"> <!--BOTON EDIT/ELIMINAR, TODO ESTE CODIGO ESTA DENTRO DEL DIV "COMENTARIOS"-->
+                        <input type="checkbox" class="menu-checkbox" id="menu-2">
+                        <label class="menu-label" for="menu-2"><i class="fas fa-ellipsis-v"></i></label>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <form action="#" method="get">
+                                    <button type="submit" class="edit-btn" aria-label="Editar comentario"><i class="fas fa-edit"></i> Editar</button>
+                                </form>
+                                <form action="#" method="post">
+                                    <button type="submit" class="edit-btn" aria-label="Eliminar comentario"><i class="fas fa-edit"></i> Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div><!--TERMINA ACA-->
+                </div>
+                <div class="comentarios"><span>Usuario1:</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                Et rerum, facere accusamus soluta non rem corrupti aliquam optio possimus alias nulla, 
+                temporibus debitis quod obcaecati fugiat dolorem placeat. 
+                Dolorum, dolore.orem ipsum dolor sit amet consectetur adipisicing elit. 
+                Et rerum, facere accusamus soluta non rem corrupti aliquam optio possimus alias nulla, 
+                temporibus debitis quod obcaecati fugiat dolorem placeat. 
+                Dolorum, dolore.
+                <div class="comment-actions"> <!--BOTON EDIT/ELIMINAR, TODO ESTE CODIGO ESTA DENTRO DEL DIV "COMENTARIOS"-->
+                        <input type="checkbox" class="menu-checkbox" id="menu-3">
+                        <label class="menu-label" for="menu-3"><i class="fas fa-ellipsis-v"></i></label>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <form action="#" method="get">
+                                    <button type="submit" class="edit-btn" aria-label="Editar comentario"><i class="fas fa-edit"></i> Editar</button>
+                                </form>
+                                <form action="#" method="post">
+                                    <button type="submit" class="edit-btn" aria-label="Eliminar comentario"><i class="fas fa-edit"></i> Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div><!--TERMINA ACA-->
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="post-usuario">
+                <a href="#">
+                    <img src="img/perfiles/perfil2.jpg" alt="Perfil del Usuario" class="perfil-img">
+                    <span>Maria Gamer</span>
+                    <div class="arroba">@maria_gamer1234</div>
+                </a>
+            </div>
+            <div class="content-container">
+                <img src="img/img-blog/Earthworm-Jim.webp" alt="Earthworm Jim" class="main-img" loading="lazy">
+                <div class="text-content">
+                    <h3>EARTHWORM JIM</h3>
+                    <span class="categoria">SEGA Genesis</span>
+                    <span class="fecha-post">Julio 20, 2025 - 6:33 pm</span>
+                    <p>
+                    Earthworm Jim es un videojuego de plataformas cuyo protagonista es una Lombriz llamada Jim que,
+                    enfundado en un traje cibernético y armado con una pistola, se dedica a recorrer el universo en busca de la princesa "Cuál es su nombre".
+                    Earthworm Jim fue creado por Doug TenNapel y diseñado por David Perry. 
+                    De su desarrollo se encargaron las compañías Shiny Entertainment y Playmates Interactive Entertainment. 
+                    Fue lanzado para la Mega Drive en el año 1994, y posteriormente fue lanzado para otras videoconsolas y para PC. 
+                    Earthworm Jim es un juego que se caracteriza por su fluidez, con un estilo similar a la de los dibujos animados.
+                    </p>
+                    <a href="#" class="btn-descarga"><i class="fas fa-download"></i> Descargar</a>
+                    <div class="rating-container">
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star half-filled"></i>
+                        <span class="rating-score">4.5/5</span>
+                    </div>
+                    <div class="like-container"><!--BOTON LIKE-->
+                        <input type="checkbox" class="like-checkbox" id="like-2">
+                        <label class="like-label" for="like-2">
+                            <i class="fas fa-heart"></i>
+                            <span class="sr-only">Me gusta</span>
+                        </label>
+                        <span class="like-count">0</span>
+                    </div><!--TERMINA BOTON LIKE-->
+                </div>
+            </div>
+            <div class="comentario-container">
+                <form class="com-form" action="#" method="post">
+                    <label for="comment-input-1" class="com-label">Comentar</label>
+                    <input type="text" name="comentario" placeholder="Comenta aquí...">
+                    <button type="submit" class="com-btn">ENVIAR</button>
+                </form>
+                <div class="lista-com">
+                    <div class="comentarios"><span>Usuario1:</span> Earthworm Jim!
+                    <div class="comment-actions"> <!--BOTON EDIT/ELIMINAR, TODO ESTE CODIGO ESTA DENTRO DEL DIV "COMENTARIOS"-->
+                        <input type="checkbox" class="menu-checkbox" id="menu-4">
+                        <label class="menu-label" for="menu-4"><i class="fas fa-ellipsis-v"></i></label>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <form action="#" method="get">
+                                    <button type="submit" class="edit-btn" aria-label="Editar comentario"><i class="fas fa-edit"></i> Editar</button>
+                                </form>
+                                <form action="#" method="post">
+                                    <button type="submit" class="delete-btn" aria-label="Eliminar comentario"><i class="fas fa-trash"></i>Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div><!--TERMINA ACA-->
+                    </div>
+                    <div class="comentarios"><span>Usuario1:</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Et rerum, facere accusamus soluta non rem corrupti aliquam optio possimus alias nulla, 
+                        temporibus debitis quod obcaecati fugiat dolorem placeat. 
+                        Dolorum, dolore.
+                        <div class="comment-actions"> <!--BOTON EDIT/ELIMINAR, TODO ESTE CODIGO ESTA DENTRO DEL DIV "COMENTARIOS"-->
+                        <input type="checkbox" class="menu-checkbox" id="menu-5">
+                        <label class="menu-label" for="menu-5"><i class="fas fa-ellipsis-v"></i></label>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <form action="#" method="get">
+                                    <button type="submit" class="edit-btn"  aria-label="Editar comentario"><i class="fas fa-edit"></i> Editar</button>
+                                </form>
+                                <form action="#" method="post">
+                                    <button type="submit" class="delete-btn"  aria-label="Eliminar comentario"><i class="fas fa-trash"></i>Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div><!--TERMINA ACA-->
+                    </div>
+                    <div class="comentarios"><span>Usuario1:</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Et rerum, facere accusamus soluta non rem corrupti aliquam optio possimus alias nulla, 
+                        temporibus debitis quod obcaecati fugiat dolorem placeat. 
+                        Dolorum, dolore.
+                        <div class="comment-actions"> <!--BOTON EDIT/ELIMINAR, TODO ESTE CODIGO ESTA DENTRO DEL DIV "COMENTARIOS"-->
+                        <input type="checkbox" class="menu-checkbox" id="menu-6">
+                        <label class="menu-label" for="menu-6"><i class="fas fa-ellipsis-v"></i></label>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <form action="#" method="get">
+                                    <button type="submit" class="edit-btn"  aria-label="Editar comentario"><i class="fas fa-edit"></i> Editar</button>
+                                </form>
+                                <form action="#" method="post">
+                                    <button type="submit" class="delete-btn"  aria-label="Eliminar comentario"><i class="fas fa-trash"></i>Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div><!--TERMINA ACA-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="post-usuario">
+                <a href="#">
+                    <img src="img/perfiles/perfil1.jpg" alt="Perfil del Usuario" class="perfil-img">
+                    <span>Matias Gamer</span>
+                    <div class="arroba">@mati_gamer1234</div>
+                </a>
+            </div>
+            <div class="content-container">
+                <img src="img/img-blog/Crash_bandicoot_1.webp" alt="Earthworm Jim" class="main-img" loading="lazy">
+                <div class="text-content">
+                    <h3>CRASH BANDICOOT</h3>
+                    <span class="categoria">PlayStation</span>
+                    <span class="fecha-post">Julio 20, 2025 - 6:33 pm</span>
+                    <p>
+                        Crash Bandicoot es el nombre de una serie de videojuegos protagonizada por el personaje del mismo nombre. 
+                        Fue creada en 1996 por Naughty Dog, quien desarrolló los primeros cuatro títulos, bajo la distribución de Universal Interactive Studios. Los tres primeros juegos pertenecen al género de plataformas, sin embargo, con el tiempo se fue diversificando a otros géneros. 
+                        La serie ha vendido más de 50 millones de copias en todo el mundo.
+
+                        La serie trata de Crash Bandicoot, un marsupial evolucionado por el científico loco el Dr. 
+                        Neo Córtex, quien tenía intenciones viles de controlarlo mentalmente para dirigir su ejército de animales mutantes. 
+                        La historia se desarrolla en las Islas Wumpa, unas islas ficticias al sur de Australia, por lo que su fauna y entorno se apegan a esta región. 
+                        Inicialmente, la misión de Crash Bandicoot era rescatar a su novia Tawna del Dr. Neo Córtex, pero luego se transformó en impedir los planes del científico una y otra vez.
+
+                        Originalmente, el personaje fue creado con el propósito de ser la mascota de Sony en su primera consola, PlayStation. 
+                        Sin embargo, esta vinculación nunca se hizo oficial cuando la serie comenzó a gozar de un éxito arrollador, a pesar de que la propia Sony estuvo involucrada estrechamente con sus tres secuelas. 
+                        Es la competencia de Mario y Sonic.
+                    </p>
+                    <a href="#" class="btn-descarga"><i class="fas fa-download"></i> Descargar</a>
+                    <div class="rating-container">
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star half-filled"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="rating-score">3.5/5</span>
+                    </div>
+                    <div class="like-container"><!--BOTON LIKE-->
+                        <input type="checkbox" class="like-checkbox" id="like-3">
+                        <label class="like-label" for="like-3">
+                            <i class="fas fa-heart"></i>
+                            <span class="sr-only">Me gusta</span>
+                        </label>
+                        <span class="like-count">0</span>
+                    </div><!--TERMINA BOTON LIKE-->
+                </div>
+            </div>
+            <div class="comentario-container">
+                <form class="com-form" action="#" method="post">
+                    <label for="comment-input-1" class="com-label">Comentar</label>
+                    <input type="text" name="comentario" placeholder="Comenta aquí...">
+                    <button type="submit" class="com-btn">ENVIAR</button>
+                </form>
+                <div class="lista-com">
+                    <div class="comentarios"><span>Usuario1:</span> Crash Bandicoot!
+                    <div class="comment-actions"> <!--BOTON EDIT/ELIMINAR, TODO ESTE CODIGO ESTA DENTRO DEL DIV "COMENTARIOS"-->
+                        <input type="checkbox" class="menu-checkbox" id="menu-7">
+                        <label class="menu-label" for="menu-7"><i class="fas fa-ellipsis-v"></i></label>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <form action="#" method="get">
+                                    <button type="submit" class="edit-btn"  aria-label="Editar comentario"><i class="fas fa-edit"></i> Editar</button>
+                                </form>
+                                <form action="#" method="post">
+                                    <button type="submit" class="delete-btn"  aria-label="Eliminar comentario"><i class="fas fa-trash"></i>Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div><!--TERMINA ACA-->
+                    </div>
+                    <div class="comentarios"><span>Usuario1:</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Et rerum, facere accusamus soluta non rem corrupti aliquam optio possimus alias nulla, 
+                        temporibus debitis quod obcaecati fugiat dolorem placeat. 
+                        Dolorum, dolore.
+                        <div class="comment-actions"> <!--BOTON EDIT/ELIMINAR, TODO ESTE CODIGO ESTA DENTRO DEL DIV "COMENTARIOS"-->
+                        <input type="checkbox" class="menu-checkbox" id="menu-8">
+                        <label class="menu-label" for="menu-8"><i class="fas fa-ellipsis-v"></i></label>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <form action="#" method="get">
+                                    <button type="submit" class="edit-btn"  aria-label="Editar comentario"><i class="fas fa-edit"></i> Editar</button>
+                                </form>
+                                <form action="#" method="post">
+                                    <button type="submit" class="delete-btn"  aria-label="Eliminar comentario"><i class="fas fa-trash"></i>Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div><!--TERMINA ACA-->
+                    </div>
+                    <div class="comentarios"><span>Usuario1:</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Et rerum, facere accusamus soluta non rem corrupti aliquam optio possimus alias nulla, 
+                        temporibus debitis quod obcaecati fugiat dolorem placeat. 
+                        Dolorum, dolore.
+                        <div class="comment-actions"> <!--BOTON EDIT/ELIMINAR, TODO ESTE CODIGO ESTA DENTRO DEL DIV "COMENTARIOS"-->
+                        <input type="checkbox" class="menu-checkbox" id="menu-9">
+                        <label class="menu-label" for="menu-9"><i class="fas fa-ellipsis-v"></i></label>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <form action="#" method="get">
+                                    <button type="submit" class="edit-btn"  aria-label="Editar comentario"><i class="fas fa-edit"></i> Editar</button>
+                                </form>
+                                <form action="#" method="post">
+                                    <button type="submit" class="delete-btn"  aria-label="Eliminar comentario"><i class="fas fa-trash"></i>Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div><!--TERMINA ACA-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="blog.js"></script><!--enlace de javascript para boton-->
+</body>
+</html>
