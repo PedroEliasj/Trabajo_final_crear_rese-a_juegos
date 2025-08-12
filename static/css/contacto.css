@@ -1,0 +1,623 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap");
+
+/* Estilo general del contenedor */
+body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background: url('../img/bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff;
+}
+
+.container.py-5 {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/*------BARRA DE NAVEGACIÓN------*/
+header .navbar {
+    display: flex;
+    justify-content: center;
+    height: 80px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    position: relative;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    color: #66ccff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    text-shadow: 0 0 5px #15f4ee, 0 0 5px #15f4ee;
+}
+
+.nav-links li {
+    transition: all 0.4s;
+}
+
+.nav-links li:hover {
+    transform: scale(1.4);
+}
+
+/*------PERFIL USUARIO------*/
+.perfil-usuario {
+    position: absolute;
+    left: 70px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.perfil-usuario img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #575757;
+}
+
+.perfil-usuario img:hover {
+    border: 2px solid #15f4ee;
+    box-shadow: 0 0 15px #15f4ee;
+}
+
+.perfil-usuario span {
+    margin-left: 5px;
+    color: #ffffff;
+    text-shadow: 0 0 15px #15f4ee, 0 0 15px #15f4ee;
+}
+
+.perfil-usuario p {
+    margin-left: 3px;
+    color: #575757;
+    font-size: 10px;
+}
+
+/*------MENU DESPLEGABLE------*/
+.perfil-usuario .menu-checkbox {
+    display: none;
+}
+
+.perfil-usuario .menu-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.perfil-usuario .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: rgba(20, 20, 30, 0.962);
+    border: 2px solid #15f4ee;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #15f4ee;
+    z-index: 1000;
+    min-width: 150px;
+    padding: 10px 0;
+}
+
+.perfil-usuario .menu-checkbox:checked + .menu-label + p + .dropdown-menu {
+    display: block;
+}
+
+.perfil-usuario .dropdown-item {
+    display: block;
+    padding: 10px 15px;
+    color: #d0eaff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.perfil-usuario .dropdown-item:hover {
+    color: #15f4ee;
+    background: rgba(0, 255, 255, 0.1);
+    text-shadow: 0 0 5px #15f4ee;
+}
+
+/*------MENU HAMBURGUESA------*/
+.hamburger-label {
+    display: none;
+    position: absolute;
+    left: 70px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #15f4ee;
+    text-shadow: 0 0 5px #15f4ee;
+}
+
+.hamburger-label:hover {
+    text-shadow: 0 0 10px #15f4ee;
+}
+
+#hamburger-menu {
+    display: none;
+}
+
+.hamburger-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-width: 250px;
+    background-color: rgba(20, 20, 30, 0.962);
+    border: 2px solid #15f4ee;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #15f4ee;
+    z-index: 1000;
+    padding: 10px 0;
+}
+
+#hamburger-menu:checked + .hamburger-label + .perfil-usuario + .nav-links + .hamburger-menu {
+    display: block !important;
+}
+
+.hamburger-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.hamburger-links li {
+    padding: 10px 15px;
+}
+
+.hamburger-links a {
+    color: #d0eaff;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.hamburger-links a:hover {
+    color: #15f4ee;
+    text-shadow: 0 0 5px #15f4ee;
+    background: rgba(0, 255, 255, 0.1);
+}
+
+/*------PERFIL EN MENU HAMBURGUESA------*/
+.perfil-mobile {
+    padding: 10px 15px;
+    border-bottom: 1px solid #15f4ee;
+}
+
+.perfil-usuario-mobile {
+    display: flex;
+    align-items: center;
+    color: #d0eaff;
+}
+
+.perfil-usuario-mobile img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #575757;
+    margin-right: 10px;
+}
+
+.perfil-usuario-mobile img:hover {
+    border: 2px solid #15f4ee;
+    box-shadow: 0 0 10px #15f4ee;
+}
+
+.perfil-usuario-mobile span {
+    font-weight: bold;
+    text-shadow: 0 0 5px #15f4ee;
+}
+
+.perfil-mobile .menu-checkbox {
+    display: none;
+}
+
+.perfil-mobile .menu-label {
+    display: block;
+    cursor: pointer;
+}
+
+.perfil-submenu {
+    display: none;
+    list-style: none;
+    padding: 10px 0 0 20px;
+    margin: 0;
+}
+
+#perfil-menu-mobile:checked ~ .perfil-submenu {
+    display: block;
+}
+
+.perfil-submenu li {
+    padding: 5px 0;
+}
+
+.perfil-submenu a {
+    font-size: 14px;
+}
+
+/*------BARRA DE BUSQUEDA------*/
+.search-container {
+    position: absolute;
+    top: 27px;
+    right: 40px;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.search-btn {
+    background: none;
+    border: none;
+    border-radius: 8px;
+    color: #15f4ee;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    order: 2;
+}
+
+.search-btn:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 5px #15f4ee;
+}
+
+.search-input {
+    width: 0;
+    opacity: 0;
+    padding: 0;
+    margin-right: 5px;
+    border: none;
+    background: transparent;
+    color: #15f4ee;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    outline: none;
+    border-bottom: 2px solid #15f4ee;
+    transition: width 0.4s ease, opacity 0.4s ease, padding 0.7s ease;
+    order: 1;
+    direction: rtl;
+}
+
+.search-container:hover .search-input {
+    width: 150px;
+    opacity: 1;
+    padding: 5px;
+    direction: ltr;
+}
+
+/* Estilo del título */
+h1 {
+    font-size: 56px;
+    color: #66ccff;
+    text-shadow: 0 0 10px #15f4ee;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.flickering-h1 {
+    animation: latter-flicker 5s infinite;
+}
+
+.flickering-o, .flickering-a, .flickering-c {
+    animation: latter-flicker 10s infinite;
+}
+
+@keyframes latter-flicker {
+    0%, 19%, 22%, 30%, 62.99%, 64%, 68%, 76%, 100% {
+        opacity: 1;
+    }
+    20%, 21.99%, 31%, 63%, 63.99%, 67%, 75% {
+        opacity: 0;
+    }
+}
+
+/* Estilo del texto descriptivo */
+.sub-text {
+    text-align: center;
+    color: #d0eaff;
+    font-size: 16px;
+    text-shadow: 0 0 5px #15f4ee;
+    margin-bottom: 30px;
+}
+
+/* Estilo del formulario */
+form.mb-5 {
+    background: rgba(20, 20, 30, 0.5);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Estilo de los campos del formulario */
+.input-box {
+    position: relative;
+    width: 100%;
+    margin: 30px 0;
+}
+
+.input-box input,
+.input-box textarea {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    color: rgb(82, 84, 84);
+    padding: 0 35px 0 5px;
+    transition: 0.5s ease;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.input-box textarea {
+    resize: vertical;
+    min-height: 60px;
+    max-height: 150px;
+    height: auto;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 10px 5px;
+}
+
+.input-box textarea::-webkit-scrollbar {
+    display: none;
+}
+
+.input-box input:focus,
+.input-box textarea:focus {
+    font-size: 15px;
+    color: #15f4ee;
+    text-shadow: 0 0 15px #15f4ee;
+}
+
+.input-box label {
+    position: absolute;
+    top: 5%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    color: rgb(82, 84, 84);
+    transition: 0.5s ease;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label,
+.input-box textarea:focus ~ label,
+.input-box textarea:valid ~ label {
+    top: -15px;
+    color: #15f4ee;
+    text-shadow: 0 0 15px #15f4ee;
+}
+
+.input-box .input-line {
+    position: absolute;
+    width: 100%;
+    bottom: -2px;
+    height: 2.5px;
+    background: rgb(82, 84, 84);
+    transition: 0.5s ease;
+}
+
+.input-box input:focus ~ .input-line,
+.input-box textarea:focus ~ .input-line {
+    background: #15f4ee;
+    box-shadow: 0 0 10px #15f4ee, 0 0 15px #15f4ee;
+}
+
+.input-box .icon {
+    position: absolute;
+    right: 5px;
+    top: 20%;
+    color: rgb(82, 84, 84);
+    transition: all 0.5s ease;
+}
+
+.input-box input:focus ~ .icon,
+.input-box textarea:focus ~ .icon {
+    color: #15f4ee;
+    text-shadow: 0 0 10px #15f4ee, 0 0 15px #15f4ee;
+}
+
+/* Estilo del botón Enviar */
+.btn.btn-primary {
+    padding: 10px 15px;
+    font-family: 'Orbitron', sans-serif;
+    border-radius: 15px;
+    border: 2px solid #575757;
+    background: transparent;
+    color: #575757;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.btn.btn-primary:hover {
+    border: 2px solid #15f4ee;
+    color: #15f4ee;
+    text-shadow: 0 0 15px #15f4ee;
+    box-shadow: 0 0 10px #15f4ee;
+}
+
+/* Estilo de la alerta */
+.alert.alert-success {
+    background: rgba(0, 255, 255, 0.1);
+    color: #15f4ee;
+    border: 2px solid #15f4ee;
+    border-radius: 8px;
+    text-shadow: 0 0 5px #15f4ee;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+/* Estilo de la línea divisoria */
+hr {
+    border: 2px solid #15f4ee;
+    box-shadow: 0 0 20px #15f4ee;
+    margin: 30px 0;
+}
+
+/* Estilo de la sección de contacto */
+.text-center h4 {
+    color: #66ccff;
+    text-shadow: 0 0 10px #15f4ee;
+    margin-bottom: 20px;
+}
+
+.text-center h5 {
+    color: #d0eaff;
+    text-shadow: 0 0 5px #15f4ee;
+    margin-bottom: 15px;
+}
+
+/* Estilo de los íconos de redes sociales */
+.d-flex.flex-wrap.gap-3.fs-4.text-primary a {
+    color: #66ccff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.d-flex.flex-wrap.gap-3.fs-4.text-primary a:hover {
+    color: #15f4ee;
+    text-shadow: 0 0 10px #15f4ee;
+    transform: scale(1.2);
+}
+
+/* Estilo de la información de contacto directo */
+.text-center p {
+    color: #d0eaff;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.text-center p a {
+    color: #d0eaff;
+    text-decoration: none;
+}
+
+.text-center p a:hover {
+    color: #15f4ee;
+    text-shadow: 0 0 5px #15f4ee;
+}
+
+.text-center .fa-whatsapp,
+.text-center .fa-map-marker-alt {
+    margin-right: 10px;
+    color: #66ccff;
+}
+
+/* Diseño responsivo */
+@media (min-width: 769px) {
+    .hamburger-label, .hamburger-menu {
+        display: none;
+    }
+    .nav-links {
+        display: flex;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    .hamburger-label {
+        display: block;
+    }
+    .perfil-usuario {
+        display: none;
+        left: 120px;
+    }
+    .search-container {
+        right: 20px;
+        top: 20px;
+    }
+    .container.py-5 {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 36px;
+    }
+    .sub-text {
+        font-size: 14px;
+        padding: 0 10px;
+    }
+    form.mb-5 {
+        padding: 20px;
+        max-width: 90%;
+    }
+    .input-box {
+        margin: 20px 0;
+    }
+    .input-box input,
+    .input-box textarea {
+        width: 100%;
+        font-size: 12px;
+        padding: 0 30px 0 5px;
+    }
+    .input-box label {
+        font-size: 14px;
+    }
+    .btn.btn-primary {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+    .text-center h4 {
+        font-size: 20px;
+    }
+    .text-center h5 {
+        font-size: 16px;
+    }
+    .d-flex.flex-wrap.gap-3.fs-4.text-primary a {
+        font-size: 1.3rem;
+    }
+    .row.gx-5 {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .col-md-6.mb-3 {
+        width: 100%;
+        text-align: center;
+    }
+    .text-center p {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .col-md-8.mx-auto {
+        padding: 0 10px;
+        max-width: 95%;
+    }
+    form.mb-5 {
+        max-width: 100%;
+    }
+    h1 {
+        font-size: 48px;
+    }
+    .sub-text {
+        font-size: 15px;
+    }
+    .d-flex.flex-wrap.gap-3.fs-4.text-primary {
+        gap: 15px;
+    }
+}
