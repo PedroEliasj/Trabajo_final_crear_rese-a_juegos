@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Glitch Zone</title>
+  <link rel="icon" type="img/png" href="img/favicon-game.png">
+  <link rel="stylesheet" href="index.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/cd10d9582d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+        <input type="checkbox" class="menu-checkbox" id="hamburger-menu">
+        <label class="hamburger-label" for="hamburger-menu">
+            <i class="fas fa-bars"></i>
+        </label>
+        <ul class="nav-links">
+            <li><a href="{% url 'descargar_juegos' %}">Descargar Juegos</a></li>
+            <li><a href="{% url 'contacto' %}">Contacto</a></li>
+            <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+            <li><a href="{% url 'signin' %}">Iniciar sesión</a></li>
+            <li><a href="{% url 'signup' %}">Registrar</a></li>
+        </ul>
+        <div class="hamburger-menu">
+            <ul class="hamburger-links">
+                <li><a href="{% url 'descargar_juegos' %}">Descargar Juegos</a></li>
+                <li><a href="{% url 'contacto' %}">Contacto</a></li>
+                <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+                <li><a href="{% url 'signin' %}">Iniciar sesión</a></li>
+                <li><a href="{% url 'signup' %}">Registrar</a></li>
+            </ul>
+        </div>
+            <!--BARRA DE BUSQUEDA ENZO-->
+            
+            <!--BARRA DE BUSQUEDA ENZO-->
+    </nav>
+</header>
+
+  <main class="hero">
+    <div class="content">
+      <div class="neon-text flickering">
+        <h1 class="title">
+            <span>T</span><span class="flickering-h">H</span><span>E</span>
+            <br>
+            <span>G<span class="flickering-l">L</span>IT</span><span class="flickering-c">C</span><span>H</span>
+            <br />
+            <span>Z</span><span class="flickering-o">O</span><span>NE</span>
+            
+        </h1>
+    </div>
+      <p class="subtitle">UNITE A LA RESISTECIA GAMER</p>
+
+      <div class="arrows">
+      <span class="flickering-arrows-1"><i class="fa-solid fa-chevron-down"></i></span>
+      <span class="flickering-arrows-2"><i class="fa-solid fa-chevron-down"></i></span>
+      <span class="flickering-arrows-3"><i class="fa-solid fa-chevron-down"></i></span>
+      <span class="flickering-arrows-4"><i class="fa-solid fa-chevron-down"></i></span>
+      </div>
+
+      <a href="#" class="btn">LOGIN</a>
+    </div>
+  </main>
+
+    <!--FOOTER-->
+    
+    <!--FOOTER-->
+</body>
+</html>
