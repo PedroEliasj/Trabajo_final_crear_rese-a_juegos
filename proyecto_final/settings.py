@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # Instalar nuestras propias aplicaciones
     "apps.login",
     "apps.blog",
+    "apps.comentarios",
     "apps.contacto",
     "apps.nosotros",
 ]
@@ -83,11 +84,23 @@ WSGI_APPLICATION = 'proyecto_final.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+#.env
 NAME_DB = os.environ.get("NAME_DB")
 USER_DB = os.environ.get("USER_DB")
 PASSWORD_DB = os.environ.get("PASSWORD_DB")
 PORT_DB = os.environ.get("PORT_DB")
 
+EMAIL_HOST_USER_PRIV = os.environ.get("EMAIL_HOST_USER_PRIV")
+EMAIL_HOST_PASSWORD_PRIV = os.environ.get("EMAIL_HOST_PASSWORD_PRIV")
+
+# Sistema reset contraseña
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com' #Servidor solo para gmail
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = EMAIL_HOST_USER_PRIV
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD_PRIV
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 DATABASES = {

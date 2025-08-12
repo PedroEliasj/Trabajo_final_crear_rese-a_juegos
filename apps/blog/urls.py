@@ -8,10 +8,13 @@ from .views import (
     CrearReseñaView,
 )
 
+app_name = 'apps.blog'
+
+
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
-    # path('', ListaJuegosView.as_view(), name='lista_juegos'),
-    path('juego/<int:pk>/', JuegoDetailView.as_view(), name='juego_detalle'),  # 👈 ESTA ES LA CLAVE
+    path('lista_juegos/', ListaJuegosView.as_view(), name='lista_juegos'),
+    path('juego/<int:id>/', JuegoDetailView, name='juego_detalle'),  # 👈 ESTA ES LA CLAVE
     path('descargar/', DescargaJuegosView.as_view(), name='descargar_juegos'),
     path('subir-juego/', SubirJuegoView.as_view(), name='subir_juego'),
     path('crear-resena/', CrearReseñaView.as_view(), name='crear_resena'),

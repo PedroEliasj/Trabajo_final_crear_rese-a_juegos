@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comentar</title>
+
+    <link rel="stylesheet" href="{% static 'css/estilos_login.css' %}">
+    <script src="https://kit.fontawesome.com/cd10d9582d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class="login-container">
+        <form method="POST" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+
+            <!-- Checkbox efecto neón -->
+            <input type="checkbox" class="input-check" id="input-check" hidden checked>
+
+            <h2>Deja tu comentario</h2>
+
+            <!-- Errores generales -->
+            {% if form.non_field_errors %}
+                <div class="field-errors">
+                    {% for err in form.non_field_errors %}
+                        <div>{{ err }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Campo comentario -->
+            <div class="input-box">
+                <span class="icon"><i class="fa-solid fa-comment"></i></span>
+                <textarea 
+                    name="{{ form.texto.name }}" 
+                    id="{{ form.texto.id_for_label }}" 
+                    placeholder=" ">{{ form.texto.value|default:'' }}</textarea>
+                <label for="{{ form.texto.id_for_label }}">Escribe tu comentario...</label>
+                <div class="input-line"></div>
+
+                {% if form.texto.errors %}
+                    <div class="field-errors">
+                        {% for err in form.texto.errors %}
+                            <div>{{ err }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Botón comentar -->
+            <div>
+                {% if user.is_authenticated %}
+                    <button type="submit">Comentar</button>
+                {% else %}
+                    <a href="{% url 'signin' %}" class="btn-link">Inicia sesión para comentar</a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+
+
+<!-- {% load static %}
+<div class="row justify-content-md-center">
+    <div class="col-md-6">
+        <div class="list-group-item gap-3 py-3" aria-current="true">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div>
+                    {{ form.as_p }}
+                </div>
+
+                {% if user.is_authenticated %}
+                    <input class="btn btn-outline-secondary" type="submit" value="Comentar" />
+                {% else %}
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        Comentar
+                    </button>
+
+                    <!-- Modal -->
+<!--                     
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Inicie sesión</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Usted tiene que iniciar sesión o registrarse para poder comentar.
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="btn btn-outline-secondary" href="{% url 'login' %}">Iniciar sesión</a>
+                                    <a class="btn btn-outline-secondary" href="{% url 'register' %}">Registrarse</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div> -->

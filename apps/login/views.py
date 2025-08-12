@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
+from apps.blog.models import Juegos
+from apps.login.form import RegistroUsuarioForm
 from apps.login.funcionesMod import RegistroUsuario
 from .models import PerfilUsuario
 from django.core.paginator import Paginator
@@ -15,63 +17,82 @@ from django.http import HttpResponse
 # Create your views here.
 
 def signup(request):
+
     if request.method == "POST":
-        username = request.POST.get("username")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        is_superuser = request.POST.get("is_superuser") == "on"
-        apellido = request.POST.get("apellido")
-        fecha_nacimiento = request.POST.get("fecha_nacimiento")
-        imagen = request.FILES.get("imagen")
+        form = RegistroUsuarioForm(request.POST, request.FILES)
 
-        try:
-            servicio = RegistroUsuario(
-                username=username,
-                email=email,
-                password=password,
-                is_superuser=is_superuser,
-                apellido=apellido,
-                fecha_nacimiento=fecha_nacimiento,
-                imagen=imagen
-            )
-            servicio.registrar()
-            mensaje = "Usuario registrado correctamente."
-        except Exception as e:
-            mensaje = f"Error al registrar usuario: {e}"
+        if form.is_valid():
+            try:
+                servicio = RegistroUsuario(
+                    username=form.cleaned_data['username'],
+                    email=form.cleaned_data['email'],
+                    password=form.cleaned_data['password'],
+                    is_superuser=form.cleaned_data.get('is_superuser', False),
+                    apellido=form.cleaned_data.get('apellido'),
+                    fecha_nacimiento=form.cleaned_data.get('fecha_nacimiento'),
+                    imagen=form.cleaned_data.get('imagen')
+                )
+                servicio.registrar()
+                return render(request, "login/signup.html", {
+                    "form": RegistroUsuarioForm(),  # reset form
+                    "mensaje": "Usuario registrado correctamente."
+                })
+            except Exception as e:
+                return render(request, "login/signup.html", {
+                    "form": form,
+                    "mensaje": f"Error al registrar usuario: {e}"
+                })
+        else:
+            return render(request, "login/signup.html", {
+                "form": form
+            })
 
-        return render(request, "login/signup.html", {"mensaje": mensaje})
-
-    return render(request, "login/signup.html")
+    return render(request, "login/signup.html", {
+        "form": RegistroUsuarioForm()
+    })
 
 def signin(request):
 
     if request.method == 'GET':
         return render(request, 'login/signin.html', {
-            'form': AuthenticationForm
+            'form': AuthenticationForm()
         })
     else:
-        user = authenticate(request, username=request.POST['username'], 
-                            password=request.POST['password'])
-        if user is None: 
+        email = request.POST.get('email', 'email No existe').strip()
+        password = request.POST.get('password', 'password no existe')
+        # email = request.POST['email']
+        # password = request.POST['password']
+
+        user_obj = User.objects.filter(email=email).first()
+
+        if user_obj is None:
             return render(request, 'login/signin.html', {
-                'form' : AuthenticationForm,
-                'error' : 'Contraseña no valida'
+                'form': AuthenticationForm(),
+                'error': 'Email no encontrado'
+            })
+
+        user = authenticate(request, username=user_obj.username, password=password)
+
+        if user is None:
+            return render(request, 'login/signin.html', {
+                'form': AuthenticationForm(),
+                'error': 'Contraseña incorrecta'
             })
         else:
             login(request, user)
-            return redirect('home')
+            return redirect('apps.blog:home')
 
 @login_required
 def signout(request):
     logout(request)
-    return redirect('home')
+    return redirect('apps.blog:home')
 
 @login_required
 def ver_perfil(request):
     perfil = PerfilUsuario.objects.get(user=request.user)
     return render(request, 'login/perfil.html', {'perfil': perfil})
 
-@login_required
+# @login_required
 def usuarios_list(request):
     usuarios = User.objects.all()
     return render(request, 'login/usuarios_list.html', {'usuarios': usuarios})
@@ -96,7 +117,8 @@ def editar_usuario(request, user_id):
 
     return render(request, 'login/editar_usuario.html', {
         'user': user,
-        'perfil': perfil
+        'perfil': perfil,
+        'perfil_logueado' : request.user.perfilusuario
     })
 
 @login_required
@@ -121,17 +143,11 @@ def eliminar_usuario(request, user_id):
     user.delete()
     return redirect('login/usuarios_list')
 
-# Viste prueba recuperacion usuario
-
-def enviar_correo_prueba(request):
-    try:
-        send_mail(
-            subject='Correo de prueba desde Django',
-            message='¡Este es un correo de prueba! Si lo recibiste, tu configuración SMTP está funcionando.',
-            from_email=None,  # Usa DEFAULT_FROM_EMAIL del settings
-            recipient_list=['tucorreo@gmail.com'],  # Reemplazalo por el correo que querés probar
-            fail_silently=False,
-        )
-        return HttpResponse("Correo enviado correctamente.")
-    except Exception as e:
-        return HttpResponse(f"Error al enviar correo: {e}")
+@login_required
+def perfil_view(request):
+    perfil = get_object_or_404(PerfilUsuario, user=request.user)
+    juegos = Juegos.objects.filter(autor=request.user)
+    return render(request, 'perfil.html', {
+        'perfil': perfil,
+        'juegos': juegos
+    })

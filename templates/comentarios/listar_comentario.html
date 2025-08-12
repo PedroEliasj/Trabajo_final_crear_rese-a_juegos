@@ -1,0 +1,38 @@
+{% load static %}
+
+{% for item in comentarios %}
+<div class="row justify-content-md-center ">
+    <div class="col-md-6">
+        <div class="list-group-item d-flex gap-3 py-3" aria-current="true">
+            {% if item.usuario.imagen %}
+                <img src="{{ item.usuario.imagen.url }}" style="width:10%; height: 10%;" alt="Foto de perfil"
+                    class="rounded-circle flex-shrink-0">
+            {% else %}
+                <img src="{% static 'img/default-user.png' %}" style="width:10%; height: 10%;" alt="Foto por defecto"
+                    class="rounded-circle flex-shrink-0">
+            {% endif %}
+
+            <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                    <h6 class="mb-0">{{ item.usuario.user.username }}</h6>
+                    <p class="mb-0 text-break opacity-75">{{ item.texto }}</p>
+                </div>
+                <small class="opacity-50 text-nowrap">{{ item.fecha }}</small>
+            </div>
+        </div>
+
+        {% if user.is_authenticated and user.id == item.usuario.user.id %}
+        <div class="dropdown text-end my-2">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton{{ item.id }}" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Opciones
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ item.id }}">
+                <li><a class="dropdown-item" href="{% url 'apps.comentarios:modificar_comentario' item.pk %}">Modificar comentario</a></li>
+                <li><a class="dropdown-item" href="{% url 'apps.comentarios:eliminar_comentario' item.pk %}">Eliminar comentario</a></li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}

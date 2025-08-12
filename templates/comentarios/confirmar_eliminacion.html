@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar Comentario</title>
+    <link rel="stylesheet" href="{% static 'css/estilos_login.css' %}">
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="checkbox" class="input-check" hidden checked>
+
+        <div class="login-container">
+            <div style="width: 100%; text-align: center; padding: 20px;">
+                <h2>¿Estás seguro que querés eliminar este comentario?</h2>
+
+                <div class="input-box">
+                    <label style="top: -15px;">Comentario:</label>
+                    <input type="text" value="{{ object.texto }}" readonly>
+                    <span class="input-line"></span>
+                </div>
+
+                <button type="submit">Eliminar</button>
+
+                <div class="register-link">
+                    <p><a href="{% url 'apps.blog:lista_juegos' %}">Cancelar y volver</a></p>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

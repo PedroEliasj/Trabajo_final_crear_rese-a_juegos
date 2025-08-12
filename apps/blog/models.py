@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Categoria(models.Model):
@@ -11,7 +11,7 @@ class Categoria(models.Model):
 # Clase juegos == Post
 class Juegos(models.Model):
     titulo = models.CharField(max_length=45, null=False)
-    autor = models.CharField(max_length=45, null=False)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='juegos')
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
     descripcion = models.TextField()
     fecha_agregado = models.DateField(auto_now_add=True)
