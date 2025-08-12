@@ -87,10 +87,10 @@ def signout(request):
     logout(request)
     return redirect('apps.blog:home')
 
-@login_required
-def ver_perfil(request):
-    perfil = PerfilUsuario.objects.get(user=request.user)
-    return render(request, 'login/perfil.html', {'perfil': perfil})
+# @login_required
+# def ver_perfil(request):
+#     perfil = PerfilUsuario.objects.get(user=request.user)
+#     return render(request, 'login/perfil.html', {'perfil': perfil})
 
 # @login_required
 def usuarios_list(request):
@@ -147,7 +147,7 @@ def eliminar_usuario(request, user_id):
 def perfil_view(request):
     perfil = get_object_or_404(PerfilUsuario, user=request.user)
     juegos = Juegos.objects.filter(autor=request.user)
-    return render(request, 'perfil.html', {
+    return render(request, 'login/perfil.html', {
         'perfil': perfil,
         'juegos': juegos
     })
