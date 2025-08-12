@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Glitch Zone</title>
   <link rel="icon" type="img/png" href="img/favicon-game.png">
-  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="{% static 'css/index.css' %}" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/cd10d9582d.js" crossorigin="anonymous"></script>
 </head>
@@ -17,7 +17,7 @@
             <i class="fas fa-bars"></i>
         </label>
         <ul class="nav-links">
-            <li><a href="{% url 'descargar_juegos' %}">Descargar Juegos</a></li>
+            <li><a href="{% url 'apps.blog:crear_reseña' %}">Descargar Juegos</a></li>
             <li><a href="{% url 'contacto' %}">Contacto</a></li>
             <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
             <li><a href="{% url 'signin' %}">Iniciar sesión</a></li>
@@ -25,7 +25,7 @@
         </ul>
         <div class="hamburger-menu">
             <ul class="hamburger-links">
-                <li><a href="{% url 'descargar_juegos' %}">Descargar Juegos</a></li>
+                <li><a href="{% url 'apps.blog:crear_reseña' %}">Descargar Juegos</a></li>
                 <li><a href="{% url 'contacto' %}">Contacto</a></li>
                 <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
                 <li><a href="{% url 'signin' %}">Iniciar sesión</a></li>

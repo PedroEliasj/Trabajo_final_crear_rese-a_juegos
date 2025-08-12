@@ -10,31 +10,22 @@ from .models import Juegos
 from django.http import HttpResponseForbidden
 
 
-# Página principal: solo reseñas
-# class HomeView(ListView):
-#     model = Juegos
-#     template_name = 'blog/home.html'
-#     context_object_name = 'juegos'
-
-#     def get_queryset(self):
-#         return Juegos.objects.filter(es_reseña=True)
-
 class HomeView(ListView):
     model = Juegos
-    template_name = 'blog/home.html'
+    template_name = 'blog/index.html'
     context_object_name = 'juegos'
 
-    def get_queryset(self):
-        return Juegos.objects.filter(es_reseña=True).prefetch_related('comentarios')
+    # def get_queryset(self):
+    #     return Juegos.objects.filter(es_reseña=True).prefetch_related('comentarios')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if self.request.user.is_authenticated:
-            try:
-                context['perfil'] = PerfilUsuario.objects.get(user=self.request.user)
-            except PerfilUsuario.DoesNotExist:
-                context['perfil'] = None
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     if self.request.user.is_authenticated:
+    #         try:
+    #             context['perfil'] = PerfilUsuario.objects.get(user=self.request.user)
+    #         except PerfilUsuario.DoesNotExist:
+    #             context['perfil'] = None
+    #     return context
 
 # Lista completa de reseñas
 class ListaJuegosView(ListView):
