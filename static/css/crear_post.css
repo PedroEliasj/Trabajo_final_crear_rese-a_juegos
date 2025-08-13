@@ -17,6 +17,7 @@ body {
 .navbar {
     display: flex;
     justify-content: center;
+    height: 80px;
     padding: 20px;
     background: rgba(0, 0, 0, 0.6);
     position: relative;
@@ -256,6 +257,10 @@ body {
     font-size: 14px;
 }
 
+/*------BARRA DE BUSQUEDA------*/
+
+
+
 /*------BOTON IR ARRIBA------*/
 
 .ir {
@@ -272,8 +277,8 @@ body {
 }
 
 .arriba {
-    color: #696969;
-    border: 2px solid #575757;
+    color: #15f4ee;
+    border: 2px solid #15f4ee;
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -540,6 +545,9 @@ h2 {
     box-shadow: 0 0 10px #15f4ee;
 }
 
+/*-------FOOTER-------*/
+
+
 /* Responsive */
 @media (max-width: 768px) {
     .posteo-content {
@@ -568,6 +576,26 @@ h2 {
     .icon-container{
         position: relative;
         left: 44%;
+    }
+    .search-container {
+        margin-right: 10px;
+    }
+    .search-container.active .search-input {
+        width: 120px;
+        font-size: 12px;
+    }
+    .search-btn {
+        padding: 6px;
+        font-size: 14px;
+    }
+    .footer {
+    font-size: 0.75rem;
+    }
+    hr {
+        margin: 20px 30px;
+    }
+    .social-links a {
+    margin: 5px 8px;
     }
 }
 @media(max-width: 1100px) {
