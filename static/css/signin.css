@@ -14,13 +14,75 @@ body {
     min-height: 100vh;
     background: url(img/bg.jpg) no-repeat center center fixed;
     background-size: cover;
-    overflow: hidden;
 }
+
+/*------BOTON IR ARRIBA------*/
+
+.ir {
+    position: fixed;
+    bottom: 80px;
+    right: 30px;
+    z-index: 1000;
+    display: none;
+    background: transparent;
+}
+
+.toggle-neon {
+    display: none;
+}
+
+.arriba {
+    color: #15f4ee;
+    border: 2px solid #15f4ee;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+    text-align: center;
+    font-size: 35px;
+    font-weight: light;
+    transition: all 0.5s ease;
+    animation: subir 1s infinite alternate;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    background: transparent;
+    line-height: 1;
+}
+
+
+.toggle-neon:checked + .arriba {
+    color: #15f4ee !important;
+    border: 2px solid #15f4ee !important;
+    text-shadow: 0 0 5px #15f4ee, 0 0 10px #15f4ee !important;
+    box-shadow: 0 0 5px #15f4ee, 0 0 10px #15f4ee !important;
+    animation: subir 1.2s infinite alternate, neon-pulse .8s ease-in-out infinite alternate;
+}
+
+@keyframes subir {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-15px); }
+}
+
+@keyframes neon-pulse {
+    0% {
+        text-shadow: 0 0 5px #15f4ee, 0 0 10px #15f4ee, 0 0 20px #15f4ee;
+        box-shadow: 0 0 10px #15f4ee, 0 0 20px #15f4ee, 0 0 30px #15f4ee;
+    }
+    100% {
+        text-shadow: 0 0 10px #15f4ee, 0 0 20px #15f4ee, 0 0 30px #15f4ee;
+        box-shadow: 0 0 20px #15f4ee, 0 0 30px #15f4ee, 0 0 50px #15f4ee;
+    }
+}
+
+/*------LOGIN------*/
 
 .login-container {
     position: relative;
-    width: 400px;
-    height: 450px;
+    top: 8px;
+    right: 4%;
+    width: 450px;
+    height: 550px;
     background-color: #39393961;
     border-radius: 40px;
     display: flex;
@@ -161,6 +223,7 @@ h2 {
 button {
     width: 100%;
     height: 40px;
+    margin: 10px;
     background: #393939;
     border-radius: 10px;
     border: none;
@@ -231,8 +294,8 @@ button:hover {
 
 .input-check::before {
     position: relative;
-    bottom: 2px;
-    left: 56px;
+    bottom: 6px;
+    left: 40px;
     content: 'OFF';
     font-size: 12px;
     color: rgb(120, 124, 124);
@@ -252,4 +315,34 @@ button:hover {
                 /*-0.5px -0.5px 0px rgba(255, 255, 255, 1),*/
                 0.5px 0.5px 0px rgba(0, 0, 0, 0.15),
                 0 12px 10px -10px rgba(0, 0, 0, 0.05);
+}
+
+/*------BOTON VOLVER------*/
+/*button .volver {
+    position: relative;
+    top: 580px;
+    left: 43%;
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+.volver:hover {
+    transform: scale(1.1);
+}*/
+
+/*-------RESPONSIVE------*/
+@media (max-width: 768px) {
+    .login-container{
+        position: relative;
+        right: 1%;
+    }
+    .volver {
+    position: absolute;
+    top: 580px;
+    left: 40%;
+}
+    .input-check {
+        position: relative;
+        left: 12%;
+    }
 }

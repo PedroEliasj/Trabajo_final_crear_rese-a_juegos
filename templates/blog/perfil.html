@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'img/favicon-game.png' %}">
+    <script src="https://kit.fontawesome.com/cd10d9582d.js" crossorigin="anonymous"></script>
+    <title>TGZ | Perfil de Usuario</title>
+</head>
+<body>
+    
+    <label class="ir">
+        <input type="checkbox" class="toggle-neon">
+        <i class="arriba fa-solid fa-angles-up" aria-label="Volver al inicio"></i>
+    </label>
+
+    <header>
+        <nav class="navbar">
+            <input type="checkbox" class="menu-checkbox" id="hamburger-menu">
+            <label class="hamburger-label" for="hamburger-menu">
+                <i class="fas fa-bars"></i>
+            </label>
+            <div class="perfil-usuario">
+                <input type="checkbox" class="menu-checkbox" id="perfil-menu">
+                <label class="menu-label" for="perfil-menu">
+                    <img src="{{ perfil_logueado.imagen.url }}" alt="Foto de perfil" class="img-perfil">
+                    <span>{{ request.user.username }}</span>
+                </label>
+                <p>#</p>
+                <div class="dropdown-menu">
+                    <a href="{% url 'perfil' %}" class="dropdown-item">Ver Perfil</a>
+                    <a href="{% url 'editar_usuario' user.id %}" class="dropdown-item">Editar</a>
+                    <a href="{% url 'apps.blog:crear_resena' %}" class="dropdown-item">Crear Posteo</a>
+                    <a href="{% url 'logout' %}" class="dropdown-item">Cerrar Sesión</a>
+                </div>
+            </div>
+            <ul class="nav-links">
+                {% if request.user.is_authenticated and request.user.is_staff %}
+                <li><a href="{% url 'logout' %}">cerrar session</a></li>
+                <li><a href="{% url 'crear_resena' %}">Publicar Reseña</a></li>
+                <li><a href="{% url 'subir_juego' %}">Subir Juego</a></li>
+                <li><a href="{% url 'signup' %}">Registrar</a></li>
+                {% else %}
+                <li><a href="{% url 'descargar_juegos' %}">Descargar Juegos</a></li>
+                <li><a href="{% url 'contacto' %}">Contacto</a></li>
+                <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+                <li><a href="{% url 'signin' %}">Iniciar sesion</a></li>
+                <li><a href="{% url 'signup' %}">Registrar</a></li>
+                {% endif %}
+            </ul>
+            <div class="hamburger-menu">
+                <ul class="hamburger-links">
+                    <li class="perfil-mobile">
+                        <input type="checkbox" class="menu-checkbox" id="perfil-menu-mobile">
+                        <label class="menu-label" for="perfil-menu-mobile">
+                            <div class="perfil-usuario-mobile">
+                                <label class="menu-label" for="perfil-menu">
+                                    <img src="{{ perfil_logueado.imagen.url }}" alt="Foto de perfil" class="img-perfil">
+                                    <span>{{ request.user.username }}</span>
+                                </label>
+                            </div>
+                        </label>
+                        <ul class="perfil-submenu">
+                            <a href="{% url 'perfil' %}" class="dropdown-item">Ver Perfil</a>
+                            <a href="{% url 'editar_usuario' user.id %}" class="dropdown-item">Editar</a>
+                            <a href="{% url 'apps.blog:crear_resena' %}" class="dropdown-item">Crear Posteo</a>
+                            <a href="{% url 'logout' %}" class="dropdown-item">Cerrar Sesión</a>
+                        </ul>
+                    </li>
+                    {% if request.user.is_authenticated and request.user.is_staff %}
+                    <li><a href="{% url 'logout' %}">cerrar session</a></li>
+                    <li><a href="{% url 'crear_resena' %}">Publicar Reseña</a></li>
+                    <li><a href="{% url 'subir_juego' %}">Subir Juego</a></li>
+                    <li><a href="{% url 'signup' %}">Registrar</a></li>
+                    {% else %}
+                    <li><a href="{% url 'descargar_juegos' %}">Descargar Juegos</a></li>
+                    <li><a href="{% url 'contacto' %}">Contacto</a></li>
+                    <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+                    <li><a href="{% url 'signin' %}">Iniciar sesion</a></li>
+                    <li><a href="{% url 'signup' %}">Registrar</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!--BARRA DE BUSQUEDA ENZO-->
+
+            <!--BARRA DE BUSQUEDA ENZO-->
+        </nav>
+    </header>
+
+<div class="content">
+    <div class="neon-text flickering">
+        <h2 class="title">
+            <span>P<span class="flickering-l">E</span>RF</span><span class="flickering-s">I</span><span>L</span>
+        </h2>
+    </div>
+</div>
+
+<section class="perfil">
+    
+    <section class="filtros-container">
+        <h3>Filtrar por categoría</h3>
+        <div class="carrusel-filtros">
+            <button class="carrusel-btn prev-btn" aria-label="Deslizar hacia la izquierda">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carrusel-track">
+                <button class="filtro-btn" data-categoria="all">Todos</button>
+                <button class="filtro-btn" data-categoria="NES">NES</button>
+                <button class="filtro-btn" data-categoria="SEGA Genesis">SEGA</button>
+                <button class="filtro-btn" data-categoria="PlayStation">PlayStation</button>
+                <button class="filtro-btn" data-categoria="NeoGeo">NeoGeo</button>
+                <button class="filtro-btn" data-categoria="ARCADE">ARCADE</button>
+                <button class="filtro-btn" data-categoria="GameBoy">GameBoy</button>
+                <button class="filtro-btn" data-categoria="PC">PC</button>
+            </div>
+            <button class="carrusel-btn next-btn" aria-label="Deslizar hacia la derecha">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+
+
+    <div class="perfil-content">
+        <div class="perfil-header">
+            <img src="{{ perfil.imagen.url }}" alt="Foto de perfil" class="img-perfil">
+            <h3><span class="nombre-usuario">{{ request.user.first_name|default:request.user.username }}</span></h3>
+            <div class="arroba">@{{ request.user.username }}</div>
+            <p class="biografia">
+                {{ perfil.biografia|default:"Este usuario aún no tiene biografía." }}
+            </p>
+            <div class="perfil-stats">
+                <span><strong>Posteos:</strong> {{ juegos.count }}</span>
+                <span><strong>Likes:</strong> 0</span>
+            </div>
+            <a href="{% url 'editar_usuario' user.id %}" class="btn">EDITAR PERFIL</a>
+        </div>
+
+        <h3 class="mis-posteos">Mis Posteos</h3>
+        <div class="post-list">
+            {% for juego in juegos %}
+            <div class="card">
+                <div class="post-actions">
+                    <input type="checkbox" class="menu-checkbox" id="post-menu-{{ juego.id }}">
+                    <label class="menu-label" for="post-menu-{{ juego.id }}"><i class="fas fa-ellipsis-v"></i></label>
+                    <div class="dropdown-menu">
+                        <a href="{% url 'apps.blog:editar_post' juego.id %}" class="edit-btn"><i class="fas fa-edit"></i> Editar</a>
+                        <form action="{% url 'apps.blog:eliminar_post' juego.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-btn"><i class="fas fa-trash"></i> Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="post-usuario">
+                    <a href="#">
+                        <img src="{{ perfil.imagen.url }}" alt="Perfil del Usuario" class="perfil-img">
+                        <span>{{ request.user.first_name|default:request.user.username }}</span>
+                        <div class="arroba">@{{ request.user.username }}</div>
+                    </a>
+                </div>
+                <div class="content-container">
+                    <img src="{{ juego.imagen.url }}" alt="{{ juego.titulo }}" class="main-img">
+                    <div class="text-content">
+                        <h3>{{ juego.titulo }}</h3>
+                        <span class="categoria">SEGA Genesis</span>
+                        <span class="fecha-post">{{ juego.fecha_agregado|date:"F d, Y" }}</span>
+                        <p>{{ juego.descripcion }}</p>
+                        {% if juego.archivo %}
+                        <a href="{{ juego.archivo.url }}" class="btn-descarga"><i class="fas fa-download"></i> Descargar</a>
+                        {% endif %}
+                        <div class="like-container">
+                            <input type="checkbox" class="like-checkbox" id="like-{{ juego.id }}">
+                            <label class="like-label" for="like-{{ juego.id }}">
+                                <i class="fas fa-heart"></i>
+                            </label>
+                            <span class="like-count">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>No tienes posteos todavía.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+    <!--FOOTER-->
+
+
+    <!--FOOTER-->
+
+    <script src="blog.js"></script>
+</body>
+</html>

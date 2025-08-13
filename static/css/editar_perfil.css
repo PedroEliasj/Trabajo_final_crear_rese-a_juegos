@@ -1,29 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap");
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Orbitron', sans-serif;
-}
-
 body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background: url('../img/bg.jpg') no-repeat center center fixed;
     background-size: cover;
-    color: #ccc;
-    min-height: 100vh;
-    display: flex;
-    background: url(img/bg.jpg) no-repeat center center fixed;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 10px;
+    color: #ffffff;
 }
 
-/* Navbar (reutilizado de blog.css) */
+/*------BARRA DE NAVEGACIÓN------*/
 
 .navbar {
     display: flex;
+    height: 40px;
     justify-content: center;
-    height: 80px;
     padding: 20px;
     background: rgba(0, 0, 0, 0.6);
     position: relative;
@@ -55,18 +45,20 @@ body {
     transform: scale(1.4);
 }
 
-
 /*------PERFIL USUARIO------*/
 
 .perfil-usuario {
     position: absolute;
-    left: 70px;
+    left: 80px;
     display: flex;
     align-items: center;
     cursor: pointer;
 }
 
 .perfil-usuario img {
+    position: relative;
+    top: 5px;
+    right: 10px;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -264,14 +256,14 @@ body {
     font-size: 14px;
 }
 
-/*------BARRA DE BUSQUEDA------*/
+/*------INGRESAR BARRA DE BUSQUEDA------*/
 
 
 /*------BOTON IR ARRIBA------*/
 
 .ir {
     position: fixed;
-    bottom: 80px;
+    bottom: 95px;
     right: 30px;
     z-index: 1000;
     display: none;
@@ -286,19 +278,16 @@ body {
     color: #15f4ee;
     border: 2px solid #15f4ee;
     border-radius: 50%;
+    padding: 10px;
     width: 50px;
-    height: 50px;
-    padding: 5px;
     text-align: center;
-    font-size: 35px;
-    font-weight: light;
+    font-size: 20px;
+    font-weight: bold;
     transition: all 0.5s ease;
     animation: subir 1s infinite alternate;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
+    display: block;
     background: transparent;
-    line-height: 1;
 }
 
 
@@ -326,53 +315,44 @@ body {
     }
 }
 
-/* Input oculto por defecto */
-.search-input {
-    width: 0;
-    opacity: 0;
-    padding: 0;
-    margin-right: 5px;/*---cambie margin left a right---*/
-    border: none;
-    background: transparent;
-    color: #15f4ee;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 14px;
-    outline: none;
-    border-bottom: 2px solid #15f4ee;
-    transition: width 0.4s ease, opacity 0.4s ease, padding 0.7s ease;
-    order: 1;/*---input al lado izquierdo---*/
-    direction: rtl;/*---cambia la introduccion del texto---*/
+
+/*------CARD PERFIL-----*/
+
+.perfil-container {
+    position: relative;
+    bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
 }
 
-/* Mostrar input al hacer hover sobre el contenedor */
-.search-container:hover .search-input {
-    width: 150px;
-    opacity: 1;
-    padding: 5px;
-    direction: ltr;/*---para que el texto se vea normal---*/
+.perfil-content {
+    height: 750px;
+    width: 400px;
+    padding: 20px;
+    margin: 20px;
+    background:rgba(20, 20, 30, 0.5);
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
 }
 
-/*h1 {
-    color: #15f4ee;
-    text-shadow: 0 0 10px #15f4ee;
-    margin-bottom: 30px;
-}*/
-
-/* Título con efecto flickering */
 h2 {
     margin: 50px;
     text-align: center;
     font-size: 56px;
-    line-height: 1.1;
     color: #66ccff;
-    text-shadow: 5px 5px 39px #66ccff;
+    text-shadow: 0 0 10px #15f4ee;
 }
 
 .flickering-h2 {
     animation: latter-flicker 5s infinite;
 }
 
-.flickering-a, .flickering-s, .flickering-i, .flickering-u {
+.flickering-t, .flickering-r, .flickering-o, .flickering-e, .flickering-i {
     animation: latter-flicker 10s infinite;
 }
 
@@ -385,92 +365,213 @@ h2 {
     }
 }
 
-table {
-    border-collapse: collapse;
-    width: 90%;
-    max-width: 1000px;
-    background-color: rgba(57, 57, 57, 0.4);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 0 10px #15f4ee;
+.img-perfil {
+    position: relative;
+    top: 40px;
+    right: 21%;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: 3px solid #393939;
+    margin-bottom: 10px;
+    object-fit: cover; /* Asegura que la imagen cubra el contenedor sin deformarse */
+    object-position: center; /* Centra la imagen */
 }
 
-th, td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    color: #ccc;
+.img-perfil:hover {
+    border: 3px solid #15f4ee;
+    box-shadow: 0 0 10px #15f4ee,
+                0 0 10px #15f4ee;
 }
 
-th {
-    background-color: rgba(21, 244, 238, 0.1);
-    color: #15f4ee;
+.nombre-usuario {
+    position: relative;
+    right: 2%;
+    bottom: 35px;
+    color: #ffffff;
     text-shadow: 0 0 10px #15f4ee;
 }
 
-td {
-    backdrop-filter: blur(4px);
+.arroba {
+    position: relative;
+    bottom: 50px;
+    right: 2%;
+    color: #575757;
+    font-size: 13px;
 }
 
-/* ... Tu CSS existente hasta la sección de los botones ... */
-
-a.button {
-    display: inline-block;
-    padding: 8px 15px;
-    background-color: transparent;
-    color: #15f4ee;
-    text-decoration: none;
-    border: 2px solid #15f4ee;
-    border-radius: 8px;
-    font-weight: bold;
-    margin: 5px;
-    min-width: 80px;
-    text-align: center;
-    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+.arroba:hover {
+    color: #d0eaff;
 }
 
-a.button:hover {
-    transform: scale(1.1);
-    background-color: #15f4ee;
-    color: #000;
-    text-shadow: 0 0 15px #15f4ee;
-    box-shadow: 0 0 15px #15f4ee;
-}
-
-a.button.delete {
-    background-color: transparent;
-    color: #f44336;
-    border: 2px solid #f44336;
-}
-
-a.button.delete:hover {
-    background-color: #f44336;
-    color: #000;
-    text-shadow: 0 0 15px #f44336;
-    box-shadow: 0 0 15px #f44336;
-}
-
-/* Ajustes para la celda de acciones */
-td:nth-of-type(4) {
+.icon-container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    padding: 15px; 
+    position: relative;
+    left: 42%;
+    bottom: 100px;
+    height: 55px;
+    width: 55px;
+    background: #000000a6;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.5s ease;
 }
 
-/* Media query para pantallas pequeñas */
-@media(max-width: 1100px) {
-    .navbar .nav-links, .navbar .perfil-usuario {
-        display: none;
-    }
-
-    .hamburger-label {
-        display: block; 
-    }
+.icon-container:hover {
+    background: #0000005e;
+    transform: scale(2.8);
 }
-@media (max-width:768px) {
+
+
+.input-box {
+    position: relative;
+    width: 350px;
+    margin: 30px 30px;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label,
+.input-box textarea:focus ~ label,
+.input-box textarea:valid ~ label {
+    top: -15px;
+    color: #15f4ee;
+    text-shadow: 0 0 15px #15f4ee,
+                0 0 15px #15f4ee;
+}
+
+.input-box .input-line {
+    position: absolute;
+    width: 100%;
+    bottom: -2px;
+    height: 2.5px;
+    background: rgb(82, 84, 84);
+    transition: 0.5s ease;
+}
+.input-box input:focus ~ .input-line,
+.input-box textarea:focus ~ .input-line {
+    background: #15f4ee;
+    box-shadow: 0 0 10px #15f4ee, 0 0 15px #15f4ee;
+}
+
+
+.input-box label {
+    position: absolute;
+    top: 5%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    color: rgb(82, 84, 84);
+    transition: 0.5s ease;
+}
+
+
+.input-box input,
+.input-box textarea {
+    width: 89%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    color: rgb(82, 84, 84);
+    padding: 0 35px 0 5px;
+    transition: 0.5s ease;
+    font-family: 'Orbitron','Sans-serif';
+}
+
+.input-box textarea {
+    resize: vertical; 
+    min-height: 60px;
+    max-height: 150px;
+    height: auto;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.input-box textarea::-webkit-scrollbar {
+    display: none;
+}
+
+
+.input-box textarea:focus {
+    font-size: 15px;
+    color: #15f4ee;
+    text-shadow: 0 0 15px #15f4ee;
+}
+
+.input-box input:focus {
+    font-size: 20px;
+    color: #15f4ee;
+    text-shadow: 0 0 15px #15f4ee;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+.input-box .icon {
+    position: absolute;
+    right: 5px;
+    top:20%;
+    color: rgb(82, 84, 84); 
+    transition: all 0.5s ease;
+}
+
+
+.input-box input:focus ~.icon  {
+    color: #15f4ee;
+    text-shadow: 0 0 10px #15f4ee, 0 0 15px #15f4ee;
+}
+
+.btn-container {
+    text-align: center;
+}
+
+.btn-edit {
+    padding: 10px 15px;
+    font-family: 'Orbitron', 'Sans-serif';
+    border-radius: 15px;
+    border: 2px solid #575757;
+    background: transparent;
+    color: #575757;
+    cursor: pointer;
+}
+
+.btn-edit:hover {
+    border:2px solid #15f4ee;
+    color: #15f4ee;
+    text-shadow: 0 0 15px #15f4ee,
+                0 0 15px #15f4ee;
+    box-shadow: 0 0 10px #15f4ee;
+}
+
+/*------INGRESAR FOOTER------*/
+
+
+
+/*------RESPONSIVE-------*/
+
+
+@media (max-width: 768px) {
+    .content-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .main-img {
+        width: 60%;
+        max-height: 500px;
+    }
+    .text-content h3 {
+        font-size: 24px; 
+    }
+    .text-content p {
+        font-size: 16px;
+    }
     .navbar ul {
         flex-direction: column;
         gap: 15px;
@@ -491,9 +592,10 @@ td:nth-of-type(4) {
         transform: translateX(-50%);
         min-width: 150px;
     }
+    .input-box textarea {
+        width: 85%;
+    }
     .search-container {
-        position: absolute;
-        top: 18px;
         margin-right: 10px;
     }
     .search-container.active .search-input {
@@ -502,149 +604,20 @@ td:nth-of-type(4) {
     }
     .search-btn {
         padding: 6px;
-        font-size: 20px;
-    }
-}
-@media screen and (max-width: 600px) {
-    table, thead, tbody, th, td, tr {
-        display: block;
-    }
-
-    th {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-    }
-
-    td {
-        padding-left: 30%;
-        position: relative;
-        margin-bottom: 5px;
-    }
-
-    td:before {
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        width: 45%;
-        white-space: nowrap;
-        font-weight: bold;
-        color: #15f4ee;
-        text-shadow: 0 0 10px;
-    }
-
-    td:nth-of-type(1):before { content: "ID"; }
-    td:nth-of-type(2):before { content: "Usuario"; }
-    td:nth-of-type(3):before { content: "Email"; }
-    td:nth-of-type(4):before { content: "Acciones"; }
-
-    /* Ajustes específicos para botones en móviles */
-    a.button {
-        display: inline-block;
-        padding: 8px 12px;
         font-size: 14px;
-        min-width: 100px;
-        margin: 5px 0;
     }
-
-    td:nth-of-type(4) {
-        flex-direction: row-reverse;
-        align-items:flex-start;
-        gap: 8px;
+    .footer {
+    font-size: 0.75rem;
+    }
+    .social-links a {
+    margin: 5px 8px;
     }
 }
-
-/*a.button {
-    padding: 8px 15px;
-    background-color: #15f4ee;
-    color: #000;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    box-shadow: 0 0 10px #15f4ee;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/*a.button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px #15f4ee;
-}
-
-a.button.delete {
-    background-color: #f44336;
-    box-shadow: 0 0 10px #f44336;
-}
-
-a.button.delete:hover {
-    box-shadow: 0 0 15px #f44336;
-}
-
-a.button {
-    padding: 8px 15px;
-    background-color: transparent;
-    color: #15f4ee;
-    text-decoration: none;
-    border: 2px solid #15f4ee;
-    border-radius: 8px;
-    font-weight: bold;
-    /*box-shadow: 0 0 10px #15f4ee;*/
-   /* transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-a.button:hover {
-    transform: scale(1.1);
-    background-color: #15f4ee;
-    color: #000;
-    text-shadow:0 0 15px #15f4ee;
-    box-shadow: 0 0 15px #15f4ee;
-}
-
-a.button.delete {
-    background-color: transparent;
-    color: #f44336;
-    border: 2px solid #f44336;
-    /*box-shadow: 0 0 10px #f44336;*/
-/*}
-
-a.button.delete:hover {
-    background-color: #f44336;
-    color: #000;
-    text-shadow: 0 0 15px #f44336;
-    box-shadow: 0 0 15px #f44336;
-}
-
-tr:last-child td {
-    border-bottom: none;
-}
-
-@media screen and (max-width: 600px) {
-    table, thead, tbody, th, td, tr {
+@media(max-width: 1100px) {
+    .navbar .nav-links, .navbar .perfil-usuario {
+        display: none;
+    }
+    .hamburger-label {
         display: block;
     }
-    a.button{
-        display: inline-block;
-        padding: 4px 6px;
-    }
-    th {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-    }
-    td {
-        padding-left: 30%;
-        position: relative;
-    }
-    td:before {
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        width: 45%;
-        white-space: nowrap;
-        font-weight: bold;
-        color: #15f4ee;
-    }
-    td:nth-of-type(1):before { content: "ID"; }
-    td:nth-of-type(2):before { content: "Usuario"; }
-    td:nth-of-type(3):before { content: "Email"; }
-    td:nth-of-type(4):before { content: "Acciones"; }
 }

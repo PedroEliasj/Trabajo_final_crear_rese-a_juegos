@@ -1,0 +1,329 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap");
+
+* {
+    margin: 0;
+    font-family: 'Orbitron';
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(img/bg.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+
+/*------BOTON IR ARRIBA------*/
+
+.ir {
+    position: fixed;
+    bottom: 80px;
+    right: 30px;
+    z-index: 1000;
+    display: none;
+    background: transparent;
+}
+
+.toggle-neon {
+    display: none;
+}
+
+.arriba {
+    color: #15f4ee;
+    border: 2px solid #15f4ee;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+    text-align: center;
+    font-size: 35px;
+    font-weight: light;
+    transition: all 0.5s ease;
+    animation: subir 1s infinite alternate;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    background: transparent;
+    line-height: 1;
+}
+
+
+.toggle-neon:checked + .arriba {
+    color: #15f4ee !important;
+    border: 2px solid #15f4ee !important;
+    text-shadow: 0 0 5px #15f4ee, 0 0 10px #15f4ee !important;
+    box-shadow: 0 0 5px #15f4ee, 0 0 10px #15f4ee !important;
+    animation: subir 1.2s infinite alternate, neon-pulse .8s ease-in-out infinite alternate;
+}
+
+@keyframes subir {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-15px); }
+}
+
+@keyframes neon-pulse {
+    0% {
+        text-shadow: 0 0 5px #15f4ee, 0 0 10px #15f4ee, 0 0 20px #15f4ee;
+        box-shadow: 0 0 10px #15f4ee, 0 0 20px #15f4ee, 0 0 30px #15f4ee;
+    }
+    100% {
+        text-shadow: 0 0 10px #15f4ee, 0 0 20px #15f4ee, 0 0 30px #15f4ee;
+        box-shadow: 0 0 20px #15f4ee, 0 0 30px #15f4ee, 0 0 50px #15f4ee;
+    }
+}
+
+/*------LOGIN------*/
+
+.login-container {
+    position: relative;
+    top:280px;
+    right: 4%;
+    width: 500px;
+    height: 1000px;
+    background-color: #39393961;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    font-size: 30px;
+    color: rgb(82, 84, 84);
+    text-align: center;
+    transition: 0.5s ease;
+}
+
+.input-check:checked~h2{
+    color: #15f4ee;
+    text-shadow: 0 0 15px #15f4ee,
+    0 0 15px #66ccff;
+}
+
+.input-box {
+    position: relative;
+    width: 300px;
+    margin: 30px 0;
+}
+
+
+.input-box .input-line {
+    position: absolute;
+    width: 100%;
+    bottom: -2px;
+    height: 2.5px;
+    background: rgb(82, 84, 84);
+    transition: 0.5s ease;
+}
+
+.input-box .icon {
+    position: relative;
+    left: 90%;
+    top: 40px;
+    color: rgb(82, 84, 84);
+}
+
+.input-check:checked~.input-box .icon {
+    color: #15f4ee;
+    text-shadow: 0 0 10px #15f4ee;
+}
+
+.input-check:checked~.input-box .input-line{
+    background: #15f4ee;
+    box-shadow: 0 0 10px #15f4ee;                        
+}
+
+.input-box label{
+    position: absolute;
+    top: 15%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    color: rgb(82, 84, 84);
+    transition: 0.5s ease;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label {
+    top: -15px;
+}
+
+.input-check:checked~.input-box label {
+    color: #15f4ee;
+    text-shadow: 0 0 10px #15f4ee;
+}
+
+.input-box input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    color: rgb(82, 84, 84);
+    padding: 0 35px 0 5px;
+    transition: 0.5s ease;
+}
+
+.input-box input {
+    font-size: 14px;
+}
+
+.input-check:checked~.input-box input {
+    color: #15f4ee;
+    text-shadow: 0 0 5px #15f4ee;
+}
+
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    color: rgb(82, 84, 84);
+    font-size: 14px;
+    font-weight: 800;
+    margin: -15px 0 15px;
+    transition: 0.5s ease;
+}
+
+.input-check:checked~.remember-forgot {
+    color:#15f4ee;
+    text-shadow: 0 0 10px #15f4ee;
+}
+
+.remember-forgot label input {
+    accent-color:rgb(82, 84, 84);
+    margin: 3px;
+    transition: 0.5s ease;
+}
+
+.input-check:checked~.remember-forgot label input {
+    accent-color: #15f4ee;
+}
+
+.remember-forgot a {
+    color:rgb(120, 124, 124);
+    text-decoration: none;
+    transform:color 0.5s ease;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.input-check:checked~.remember-forgot a {
+    color: #66ccff;
+}
+
+/*--------BOTÓN--------*/
+
+button {
+    width: 100%;
+    height: 40px;
+    background: #393939;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 25px;
+    color: rgb(82, 84, 84);
+    font-weight: bolder;
+    transition:  ease 0.5s;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+/*------EFECTO NEÓN------*/
+
+.input-check:checked~button {
+    background: #15f4ee;
+    box-shadow: 0 0 15px #15f4ee;
+}
+
+/*------LINK REGISTRO------*/
+
+.register-link {
+    color: #393939;
+    font-size: 15px;
+    text-align: center;
+    margin: 25px 0 10px;
+}
+
+/*------EFECTO NEÓN------*/
+
+.input-check:checked~.register-link {
+    color: #15f4ee;
+    text-shadow: 0 0 10px #15f4ee;
+}
+
+/*------TEXTO Y ENLACE------*/
+
+.register-link p a {
+    color: #393939;
+    text-decoration: none;
+    font-weight: 550;
+    transition: ease 0.5s;
+}
+
+/*------EFECTO NEÓN------*/
+
+.input-check:checked~.register-link p a {
+    color: #15f4ee;
+}
+
+/*------EFECTO SUBRAYADO REGISTER------*/
+
+.register-link p a:hover {
+    text-decoration: underline;
+}
+
+/*-------BOTON POWER ON/OFF------*/
+
+.input-check:checked:before{
+    content: 'ON';
+    color: #15f4ee;
+    border: #15f4ee solid;
+    box-shadow: 0 0 10px #15f4ee;
+}
+
+.input-check::before {
+    position: relative;
+    bottom: 32px;
+    left: 30px;
+    content: 'OFF';
+    font-size: 12px;
+    color: rgb(120, 124, 124);
+    height: 60px;
+    width: 60px;
+    transform: translateX(-80px);
+    background: #282828;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    border:#282828 solid;
+    box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
+                inset /*-4px -4px 6px -1px rgba(255, 255, 255, 0.7),*/
+
+                /*-0.5px -0.5px 0px rgba(255, 255, 255, 1),*/
+                0.5px 0.5px 0px rgba(0, 0, 0, 0.15),
+                0 12px 10px -10px rgba(0, 0, 0, 0.05);
+}
+
+/*-------RESPONSIVE------*/
+@media (max-width: 768px) {
+    .login-container{
+        position: relative;
+        right: 12%;
+    }
+    .input-check {
+        position: relative;
+        left: 12%;
+    }
+}

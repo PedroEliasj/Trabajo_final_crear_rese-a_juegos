@@ -1,0 +1,175 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/editar_perfil.css' %}">
+    <script src="https://kit.fontawesome.com/cd10d9582d.js" crossorigin="anonymous"></script>
+    <!-- <link rel="icon" type="img/png" href="img/favicon-game.png"> -->
+    <title>TGZ | Editar Perfil</title>
+</head>
+<body>
+
+    <label class="ir">
+        <input type="checkbox" class="toggle-neon">
+        <i class="arriba fa-solid fa-angles-up" aria-label="Volver al inicio"></i>
+    </label>
+
+    <header>
+        <nav class="navbar">
+            <input type="checkbox" class="menu-checkbox" id="hamburger-menu">
+            <label class="hamburger-label" for="hamburger-menu">
+                <i class="fas fa-bars"></i>
+            </label>
+            <div class="perfil-usuario">
+                <input type="checkbox" class="menu-checkbox" id="perfil-menu">
+                <label class="menu-label" for="perfil-menu">
+                    <img src="{{ perfil_logueado.imagen.url }}" alt="Foto de perfil" class="img-perfil">
+                    <span>{{ request.user.username }}</span>
+                </label>
+                <p>#</p>
+                <div class="dropdown-menu">
+                    <a href="{% url 'perfil' %}" class="dropdown-item">Ver Perfil</a>
+                    <a href="{% url 'editar_usuario' user.id %}" class="dropdown-item">Editar</a>
+                    <a href="{% url 'apps.blog:crear_resena' %}" class="dropdown-item">Crear Posteo</a>
+                    <a href="{% url 'logout' %}" class="dropdown-item">Cerrar Sesión</a>
+                </div>
+            </div>
+            <ul class="nav-links">
+                {% if request.user.is_authenticated and request.user.is_staff %}
+                <li><a href="{% url 'logout' %}">cerrar session</a></li>
+                <li><a href="{% url 'crear_resena' %}">Publicar Reseña</a></li>
+                <li><a href="{% url 'subir_juego' %}">Subir Juego</a></li>
+                <li><a href="{% url 'signup' %}">Registrar</a></li>
+                {% else %}
+                <li><a href="{% url 'descargar_juegos' %}">Descargar Juegos</a></li>
+                <li><a href="{% url 'contacto' %}">Contacto</a></li>
+                <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+                <li><a href="{% url 'signin' %}">Iniciar sesion</a></li>
+                <li><a href="{% url 'signup' %}">Registrar</a></li>
+                {% endif %}
+            </ul>
+            <div class="hamburger-menu">
+                <ul class="hamburger-links">
+                    <li class="perfil-mobile">
+                        <input type="checkbox" class="menu-checkbox" id="perfil-menu-mobile">
+                        <label class="menu-label" for="perfil-menu-mobile">
+                            <div class="perfil-usuario-mobile">
+                                <label class="menu-label" for="perfil-menu">
+                                    <img src="{{ perfil_logueado.imagen.url }}" alt="Foto de perfil" class="img-perfil">
+                                    <span>{{ request.user.username }}</span>
+                                </label>
+                            </div>
+                        </label>
+                        <ul class="perfil-submenu">
+                            <a href="{% url 'perfil' %}" class="dropdown-item">Ver Perfil</a>
+                            <a href="{% url 'editar_usuario' user.id %}" class="dropdown-item">Editar</a>
+                            <a href="{% url 'apps.blog:crear_resena' %}" class="dropdown-item">Crear Posteo</a>
+                            <a href="{% url 'logout' %}" class="dropdown-item">Cerrar Sesión</a>
+                        </ul>
+                    </li>
+                    {% if request.user.is_authenticated and request.user.is_staff %}
+                    <li><a href="{% url 'logout' %}">cerrar session</a></li>
+                    <li><a href="{% url 'crear_resena' %}">Publicar Reseña</a></li>
+                    <li><a href="{% url 'subir_juego' %}">Subir Juego</a></li>
+                    <li><a href="{% url 'signup' %}">Registrar</a></li>
+                    {% else %}
+                    <li><a href="{% url 'descargar_juegos' %}">Descargar Juegos</a></li>
+                    <li><a href="{% url 'contacto' %}">Contacto</a></li>
+                    <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+                    <li><a href="{% url 'signin' %}">Iniciar sesion</a></li>
+                    <li><a href="{% url 'signup' %}">Registrar</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!--BARRA DE BUSQUEDA ENZO-->
+
+            <!--BARRA DE BUSQUEDA ENZO-->
+        </nav>
+    </header>
+
+    <div class="content">
+        <div class="neon-text flickering">
+            <span class="flickering-h2"><h2 class="title">
+            <span>EDI<span class="flickering-t">T</span>A</span><span class="flickering-r">R</span>
+            <br>
+            <span>P<span class="flickering-e">E</span>RF</span><span class="flickering-i">I</span><span>L</span>
+            </h2></span>
+        </div>
+    </div>
+
+    <div class="perfil-container">
+        <div class="perfil-content">
+
+        <form action="#" method="POST" id="edit-perfil-form" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="img-perfil-container">
+                {% if perfil.imagen %}
+                    <img src="{{ perfil.imagen.url }}" alt="Foto de perfil" class="img-perfil">
+                {% endif %}
+                <label for="profile-pic-input" class="icon-container">
+                    <i class="fa-regular fa-image"></i>
+                </label>
+                <input type="file" id="profile-pic-input" accept="image/*" name="imagen" style="display: none;">
+            </div>
+
+            <h3><span class="nombre-usuario">{{ user.username }}</span></h3>
+            <div class="arroba">{{ user.email }}</div>
+
+            <div class="input-box">
+                <span class="icon">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </span>
+                <input type="text" name="username" id="nombre" value="{{ user.username }}" required>
+                <label for="nombre">Nombre</label>
+                <div class="input-line"></div>
+            </div>
+
+            <div class="input-box">
+                <span class="icon">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </span>
+                <input type="text" name="apellido" id="apellido" value="{{ perfil.apellido }}" required>
+                <label for="apellido">Apellido</label>
+                <div class="input-line"></div>
+            </div>
+
+            <div class="input-box">
+                <span class="icon">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </span>
+                <input type="email" name="email" value="{{ user.email }}" required>
+                <label for="email">email</label>
+                <div class="input-line"></div>
+            </div>
+
+            <div class="input-box">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar"></i>
+                </span>
+                <input type="date" name="fecha_nacimiento" id="fecha-nacimiento" value="{{ perfil.fecha_nacimiento|date:'Y-m-d' }}" required>
+                <label for="fecha-nacimiento">Fecha de Nacimiento</label>
+                <div class="input-line"></div>
+            </div>
+            
+            <div class="btn-container">
+                <button type="submit" class="btn-edit" id="save-btn">
+                    GUARDAR
+                </button>
+                <button type="button" class="btn-edit" id="cancel-btn"><a href="{% url 'usuarios_list' %}">
+                    CANCELAR
+                </a></button>
+            </div>
+        </form>
+    </div>
+    </div>
+    <!--FOOTER ENZO-->
+
+    <!--FOOTER ENZO-->
+
+    <script src="blog.js"></script><!--enlace de javascript para boton-->
+</body>
+</html>

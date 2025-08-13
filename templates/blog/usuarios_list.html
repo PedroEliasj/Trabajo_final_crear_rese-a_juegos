@@ -1,0 +1,138 @@
+<!--{% load static %}-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>TGZ | Lista de Usuarios</title>
+    <link rel="stylesheet" href="{% static 'css/usuarios_list.css' %}">
+    <script src="https://kit.fontawesome.com/cd10d9582d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!--<h1 style="text-align: center;">Lista de Usuarios</h1>-->
+        
+    <label class="ir">
+        <input type="checkbox" class="toggle-neon">
+        <i class="arriba fa-solid fa-angles-up" aria-label="Volver al inicio"></i>
+    </label>
+        
+    <header>
+        <nav class="navbar">
+            <input type="checkbox" class="menu-checkbox" id="hamburger-menu">
+            <label class="hamburger-label" for="hamburger-menu">
+                <i class="fas fa-bars"></i>
+            </label>
+            <div class="perfil-usuario">
+                <input type="checkbox" class="menu-checkbox" id="perfil-menu">
+                <label class="menu-label" for="perfil-menu">
+                    <img src="{{ perfil_logueado.imagen.url }}" alt="Foto de perfil" class="img-perfil">
+                    <span>{{ request.user.username }}</span>
+                </label>
+                <p>#</p>
+                <div class="dropdown-menu">
+                    <a href="{% url 'perfil' %}" class="dropdown-item">Ver Perfil</a>
+                    <a href="{% url 'editar_usuario' user.id %}" class="dropdown-item">Editar</a>
+                    <a href="{% url 'apps.blog:crear_resena' %}" class="dropdown-item">Crear Posteo</a>
+                    <a href="{% url 'logout' %}" class="dropdown-item">Cerrar Sesión</a>
+                </div>
+            </div>
+            <ul class="nav-links">
+                {% if request.user.is_authenticated and request.user.is_staff %}
+                <li><a href="{% url 'logout' %}">cerrar session</a></li>
+                <li><a href="{% url 'crear_resena' %}">Publicar Reseña</a></li>
+                <li><a href="{% url 'subir_juego' %}">Subir Juego</a></li>
+                <li><a href="{% url 'signup' %}">Registrar</a></li>
+                {% else %}
+                <li><a href="{% url 'descargar_juegos' %}">Descargar Juegos</a></li>
+                <li><a href="{% url 'contacto' %}">Contacto</a></li>
+                <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+                <li><a href="{% url 'signin' %}">Iniciar sesion</a></li>
+                <li><a href="{% url 'signup' %}">Registrar</a></li>
+                {% endif %}
+            </ul>
+            <div class="hamburger-menu">
+                <ul class="hamburger-links">
+                    <li class="perfil-mobile">
+                        <input type="checkbox" class="menu-checkbox" id="perfil-menu-mobile">
+                        <label class="menu-label" for="perfil-menu-mobile">
+                            <div class="perfil-usuario-mobile">
+                                <label class="menu-label" for="perfil-menu">
+                                    <img src="{{ perfil_logueado.imagen.url }}" alt="Foto de perfil" class="img-perfil">
+                                    <span>{{ request.user.username }}</span>
+                                </label>
+                            </div>
+                        </label>
+                        <ul class="perfil-submenu">
+                            <a href="{% url 'perfil' %}" class="dropdown-item">Ver Perfil</a>
+                            <a href="{% url 'editar_usuario' user.id %}" class="dropdown-item">Editar</a>
+                            <a href="{% url 'apps.blog:crear_resena' %}" class="dropdown-item">Crear Posteo</a>
+                            <a href="{% url 'logout' %}" class="dropdown-item">Cerrar Sesión</a>
+                        </ul>
+                    </li>
+                    {% if request.user.is_authenticated and request.user.is_staff %}
+                    <li><a href="{% url 'logout' %}">cerrar session</a></li>
+                    <li><a href="{% url 'crear_resena' %}">Publicar Reseña</a></li>
+                    <li><a href="{% url 'subir_juego' %}">Subir Juego</a></li>
+                    <li><a href="{% url 'signup' %}">Registrar</a></li>
+                    {% else %}
+                    <li><a href="{% url 'descargar_juegos' %}">Descargar Juegos</a></li>
+                    <li><a href="{% url 'contacto' %}">Contacto</a></li>
+                    <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+                    <li><a href="{% url 'signin' %}">Iniciar sesion</a></li>
+                    <li><a href="{% url 'signup' %}">Registrar</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!--BARRA DE BUSQUEDA ENZO-->
+
+            <!--BARRA DE BUSQUEDA ENZO-->
+        </nav>
+    </header>
+
+    <div class="content">
+        <div class="neon-text flickering">
+            <span class="flickering-h2"><h2 class="title">
+                <span>LIST<span class="flickering-a">A</span> DE U<span class="flickering-s">S</span><span class="flickering-u">U</span>AR<span class="flickering-i">I</span>OS
+            </h2></span>
+        </div>
+    </div>
+
+
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.id }}</td>
+                    <td>{{ usuario.username }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>
+                        <a class="button" href="{% url 'editar_usuario' usuario.id %}"><i class="fas fa-edit"></i>Editar</a>
+                        <a class="button delete" href="{% url 'eliminar_usuario' usuario.id %}"
+                            onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?');"><i class="fas fa-trash"></i>Eliminar</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">No hay usuarios registrados.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!--FOOTER-->
+
+
+    <!--FOOTER-->
+
+    <script src="blog.js"></script>
+</body>
+</html>

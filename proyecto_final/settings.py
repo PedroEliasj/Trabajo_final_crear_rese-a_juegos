@@ -106,9 +106,9 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': "proyecto_db",
-        'USER': "root",
-        'PASSWORD': "root",
+        'NAME': NAME_DB,
+        'USER': USER_DB,
+        'PASSWORD': PASSWORD_DB,
         # 'HOST': os.getenv('DB_HOST', 'localhost'),
         'PORT': PORT_DB,
     }
