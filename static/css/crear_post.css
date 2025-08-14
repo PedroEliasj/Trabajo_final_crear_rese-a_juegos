@@ -259,6 +259,58 @@ body {
 
 /*------BARRA DE BUSQUEDA------*/
 
+.search-container {
+    position: absolute;
+    top: 27px;
+    right: 40px;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 20px;
+    flex-shrink: 0; /* Evita que la barra se comprima demasiado */
+}
+
+.search-btn {
+    background: none;
+    border: none;
+    border-radius: 8px;
+    color: #15f4ee;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all .3s ease;
+    order: 2; /*---boton a la derecha---*/
+}
+
+.search-btn:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 5px #15f4ee;
+}
+
+/* Input oculto por defecto */
+.search-input {
+    width: 0;
+    opacity: 0;
+    padding: 0;
+    margin-right: 5px;/*---cambie margin left a right---*/
+    border: none;
+    background: transparent;
+    color: #15f4ee;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    outline: none;
+    border-bottom: 2px solid #15f4ee;
+    transition: width 0.4s ease, opacity 0.4s ease, padding 0.7s ease;
+    order: 1;/*---input al lado izquierdo---*/
+    direction: rtl;/*---cambia la introduccion del texto---*/
+}
+
+/* Mostrar input al hacer hover sobre el contenedor */
+.search-container:hover .search-input {
+    width: 150px;
+    opacity: 1;
+    padding: 5px;
+    direction: ltr;/*---para que el texto se vea normal---*/
+}
 
 
 /*------BOTON IR ARRIBA------*/
@@ -546,6 +598,49 @@ h2 {
 }
 
 /*-------FOOTER-------*/
+.footer {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px 20px;
+    text-align: center;
+    color: #a1e6ff;
+    font-size: 0.75rem;
+}
+
+hr {
+    margin: 20px 80px;
+    border: 2px solid #15f4ee;
+    box-shadow: 0 0 10px #15f4ee, 0 0 20px #15f4ee;
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.social-links {
+    margin-top: 5px;
+}
+
+.social-links a {
+    margin: 0 8px;
+    text-decoration: none;
+    color: #15f4ee;
+    transition: 0.3s;
+}
+
+.social-links a:hover {
+    text-shadow: 0 0 5px #15f4ee;
+}
+
+.social-links a svg {
+    vertical-align: middle;
+    transition: transform 0.3s;
+}
+
+.social-links a:hover svg {
+    transform: scale(1.3);
+    filter: drop-shadow(0 0 5px #15f4ee);
+}
 
 
 /* Responsive */

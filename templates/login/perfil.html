@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +10,9 @@
     <script src="https://kit.fontawesome.com/cd10d9582d.js" crossorigin="anonymous"></script>
     <title>TGZ | Perfil de Usuario</title>
 </head>
+
 <body>
-    
+
     <label class="ir">
         <input type="checkbox" class="toggle-neon">
         <i class="arriba fa-solid fa-angles-up" aria-label="Volver al inicio"></i>
@@ -84,113 +86,157 @@
                 </ul>
             </div>
             <!--BARRA DE BUSQUEDA ENZO-->
-
+            <div class="search-container">
+                <label for="search-input" class="sr-only"></label><!--agregue un label-->
+                <button class="search-btn" aria-label="Buscar"><i
+                        class="fas fa-search"></i></button><!--agregue un aria label para mejorar la accebilidad y cambie el icono para que pegara con a estetica del blog-->
+                <input type="text" id="search-input" placeholder="Search..."
+                    class="search-input" /><!--agregue id para asociar label y facilitar javascript-->
+            </div>
             <!--BARRA DE BUSQUEDA ENZO-->
         </nav>
     </header>
 
-<div class="content">
-    <div class="neon-text flickering">
-        <h2 class="title">
-            <span>P<span class="flickering-l">E</span>RF</span><span class="flickering-s">I</span><span>L</span>
-        </h2>
+    <div class="content">
+        <div class="neon-text flickering">
+            <h2 class="title">
+                <span>P<span class="flickering-l">E</span>RF</span><span class="flickering-s">I</span><span>L</span>
+            </h2>
+        </div>
     </div>
-</div>
 
-<section class="perfil">
-    
-    <section class="filtros-container">
-        <h3>Filtrar por categoría</h3>
-        <div class="carrusel-filtros">
-            <button class="carrusel-btn prev-btn" aria-label="Deslizar hacia la izquierda">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <div class="carrusel-track">
-                <button class="filtro-btn" data-categoria="all">Todos</button>
-                <button class="filtro-btn" data-categoria="NES">NES</button>
-                <button class="filtro-btn" data-categoria="SEGA Genesis">SEGA</button>
-                <button class="filtro-btn" data-categoria="PlayStation">PlayStation</button>
-                <button class="filtro-btn" data-categoria="NeoGeo">NeoGeo</button>
-                <button class="filtro-btn" data-categoria="ARCADE">ARCADE</button>
-                <button class="filtro-btn" data-categoria="GameBoy">GameBoy</button>
-                <button class="filtro-btn" data-categoria="PC">PC</button>
+    <section class="perfil">
+
+        <section class="filtros-container">
+            <h3>Filtrar por categoría</h3>
+            <div class="carrusel-filtros">
+                <button class="carrusel-btn prev-btn" aria-label="Deslizar hacia la izquierda">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="carrusel-track">
+                    <button class="filtro-btn" data-categoria="all">Todos</button>
+                    <button class="filtro-btn" data-categoria="NES">NES</button>
+                    <button class="filtro-btn" data-categoria="SEGA Genesis">SEGA</button>
+                    <button class="filtro-btn" data-categoria="PlayStation">PlayStation</button>
+                    <button class="filtro-btn" data-categoria="NeoGeo">NeoGeo</button>
+                    <button class="filtro-btn" data-categoria="ARCADE">ARCADE</button>
+                    <button class="filtro-btn" data-categoria="GameBoy">GameBoy</button>
+                    <button class="filtro-btn" data-categoria="PC">PC</button>
+                </div>
+                <button class="carrusel-btn next-btn" aria-label="Deslizar hacia la derecha">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
-            <button class="carrusel-btn next-btn" aria-label="Deslizar hacia la derecha">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
-    </section>
+        </section>
 
 
 
-    <div class="perfil-content">
-        <div class="perfil-header">
-            <img src="{{ perfil.imagen.url }}" alt="Foto de perfil" class="img-perfil">
-            <h3><span class="nombre-usuario">{{ request.user.first_name|default:request.user.username }}</span></h3>
-            <div class="arroba">@{{ request.user.username }}</div>
-            <p class="biografia">
-                {{ perfil.biografia|default:"Este usuario aún no tiene biografía." }}
-            </p>
-            <div class="perfil-stats">
-                <span><strong>Posteos:</strong> {{ juegos.count }}</span>
-                <span><strong>Likes:</strong> 0</span>
+        <div class="perfil-content">
+            <div class="perfil-header">
+                <img src="{{ perfil.imagen.url }}" alt="Foto de perfil" class="img-perfil">
+                <h3><span class="nombre-usuario">{{ request.user.first_name|default:request.user.username }}</span></h3>
+                <div class="arroba">@{{ request.user.username }}</div>
+                <p class="biografia">
+                    {{ perfil.biografia|default:"Este usuario aún no tiene biografía." }}
+                </p>
+                <div class="perfil-stats">
+                    <span><strong>Posteos:</strong> {{ juegos.count }}</span>
+                    <span><strong>Likes:</strong> 0</span>
+                </div>
+                <a href="{% url 'editar_usuario' user.id %}" class="btn">EDITAR PERFIL</a>
             </div>
-            <a href="{% url 'editar_usuario' user.id %}" class="btn">EDITAR PERFIL</a>
-        </div>
 
-        <h3 class="mis-posteos">Mis Posteos</h3>
-        <div class="post-list">
-            {% for juego in juegos %}
-            <div class="card">
-                <div class="post-actions">
-                    <input type="checkbox" class="menu-checkbox" id="post-menu-{{ juego.id }}">
-                    <label class="menu-label" for="post-menu-{{ juego.id }}"><i class="fas fa-ellipsis-v"></i></label>
-                    <div class="dropdown-menu">
-                        <a href="{% url 'apps.blog:editar_post' juego.id %}" class="edit-btn"><i class="fas fa-edit"></i> Editar</a>
-                        <form action="{% url 'apps.blog:eliminar_post' juego.id %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="delete-btn"><i class="fas fa-trash"></i> Eliminar</button>
-                        </form>
+            <h3 class="mis-posteos">Mis Posteos</h3>
+            <div class="post-list">
+                {% for juego in juegos %}
+                <div class="card">
+                    <div class="post-actions">
+                        <input type="checkbox" class="menu-checkbox" id="post-menu-{{ juego.id }}">
+                        <label class="menu-label" for="post-menu-{{ juego.id }}"><i
+                                class="fas fa-ellipsis-v"></i></label>
+                        <div class="dropdown-menu">
+                            <a href="{% url 'apps.blog:editar_post' juego.id %}" class="edit-btn"><i
+                                    class="fas fa-edit"></i> Editar</a>
+                            <form action="{% url 'apps.blog:eliminar_post' juego.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-btn"><i class="fas fa-trash"></i> Eliminar</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-                <div class="post-usuario">
-                    <a href="#">
-                        <img src="{{ perfil.imagen.url }}" alt="Perfil del Usuario" class="perfil-img">
-                        <span>{{ request.user.first_name|default:request.user.username }}</span>
-                        <div class="arroba">@{{ request.user.username }}</div>
-                    </a>
-                </div>
-                <div class="content-container">
-                    <img src="{{ juego.imagen.url }}" alt="{{ juego.titulo }}" class="main-img">
-                    <div class="text-content">
-                        <h3>{{ juego.titulo }}</h3>
-                        <span class="categoria">SEGA Genesis</span>
-                        <span class="fecha-post">{{ juego.fecha_agregado|date:"F d, Y" }}</span>
-                        <p>{{ juego.descripcion }}</p>
-                        {% if juego.archivo %}
-                        <a href="{{ juego.archivo.url }}" class="btn-descarga"><i class="fas fa-download"></i> Descargar</a>
-                        {% endif %}
-                        <div class="like-container">
-                            <input type="checkbox" class="like-checkbox" id="like-{{ juego.id }}">
-                            <label class="like-label" for="like-{{ juego.id }}">
-                                <i class="fas fa-heart"></i>
-                            </label>
-                            <span class="like-count">0</span>
+                    <div class="post-usuario">
+                        <a href="#">
+                            <img src="{{ perfil.imagen.url }}" alt="Perfil del Usuario" class="perfil-img">
+                            <span>{{ request.user.first_name|default:request.user.username }}</span>
+                            <div class="arroba">@{{ request.user.username }}</div>
+                        </a>
+                    </div>
+                    <div class="content-container">
+                        <img src="{{ juego.imagen.url }}" alt="{{ juego.titulo }}" class="main-img">
+                        <div class="text-content">
+                            <h3>{{ juego.titulo }}</h3>
+                            <span class="categoria">SEGA Genesis</span>
+                            <span class="fecha-post">{{ juego.fecha_agregado|date:"F d, Y" }}</span>
+                            <p>{{ juego.descripcion }}</p>
+                            {% if juego.archivo %}
+                            <a href="{{ juego.archivo.url }}" class="btn-descarga"><i class="fas fa-download"></i>
+                                Descargar</a>
+                            {% endif %}
+                            <div class="like-container">
+                                <input type="checkbox" class="like-checkbox" id="like-{{ juego.id }}">
+                                <label class="like-label" for="like-{{ juego.id }}">
+                                    <i class="fas fa-heart"></i>
+                                </label>
+                                <span class="like-count">0</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {% empty %}
+                <p>No tienes posteos todavía.</p>
+                {% endfor %}
             </div>
-            {% empty %}
-            <p>No tienes posteos todavía.</p>
-            {% endfor %}
         </div>
-    </div>
-</section>
+    </section>
     <!--FOOTER-->
+    <footer class="footer">
+        <span class="flickering-h2">
+            <hr>
+        </span>
+        <div class="footer-content">
+            <p>&copy; 2025 The Glitch Zone. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" title="Twitter">
+                    <svg width="24" height="24" fill="#15f4ee" viewBox="0 0 24 24">
+                        <path
+                            d="M22.46 6c-.77.35-1.6.59-2.46.7a4.3 4.3 0 001.88-2.37 8.59 8.59 0 01-2.72 1.04 4.28 4.28 0 00-7.3 3.9A12.14 12.14 0 013 5.1a4.28 4.28 0 001.32 5.7 4.26 4.26 0 01-1.94-.54v.05a4.28 4.28 0 003.43 4.2 4.3 4.3 0 01-1.93.07 4.28 4.28 0 004 2.97A8.6 8.6 0 012 19.54a12.13 12.13 0 006.56 1.92c7.88 0 12.2-6.53 12.2-12.2 0-.19 0-.39-.01-.58A8.7 8.7 0 0022.46 6z" />
+                    </svg>
+                </a>
+                <a href="#" title="Discord">
+                    <svg width="24" height="24" fill="#15f4ee" viewBox="0 0 24 24">
+                        <path
+                            d="M20.317 4.369a19.791 19.791 0 00-4.885-1.515.07.07 0 00-.074.035c-.211.375-.444.864-.608 1.249a18.219 18.219 0 00-5.487 0 12.64 12.64 0 00-.617-1.249.07.07 0 00-.074-.035 19.736 19.736 0 00-4.885 1.515.064.064 0 00-.03.027C.533 9.045-.32 13.58.099 18.057a.082.082 0 00.031.056 19.978 19.978 0 006.093 3.088.07.07 0 00.076-.027c.469-.648.885-1.338 1.248-2.063a.07.07 0 00-.038-.097 13.16 13.16 0 01-1.872-.9.07.07 0 01-.007-.117c.126-.094.252-.19.373-.287a.07.07 0 01.072-.01c3.927 1.793 8.18 1.793 12.061 0a.07.07 0 01.073.009c.122.097.247.193.374.287a.07.07 0 01-.006.117 12.3 12.3 0 01-1.873.9.07.07 0 00-.038.097c.363.725.779 1.415 1.248 2.063a.07.07 0 00.076.027 19.933 19.933 0 006.093-3.088.082.082 0 00.031-.056c.5-5.177-.838-9.673-3.548-13.661a.061.061 0 00-.03-.027zM8.02 15.331c-1.183 0-2.153-1.085-2.153-2.419 0-1.333.955-2.418 2.153-2.418 1.21 0 2.166 1.096 2.153 2.418 0 1.334-.955 2.419-2.153 2.419zm7.974 0c-1.183 0-2.153-1.085-2.153-2.419 0-1.333.955-2.418 2.153-2.418 1.21 0 2.166 1.096 2.153 2.418 0 1.334-.943 2.419-2.153 2.419z" />
+                    </svg>
+                </a>
+                <a href="#" title="YouTube">
+                    <svg width="24" height="24" fill="#15f4ee" viewBox="0 0 24 24">
+                        <path
+                            d="M19.615 3.184A3.005 3.005 0 0017.59 2H6.41a3.005 3.005 0 00-2.025 1.184A3.01 3.01 0 003.5 5.2v13.6a3.01 3.01 0 00.885 2.016A3.005 3.005 0 006.41 22h11.18a3.005 3.005 0 002.025-1.184A3.01 3.01 0 0020.5 18.8V5.2a3.01 3.01 0 00-.885-2.016zM10 16V8l6 4-6 4z" />
+                    </svg>
+                </a>
+                <a href="#" title="Instagram">
+                    <svg width="24" height="24" fill="#15f4ee" viewBox="0 0 24 24">
+                        <path
+                            d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zm8.75 2.75a.75.75 0 110 1.5.75.75 0 010-1.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
 
 
     <!--FOOTER-->
 
     <script src="blog.js"></script>
 </body>
+
 </html>
