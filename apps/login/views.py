@@ -1,4 +1,5 @@
 import os
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
@@ -52,35 +53,39 @@ def signup(request):
     })
 
 def signin(request):
+    storage = messages.get_messages(request)
+    storage.used = True  # 🔹 Limpia mensajes anteriores
+
 
     if request.method == 'GET':
         return render(request, 'login/signin.html', {
             'form': AuthenticationForm()
         })
-    else:
-        email = request.POST.get('email', 'email No existe').strip()
-        password = request.POST.get('password', 'password no existe')
-        # email = request.POST['email']
-        # password = request.POST['password']
+    
+    # Datos del formulario
+    email = request.POST.get('email', '').strip()
+    password = request.POST.get('password', '')
 
-        user_obj = User.objects.filter(email=email).first()
+    # Validar email
+    user_obj = User.objects.filter(email=email).first()
+    if user_obj is None:
+        messages.error(request, "❌ El email ingresado no está registrado.")
+        return render(request, 'login/signin.html', {
+            'form': AuthenticationForm()
+        })
 
-        if user_obj is None:
-            return render(request, 'login/signin.html', {
-                'form': AuthenticationForm(),
-                'error': 'Email no encontrado'
-            })
+    # Autenticar usuario
+    user = authenticate(request, username=user_obj.username, password=password)
+    if user is None:
+        messages.error(request, "⚠️ La contraseña es incorrecta.")
+        return render(request, 'login/signin.html', {
+            'form': AuthenticationForm()
+        })
 
-        user = authenticate(request, username=user_obj.username, password=password)
-
-        if user is None:
-            return render(request, 'login/signin.html', {
-                'form': AuthenticationForm(),
-                'error': 'Contraseña incorrecta'
-            })
-        else:
-            login(request, user)
-            return redirect('apps.blog:home')
+    # Login exitoso
+    login(request, user)
+    messages.success(request, f"✅ Bienvenido {user.username}, inicio de sesión exitoso.")
+    return redirect('apps.blog:blog')
 
 @login_required
 def signout(request):
@@ -146,7 +151,7 @@ def eliminar_usuario(request, user_id):
 @login_required
 def perfil_view(request):
     perfil = get_object_or_404(PerfilUsuario, user=request.user)
-    juegos = Juegos.objects.filter(autor=request.user)
+    juegos = Juegos.objects.filter(autor=request.user).prefetch_related('comentarios__usuario__user')
     return render(request, 'login/perfil.html', {
         'perfil': perfil,
         'juegos': juegos

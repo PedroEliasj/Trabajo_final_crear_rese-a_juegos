@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render
 from apps.comentarios.forms import ComentarioForm
 from apps.comentarios.models import Comentario
 from apps.login.models import PerfilUsuario
-from .models import Juegos
+from .models import Categoria, Juegos
 from django.http import HttpResponseForbidden
 
 
@@ -15,18 +15,27 @@ class HomeView(ListView):
     template_name = 'blog/index.html'
     context_object_name = 'juegos'
 
-    # def get_queryset(self):
-    #     return Juegos.objects.filter(es_reseña=True).prefetch_related('comentarios')
+class blog(ListView):
+    model = Juegos
+    template_name = 'blog/blog.html'
+    context_object_name = 'juegos'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     if self.request.user.is_authenticated:
-    #         try:
-    #             context['perfil'] = PerfilUsuario.objects.get(user=self.request.user)
-    #         except PerfilUsuario.DoesNotExist:
-    #             context['perfil'] = None
-    #     return context
+    def get_queryset(self):
+        return Juegos.objects.filter(es_reseña=True).prefetch_related('comentarios')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            try:
+                context['perfil'] = PerfilUsuario.objects.get(user=self.request.user)
+            except PerfilUsuario.DoesNotExist:
+                context['perfil'] = None
+                
+        # Traer solo las categorías que están asociadas a reseñas
+        context['categorias'] = Categoria.objects.filter(
+            juegos__es_reseña=True
+        ).distinct().order_by('nombre')
+        return context
 # Lista completa de reseñas
 class ListaJuegosView(ListView):
     model = Juegos
@@ -90,15 +99,19 @@ class CrearReseñaView(LoginRequiredMixin, CreateView):
     model = Juegos
     template_name = 'blog/crear_reseña.html'
     fields = ['titulo', 'categoria', 'descripcion', 'imagen']
-    success_url = reverse_lazy('apps.blog:home')
+    success_url = reverse_lazy('apps.blog:blog')
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['categoria'].required = False
+        return form
 
     def form_valid(self, form):
-                # DEBUG para ver si entra acá y si hay usuario
-        # print("====== DEBUG CREAR RESEÑA ======")
-        # print("Usuario logueado:", self.request.user)
-        # print("¿Está autenticado?:", self.request.user.is_authenticated)
-        # print("Tipo de usuario:", type(self.request.user))
+        nueva_categoria = self.request.POST.get('nueva_categoria', '').strip()
 
+        if nueva_categoria:
+            categoria_obj, created = Categoria.objects.get_or_create(nombre=nueva_categoria)
+            form.instance.categoria = categoria_obj
 
         form.instance.autor = self.request.user  # 🔹 asignar autor logueado
         form.instance.archivo = None

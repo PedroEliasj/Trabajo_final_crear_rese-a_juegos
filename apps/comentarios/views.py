@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import UpdateView, DeleteView
 
+from apps.blog.models import Juegos
 from apps.login.models import PerfilUsuario
 
 from .forms import ComentarioForm
@@ -10,25 +12,31 @@ from .models import Comentario
 
 # Create your views here.
 
-def agregar_comentario(request):
-    form = ComentarioForm(request.POST or None)
+def agregar_comentario(request, juego_id):
+    juego = get_object_or_404(Juegos, pk=juego_id)
 
-    if form.is_valid():
-        comentario = form.save(commit=False)
-        if request.user.is_authenticated:
+    if request.method == "POST":
+        texto = request.POST.get("texto", "").strip()
+        if texto:
             try:
                 perfil = PerfilUsuario.objects.get(user=request.user)
-                comentario.usuario = perfil
-                comentario.save()
-                form = ComentarioForm()
+                Comentario.objects.create(
+                    usuario=perfil,
+                    blog=juego,
+                    texto=texto
+                )
+                # messages.success(request, "Comentario agregado correctamente ✅")
             except PerfilUsuario.DoesNotExist:
-                pass
+                messages.error(request, "No tienes perfil asociado para comentar.")
+        else:
+            messages.error(request, "El comentario no puede estar vacío.")
 
-    template_name = 'comentarios/agregar_comentario.html'
-    context = {
-        'form' : form
-    }
-    return render(request, template_name, context)
+    # Redirigir al perfil y hacer scroll al post comentado
+    # return redirect(f"{reverse('perfil')}#post-{juego.id}")
+
+    # Redirigir a la misma página desde la que se envió el comentario
+    referer = request.META.get('HTTP_REFERER', reverse('perfil'))
+    return redirect(f"{referer}#post-{juego.id}")
 
 def listar_comentarios(request):
     comentarios = Comentario.objects.all()
@@ -43,19 +51,23 @@ class ModificarComentario(LoginRequiredMixin, UpdateView):
     model = Comentario
     fields = ['texto']
     template_name = 'comentarios/agregar_comentario.html'
-    success_url = reverse_lazy('apps.blog:lista_juegos')
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.filter(usuario = self.request.user.perfilusuario)
+        if self.request.user.is_staff:
+            return Comentario.objects.all()
+        return Comentario.objects.filter(usuario=self.request.user.perfilusuario)
 
-        return queryset
+    def get_success_url(self):
+        return reverse('perfil') + f"#post-{self.object.blog.id}"
     
 class EliminarComentario(LoginRequiredMixin, DeleteView):
     model = Comentario
-    template_name = 'comentarios/confirmar_eliminacion.html'  
-    success_url = reverse_lazy('apps.blog:lista_juegos')
+    template_name = 'comentarios/confirmar_eliminacion.html'
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(usuario=self.request.user.perfilusuario)
+        if self.request.user.is_staff:
+            return Comentario.objects.all()
+        return Comentario.objects.filter(usuario=self.request.user.perfilusuario)
+
+    def get_success_url(self):
+        return reverse('perfil') + f"#post-{self.object.blog.id}"

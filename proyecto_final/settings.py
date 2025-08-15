@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Instalar nuestras propias aplicaciones
-    "apps.login",
+    "apps.login.apps.LoginConfig",
     "apps.blog",
     "apps.comentarios",
     "apps.contacto",
