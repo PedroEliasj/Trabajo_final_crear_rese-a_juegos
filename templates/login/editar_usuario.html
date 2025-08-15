@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -42,8 +42,8 @@
             <ul class="nav-links">
                 {% if request.user.is_authenticated and request.user.is_staff %}
                 <li><a href="{% url 'logout' %}">cerrar session</a></li>
-                <li><a href="{% url 'crear_resena' %}">Publicar Reseña</a></li>
-                <li><a href="{% url 'subir_juego' %}">Subir Juego</a></li>
+                <li><a href="{% url 'apps.blog:crear_resena' %}">Publicar Reseña</a></li>
+                <li><a href="{% url 'apps.blog:subir_juego' %}">Subir Juego</a></li>
                 <li><a href="{% url 'signup' %}">Registrar</a></li>
                 {% else %}
                 <li><a href="{% url 'descargar_juegos' %}">Descargar Juegos</a></li>
@@ -74,11 +74,11 @@
                     </li>
                     {% if request.user.is_authenticated and request.user.is_staff %}
                     <li><a href="{% url 'logout' %}">cerrar session</a></li>
-                    <li><a href="{% url 'crear_resena' %}">Publicar Reseña</a></li>
-                    <li><a href="{% url 'subir_juego' %}">Subir Juego</a></li>
+                    <li><a href="{% url 'apps.blog:crear_resena' %}">Publicar Reseña</a></li>
+                    <li><a href="{% url 'apps.blog:subir_juego' %}">Subir Juego</a></li>
                     <li><a href="{% url 'signup' %}">Registrar</a></li>
                     {% else %}
-                    <li><a href="{% url 'descargar_juegos' %}">Descargar Juegos</a></li>
+                    <li><a href="#">Descargar Juegos</a></li>
                     <li><a href="{% url 'contacto' %}">Contacto</a></li>
                     <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
                     <li><a href="{% url 'signin' %}">Iniciar sesion</a></li>
@@ -161,10 +161,20 @@
                         <i class="fa-solid fa-calendar"></i>
                     </span>
                     <input type="date" name="fecha_nacimiento" id="fecha-nacimiento"
-                        value="{{ perfil.fecha_nacimiento|date:'Y-m-d' }}" required>
+                        value="{{ perfil.fecha_nacimiento|date:'Y-m-d' }}" value="{{ perfil.fecha_nacimiento|date:'Y-m-d' }}" required>
                     <label for="fecha-nacimiento">Fecha de Nacimiento</label>
                     <div class="input-line"></div>
                 </div>
+
+                <!-- Superusuario -->
+                {% if request.user.is_staff %}
+                    <div class="remember-forgot">
+                        <label>
+                            <input type="checkbox" name="is_superuser">
+                            ¿Es superusuario?
+                        </label>
+                    </div>
+                {% endif %}
 
                 <div class="btn-container">
                     <button type="submit" class="btn-edit" id="save-btn">
