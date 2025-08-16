@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     <link rel="icon" type="img/png" href="img/favicon-game.png">
     <script src="https://kit.fontawesome.com/cd10d9582d.js" crossorigin="anonymous"></script>
     <title>TGZ | Blog</title>
@@ -31,7 +32,7 @@
                 <div class="dropdown-menu">
                     <a href="#" class="dropdown-item">Ver Perfil</a>
                     <a href="#" class="dropdown-item">Editar Perfil</a>
-                    <a href="crear_post.html" class="dropdown-item">Crear Posteo</a>
+                    <a href="{% url 'apps.blog:crear_resena' %}" class="dropdown-item">Crear Posteo</a>
                     <a href="#" class="dropdown-item">Cerrar Sesión</a>
                 </div>
             </div>
@@ -123,7 +124,7 @@
                             {% if juego.autor.perfil.imagen %}
                                 <img src="{{ juego.autor.perfil.imagen.url }}" alt="Perfil del Usuario" class="perfil-img">
                             {% else %}
-                                <img src="{% static 'img/perfiles/default.jpg' %}" alt="Perfil del Usuario" class="perfil-img">
+                                <img src="{% static 'img/perfiles/default.png' %}" alt="Perfil del Usuario" class="perfil-img">
                             {% endif %}
                             <span>{{ juego.autor.username }}</span>
                             <div class="arroba">@{{ juego.autor.username|lower }}</div>

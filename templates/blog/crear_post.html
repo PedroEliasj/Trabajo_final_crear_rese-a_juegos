@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="crear_post.css">
+    <link rel="stylesheet" href="{% static 'css/crear_post.css' %}">
     <link rel="icon" type="image/png" href="img/favicon-game.png">
     <script src="https://kit.fontawesome.com/cd10d9582d.js" crossorigin="anonymous"></script>
     <title>TGZ | Crear Posteo</title>
@@ -93,59 +94,44 @@
 
     <section class="crear-posteo">
         <div class="posteo-content">
+
             <h3>Crear Nuevo Posteo</h3>
-            <form action="#" method="post" id="crear-posteo-form">
+
+            <form method="post" enctype="multipart/form-data" id="crear-posteo-form">
+                {% csrf_token %}
                 <div class="img-posteo-container">
-                    <img src="img/img-blog/imagen_predeterminada.jpg" alt="Vista previa" class="img-posteo">
+                    <img src="{% static 'img/img-blog/imagen_predeterminada.jpg' %}" alt="Vista previa" class="img-posteo">
                     <label for="post-pic-input" class="icon-container">
                         <i class="fa-regular fa-image"></i>
                     </label>
-                    <input type="file" id="post-pic-input" accept="image/*" name="post-pic" required
-                        style="display: none;">
+                    {{ form.imagen }}
                 </div>
 
                 <div class="input-box">
-                    <span class="icon">
-                        <i class="fa-regular fa-pen-to-square"></i>
-                    </span>
-                    <input type="text" required id="titulo" name="titulo">
+                    <span class="icon"><i class="fa-regular fa-pen-to-square"></i></span>
+                    {{ form.titulo }}
                     <label for="titulo">Título</label>
                     <div class="input-line"></div>
                 </div>
 
                 <div class="input-box">
-                    <span class="icon">
-                        <i class="fa-regular fa-pen-to-square"></i>
-                    </span>
-                    <textarea class="descripcion" name="descripcion" rows="5" required></textarea>
+                    <span class="icon"><i class="fa-regular fa-pen-to-square"></i></span>
+                    {{ form.descripcion }}
                     <label for="descripcion">Descripción</label>
                     <div class="input-line"></div>
                 </div>
 
                 <div class="input-box">
-                    <span class="icon">
-                        <i class="fa-solid fa-list"></i>
-                    </span>
-                    <select name="categoria" id="categoria" required>
-                        <option value="" disabled selected>Selecciona una categoría</option>
-                        <option value="nes">NES</option>
-                        <option value="sega">Sega Genesis</option>
-                        <option value="playstation">PlayStation</option>
-                        <option value="neogeo">NeoGeo</option>
-                        <option value="arcade">ARCADEA</option>
-                        <option value="gameboy">GameBoy</option>
-                        <option value="pc">PC</option>
-                    </select>
-                    <label for="categoria">Categoría</label>
+                    <span class="icon"><i class="fa-solid fa-list"></i></span>
+                    {{ form.categoria }}
+                    <label for="id_categoria">Categoría</label>
                     <div class="input-line"></div>
                 </div>
 
+                <!-- Campo extra para nueva categoría -->
                 <div class="input-box">
-                    <span class="icon">
-                        <i class="fa-solid fa-download"></i>
-                    </span>
-                    <input type="url" id="descarga" name="descarga">
-                    <label for="descarga">Enlace de Descarga (Opcional)</label>
+                    <span class="icon"><i class="fa-solid fa-plus"></i></span>
+                    <input type="text" name="nueva_categoria" id="nueva_categoria" placeholder="O crear nueva categoría">
                     <div class="input-line"></div>
                 </div>
 
@@ -196,6 +182,30 @@
     <!--FOOTER-->
 
     <script src="blog.js"></script><!--enlace de javascript para boton-->
+    <script>
+    // vista previa de imagen post
+    document.getElementById("post-pic-input").addEventListener("change", function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.querySelector(".img-posteo").src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+        // funcion de selecionar categoria y categoria manual
+        const nuevaCatInput = document.getElementById("nueva_categoria");
+        const selectCat = document.getElementById("id_categoria");
+
+        nuevaCatInput.addEventListener("input", () => {
+            if (nuevaCatInput.value.trim() !== "") {
+                selectCat.disabled = true;
+            } else {
+                selectCat.disabled = false;
+            }
+        });
+    </script>
 </body>
 
 </html>

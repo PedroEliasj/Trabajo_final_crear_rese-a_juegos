@@ -443,6 +443,9 @@ h2 {
 .img-posteo:hover {
     border: 3px solid #15f4ee;
     box-shadow: 0 0 10px #15f4ee;
+    /* nuevo  */
+    transform: scale(1.05); 
+
 }
 
 .icon-container {
@@ -700,4 +703,76 @@ hr {
     .hamburger-label {
         display: block;
     }
+}
+
+/* --- EFECTOS INMERSIVOS --- */
+
+/* Glow dinámico al enfocar inputs */
+.input-box input:focus,
+.input-box textarea:focus,
+.input-box select:focus {
+    border-color: #15f4ee;
+    box-shadow: 0 0 8px #15f4ee, 0 0 15px #15f4ee;
+    transition: all 0.3s ease;
+}
+
+/* Imagen preview con animación */
+.img-posteo {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.img-posteo:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px #15f4ee;
+}
+
+/* Animación para icono de subir imagen */
+.icon-container {
+    transition: transform 0.4s ease, background 0.4s ease;
+}
+
+.icon-container:hover {
+    background: rgba(21, 244, 238, 0.15);
+    transform: rotate(10deg) scale(1.3);
+}
+
+/* Botones inmersivos */
+.btn-edit {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.btn-edit::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, #15f4ee, transparent);
+    transition: left 0.4s ease;
+    z-index: -1;
+}
+
+.btn-edit:hover::before {
+    left: 100%;
+}
+
+.btn-edit:hover {
+    color: #15f4ee;
+    border-color: #15f4ee;
+    text-shadow: 0 0 10px #15f4ee;
+    box-shadow: 0 0 15px #15f4ee;
+}
+
+/* Animación glow en labels activos */
+.input-box input:focus ~ label,
+.input-box textarea:focus ~ label,
+.input-box select:focus ~ label {
+    animation: neon-flicker 1.5s infinite alternate;
+}
+
+@keyframes neon-flicker {
+    from { text-shadow: 0 0 5px #15f4ee, 0 0 10px #15f4ee; }
+    to { text-shadow: 0 0 15px #15f4ee, 0 0 30px #15f4ee; }
 }

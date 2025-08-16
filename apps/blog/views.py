@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, render
 
+from apps.blog.forms import PostForm
 from apps.comentarios.forms import ComentarioForm
 from apps.comentarios.models import Comentario
 from apps.login.models import PerfilUsuario
@@ -97,8 +98,9 @@ class SubirJuegoView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 # Vista para crear reseñas (sin archivo)
 class CrearReseñaView(LoginRequiredMixin, CreateView):
     model = Juegos
-    template_name = 'blog/crear_reseña.html'
-    fields = ['titulo', 'categoria', 'descripcion', 'imagen']
+    form_class = PostForm
+    template_name = 'blog/crear_post.html'
+    # fields = ['titulo', 'categoria', 'descripcion', 'imagen']
     success_url = reverse_lazy('apps.blog:blog')
 
     def get_form(self, form_class=None):
