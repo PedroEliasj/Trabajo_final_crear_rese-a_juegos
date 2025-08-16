@@ -104,19 +104,31 @@
                 <div class="card">
 
                     <!-- Opciones del post -->
+                    {% if user.is_authenticated and user == juego.autor or user.is_staff %}
                     <div class="post-actions">
                         <input type="checkbox" class="menu-checkbox" id="post-menu-{{ juego.id }}">
-                        <label class="menu-label" for="post-menu-{{ juego.id }}"><i class="fas fa-ellipsis-v"></i></label>
+                        <label class="menu-label" for="post-menu-{{ juego.id }}">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </label>
                         <div class="dropdown-menu">
-                            <form action="#" method="get">
-                                <button type="submit" class="edit-btn"><i class="fas fa-edit"></i> Editar</button>
+                            <!-- Botón Editar -->
+                            <form action="{% url 'apps.blog:editar_post' juego.id %}" method="get">
+                                <button type="submit" class="edit-btn">
+                                    <i class="fas fa-edit"></i> Editar
+                                </button>
                             </form>
-                            <form action="#" method="post">
+
+                            <!-- Botón Eliminar -->
+                            <form action="{% url 'apps.blog:eliminar_post' juego.id %}" method="get">
                                 {% csrf_token %}
-                                <button type="submit" class="delete-btn"><i class="fas fa-trash"></i> Eliminar</button>
+                                <button type="submit" class="delete-btn">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </button>
                             </form>
                         </div>
                     </div>
+                    {% endif %}
+
 
                     <!-- Usuario -->
                     <div class="post-usuario">

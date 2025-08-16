@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, render
 
@@ -120,3 +120,27 @@ class CrearReseñaView(LoginRequiredMixin, CreateView):
         form.instance.es_reseña = True  # ✅ marcar como reseña
         return super().form_valid(form)
 
+class EditarReseñaView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Juegos
+    form_class = PostForm
+    template_name = 'blog/editar_post.html'
+    success_url = reverse_lazy('apps.blog:blog')
+
+    def test_func(self):
+        """El autor o un staff pueden editar"""
+        juego = self.get_object()
+        return juego.autor == self.request.user or self.request.user.is_staff
+
+    def form_valid(self, form):
+        form.instance.es_reseña = True  # aseguramos que siga marcado como reseña
+        return super().form_valid(form)
+    
+class EliminarReseñaView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Juegos
+    template_name = 'blog/eliminar_post.html'
+    success_url = reverse_lazy('apps.blog:blog')
+
+    def test_func(self):
+        """El autor o un staff pueden eliminar"""
+        juego = self.get_object()
+        return juego.autor == self.request.user or self.request.user.is_staff

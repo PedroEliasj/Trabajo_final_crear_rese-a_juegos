@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/crear_post.css' %}">
+    <link rel="icon" type="image/png" href="img/favicon-game.png">
+    <script src="https://kit.fontawesome.com/cd10d9582d.js" crossorigin="anonymous"></script>
+    <title>TGZ | Editar Posteo</title>
+</head>
+<body>
+
+    <header>
+        <h4>agregar nav</h4>
+    </header>
+
+    <div class="content">
+        <div class="neon-text flickering">
+            <h2 class="title">
+                <span>EDITAR</span><br>
+                <span>POSTEO</span>
+            </h2>
+        </div>
+    </div>
+
+    <section class="crear-posteo">
+        <div class="posteo-content">
+            <h3>Editar Posteo</h3>
+
+            <form method="post" enctype="multipart/form-data" id="editar-posteo-form">
+                {% csrf_token %}
+                <div class="img-posteo-container">
+                    {% if form.instance.imagen %}
+                        <img src="{{ form.instance.imagen.url }}" alt="Vista previa" class="img-posteo">
+                    {% else %}
+                        <img src="{% static 'img/img-blog/imagen_predeterminada.jpg' %}" alt="Vista previa" class="img-posteo">
+                    {% endif %}
+                    <label for="post-pic-input" class="icon-container">
+                        <i class="fa-regular fa-image"></i>
+                    </label>
+                    {{ form.imagen }}
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><i class="fa-regular fa-pen-to-square"></i></span>
+                    {{ form.titulo }}
+                    <label for="titulo">Título</label>
+                    <div class="input-line"></div>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><i class="fa-regular fa-pen-to-square"></i></span>
+                    {{ form.descripcion }}
+                    <label for="descripcion">Descripción</label>
+                    <div class="input-line"></div>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><i class="fa-solid fa-list"></i></span>
+                    {{ form.categoria }}
+                    <label for="id_categoria">Categoría</label>
+                    <div class="input-line"></div>
+                </div>
+
+                <div class="btn-container">
+                    <button type="submit" class="btn-edit">GUARDAR CAMBIOS</button>
+                    <a href="{% url 'apps.blog:juego_detalle' form.instance.id %}" class="btn-edit">CANCELAR</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+</body>
+</html>

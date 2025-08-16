@@ -7,6 +7,8 @@ from .views import (
     DescargaJuegosView,
     SubirJuegoView,
     CrearReseñaView,
+    EditarReseñaView,
+    EliminarReseñaView,
     blog
 )
 app_name = 'apps.blog'
@@ -21,4 +23,7 @@ urlpatterns = [
     path('descargar/', DescargaJuegosView.as_view(), name='descargar_juegos'),
     path('subir-juego/', SubirJuegoView.as_view(), name='subir_juego'),
     path('crear-resena/', CrearReseñaView.as_view(), name='crear_resena'),
+    path('post/<int:pk>/editar/', EditarReseñaView.as_view(), name='editar_post'),
+    path('post/<int:pk>/eliminar/', EliminarReseñaView.as_view(), name='eliminar_post'),
+
 ]

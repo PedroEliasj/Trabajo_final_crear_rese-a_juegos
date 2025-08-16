@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/crear_post.css' %}">
+    <link rel="icon" type="image/png" href="img/favicon-game.png">
+    <script src="https://kit.fontawesome.com/cd10d9582d.js" crossorigin="anonymous"></script>
+    <title>TGZ | Eliminar Posteo</title>
+</head>
+<body>
+
+    <h4>agregar nav</h4>
+
+    <div class="content">
+        <div class="neon-text flickering">
+            <h2 class="title">
+                <span>ELIMINAR</span><br>
+                <span>POSTEO</span>
+            </h2>
+        </div>
+    </div>
+
+    <section class="crear-posteo">
+        <div class="posteo-content">
+            <h3>¿Estás seguro de que deseas eliminar este post?</h3>
+            <p style="text-align:center; color:#15f4ee; margin-bottom:20px;">
+                "{{ object.titulo }}"
+            </p>
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="btn-container">
+                    <button type="submit" class="btn-edit">SÍ, ELIMINAR</button>
+                    <a href="{% url 'apps.blog:juego_detalle' object.id %}" class="btn-edit">CANCELAR</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+</body>
+</html>
