@@ -1,78 +1,77 @@
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap");
 
+* {
+  box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    font-family: 'Orbitron', sans-serif, Arial;
-    background: url(img/bg.jpg) no-repeat center center fixed;
-    background-size: cover;
-    color: #ffffff;
-
+  margin: 0;
+  font-family: 'Orbitron', sans-serif, Arial;
+  background: url(img/bg.jpg) no-repeat center center fixed;
+  background-size: cover;
+  color: #ffffff;
+  overflow-x: hidden;
 }
 
-.favicon {
-    width:32px;
-    height: 32px;
-}
+/*------BARRA DE NAVEGACIÓN------*/
 
-/* Navbar */
-header nav.navbar {
+.navbar {
     display: flex;
     justify-content: center;
-    padding: 40px;
+    height: 80px;
+    padding: 20px;
     background: rgba(0, 0, 0, 0.6);
     position: relative;
 }
 
-header nav.navbar ul.nav-links {
+.nav-links {
     list-style: none;
     display: flex;
-    gap: 40px;
+    gap: 20px;
     margin: 0;
     padding: 0;
 }
 
-header nav.navbar ul.nav-links a {
+.nav-links a {
     color: #66ccff;
     text-decoration: none;
     font-weight: bold;
-    font-size: 14px;
-    transition: all 0.3s ease;
 }
 
-header nav.navbar ul.nav-links a:hover {
-    text-shadow: 0 0 5px #15f4ee, 0 0 10px #15f4ee;
+.nav-links a:hover {
+    text-shadow: 0 0 5px #15f4ee, 0 0 5px #15f4ee;
 }
 
-header nav.navbar ul.nav-links li {
+.nav-links li {
     transition: all 0.4s;
 }
 
-header nav.navbar ul.nav-links li:hover {
-    transform: scale(1.2);
+.nav-links li:hover {
+    transform: scale(1.1);
 }
 
-/* Hamburger Menu */
-header nav.navbar .hamburger-label {
+
+/*------MENU HAMBURGUESA------*/
+
+.hamburger-label {
     display: none;
     position: absolute;
-    left: 20px;
+    left: 70px;
     cursor: pointer;
     font-size: 24px;
     color: #15f4ee;
     text-shadow: 0 0 5px #15f4ee;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
-header nav.navbar .hamburger-label:hover {
+.hamburger-label:hover {
     text-shadow: 0 0 10px #15f4ee;
 }
 
-header nav.navbar #hamburger-menu {
+#hamburger-menu {
     display: none;
 }
 
-header nav.navbar .hamburger-menu {
+.hamburger-menu {
     display: none;
     position: absolute;
     top: 100%;
@@ -87,21 +86,21 @@ header nav.navbar .hamburger-menu {
     padding: 10px 0;
 }
 
-header nav.navbar #hamburger-menu:checked ~ .hamburger-menu {
-    display: block;
+#hamburger-menu:checked + .hamburger-label + .perfil-usuario + .nav-links + .hamburger-menu {
+    display: block !important;
 }
 
-header nav.navbar .hamburger-links {
+.hamburger-links {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-header nav.navbar .hamburger-links li {
+.hamburger-links li {
     padding: 10px 15px;
 }
 
-header nav.navbar .hamburger-links a {
+.hamburger-links a {
     color: #d0eaff;
     text-decoration: none;
     font-size: 16px;
@@ -109,108 +108,63 @@ header nav.navbar .hamburger-links a {
     transition: all 0.3s ease;
 }
 
-header nav.navbar .hamburger-links a:hover {
+.hamburger-links a:hover {
     color: #15f4ee;
     text-shadow: 0 0 5px #15f4ee;
-    background: rgba(0, 255, 255, 0.1);
+    background: rgba(0, 255, 255, 0.4);
 }
 
-/*------BARRA DE BUSQUEDA------*/
-
-.search-container {
-    position: absolute;
-    top: 40px;
-    right: 40px;
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-    margin-right: 20px;
-    flex-shrink: 0; /* Evita que la barra se comprima demasiado */
+/*------ENLACE INICIAR SESIÓN------*/
+.auth-links {
+  position: absolute;
+  top: 27px;
+  right: 20px;
 }
 
-.search-btn {
-    background: none;
-    border: none;
-    border-radius: 8px;
-    color: #15f4ee;
-    font-size: 20px;
-    cursor: pointer;
-    transition: all .3s ease;
-    order: 2; /*---boton a la derecha---*/
+.btn-auth {
+  padding: 8px 16px;
+  font-size: 14px;
+  text-transform: uppercase;
 }
 
-.search-btn:hover {
-    transform: scale(1.1);
-    text-shadow: 0 0 5px #15f4ee;
-}
-
-/* Input oculto por defecto */
-.search-input {
-    width: 0;
-    opacity: 0;
-    padding: 0;
-    margin-right: 5px;/*---cambie margin left a right---*/
-    border: none;
-    background: transparent;
-    color: #15f4ee;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 14px;
-    outline: none;
-    border-bottom: 2px solid #15f4ee;
-    transition: width 0.4s ease, opacity 0.4s ease, padding 0.7s ease;
-    order: 1;/*---input al lado izquierdo---*/
-    direction: rtl;/*---cambia la introduccion del texto---*/
-}
-
-/* Mostrar input al hacer hover sobre el contenedor */
-.search-container:hover .search-input {
-    width: 150px;
-    opacity: 1;
-    padding: 5px;
-    direction: ltr;/*---para que el texto se vea normal---*/
-}
-
-
-/* Rest of your existing styles (e.g., hero, card, etc.) remain unchanged */
+/*------HERO------*/
 .hero {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 60px;
-    backdrop-filter: brightness(0.8);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  backdrop-filter: brightness(0.8);
+  width: 100%;
+  max-width: 100vw;
 }
 
 .content {
-    max-width: 600px;
+  max-width: 600px;
+}
+
+.hero-img {
+    position: relative;
+    top: 34%;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+  /*filter: drop-shadow(0 0 10px #15f4ee);*/
+  /*border: 2px solid #15f4ee;*/
+    border-radius: 10px;
+    margin-bottom: 3px;
 }
 
 .title {
     font-size: 56px;
     line-height: 1.1;
-    color: #ffffff;
+    color: #d0eaff;
+    text-shadow: 5px 5px 39px #15f4ee;
+    font-family: 'Orbitron', sans-serif;
 }
 
-/* Flicker effects */
-span.flickering-h, span.flickering-l, span.flickering-c, span.flickering-o {
-    animation: latter-flicker 10s infinite;
-}
-
-/*ARROWS*/
-span.flickering-arrows-1 {
-  animation: latter-flicker 10s infinite;
-}
-
-span.flickering-arrows-2 {
-  animation: latter-flicker 8s infinite;
-}
-
-span.flickering-arrows-3 {
-  animation: latter-flicker 6s infinite;
-}
-
-span.flickering-arrows-4 {
-  animation: latter-flicker 4s infinite;
+span {
+    animation: flicker 5s infinite;
 }
 
 h1 {
@@ -218,14 +172,30 @@ h1 {
     line-height: 1.1;
     color: #15f4ee;
     text-shadow: 5px 5px 39px #15f4ee;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Orbitron';
+}
+
+.flickering-h {
+  animation: 10s infinite;
+}
+
+.flickering-l {
+  animation: latter-flicker 10s infinite;
+}
+
+.flickering-c {
+    animation: latter-flicker 10s infinite;
+}
+
+.flickering-o {
+    animation: latter-flicker 10s infinite;
 }
 
 @keyframes flicker {
-    0%, 19%, 20.99%, 22%, 30%, 62.99%, 64%, 100% {
+    0%, 19%, 20.99%, 22%, 30%, 62.99%, 64%, 100%{
         opacity: 1;
     }
-    20%, 20.99%, 31%, 63%, 63.99% {
+    20%, 20.99%, 31%, 63%, 63.99%{
         opacity: 0;
     }
 }
@@ -240,89 +210,187 @@ h1 {
 }
 
 .subtitle {
-    font-size: 24px;
-    margin: 20px 0;
-    color: #bfefff;
+  font-size: 24px;
+  margin: 20px 0;
+  color: #bfefff;
 }
 
-.arrows {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  text-align: center;
-  font-size: 29px;
-  margin-bottom: 20px;
-  color: #15f4ee;
-  text-shadow:0 0 20px #15f4ee;
-}
+
 
 .btn {
-    background-color: transparent;
-    color: #15f4ee;
-    padding: 15px 34px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    border: 2px solid #15f4ee;
-    display: inline-block;
-    transition: all 0.3s ease;
+  background-color: transparent;
+  color: #15f4ee;
+  padding: 15px 34px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  border: 2px solid #15f4ee;
+  display: inline-block;
+  transition: all 0.3s ease;
 }
 
 .btn:hover {
-    box-shadow: 0 5px 25px 0 #15f4ee inset, 0 5px 20px 0 #15f4ee,
-                0 5px 25px 0 #15f4ee inset, 0 5px 20px 0 #15f4ee;
-    text-shadow: 0 0 5px #15f4ee, 0 0 5px #15f4ee;
-    background-color: rgba(1, 37, 67, 0);
-    transform: scale(1.1);
+  box-shadow: 0 5px 25px 0 #15f4ee inset, 0 5px 20px 0 #15f4ee;
+  text-shadow: 0 0 5px #15f4ee;
+  background-color: rgba(1, 37, 67, 0.2);
+  transform: scale(1.1);
 }
 
-.image-container img {
-    width: 350px;
-    max-width: 100%;
+/*------ULTIMOS JUEGOS------*/
+.destacados {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100vw;
+  padding: 60px 20px;
+  background: rgba(0, 0, 0, 0.7);
 }
 
-.features {
-    display: flex;
-    justify-content: space-around;
-    padding: 60px 40px;
-    background-color: rgba(0, 0, 0, 0.7);
-    flex-wrap: wrap;
+.destacados h2 {
+  text-align: center;
+  font-size: 36px;
+  color: #66ccff;
+  text-shadow: 0 0 10px #15f4ee;
+  margin: 30px 0 40px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 100vw;
+  padding: 0 10px;
 }
 
 .card {
-    max-width: 300px;
-    padding: 20px;
-    margin: 20px;
-    background: rgba(20, 20, 30, 0.5);
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-    transition: all 0.4s;
+  max-width: 300px;
+  padding: 20px;
+  background: rgba(20, 20, 30, 0.5);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  transition: all 0.4s ease;
+  text-align: center;
 }
 
 .card:hover {
-    transform: scale(1.4);
-    box-shadow: 0 0 40px rgba(0, 255, 255, 0.407);
+  transform: scale(1.1);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.407);
+}
+
+.card img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  background-color: #333;
+  border-radius: 10px;
+  border: 2px solid #15f4ee;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.card img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #15f4ee;
 }
 
 .card h3 {
-    color: #66ccff;
-    margin-bottom: 10px;
+  color: #66ccff;
+  margin-bottom: 10px;
+  font-size: 18px;
 }
 
 .card p {
-    font-size: 14px;
-    color: #d0eaff;
+  font-size: 14px;
+  color: #d0eaff;
+  margin-bottom: 15px;
+}
+
+/*------ULTIMAS NOTICIAS------*/
+.news {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100vw;
+  padding: 60px 20px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.news h2 {
+  text-align: center;
+  font-size: 36px;
+  color: #66ccff;
+  text-shadow: 0 0 10px #15f4ee;
+  margin: 30px 0 40px;
+}
+
+.news-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 100vw;
+  padding: 0 10px;
+}
+
+.news-card {
+  max-width: 400px;
+  padding: 20px;
+  background: rgba(20, 20, 30, 0.5);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  transition: all 0.4s;
+  text-align: center;
+}
+
+.news-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.407);
+}
+
+.news-card img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid #15f4ee;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.news-card img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #15f4ee;
+}
+
+.news-card h3 {
+  color: #66ccff;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.news-card p {
+  font-size: 14px;
+  color: #d0eaff;
+  margin-bottom: 15px;
 }
 
 /*------FOOTER------*/
 
 .footer {
     background: rgba(0, 0, 0, 0.6);
-    padding: 15px 20px;
+    padding: 5px 20px;
     text-align: center;
     color: #a1e6ff;
-    border-top: 2px solid #15f4ee;
     font-size: 0.75rem;
+}
+
+hr {
+    margin: 20px 80px;
+    border: 2px solid #15f4ee;
+    box-shadow: 0 0 10px #15f4ee, 0 0 20px #15f4ee;
 }
 
 .footer-content {
@@ -355,25 +423,115 @@ h1 {
     filter: drop-shadow(0 0 5px #15f4ee);
 }
 
-/* Media Queries for Responsiveness */
+/*------RESPONSIVIDAD------*/
 @media (max-width: 768px) {
-    header nav.navbar ul.nav-links {
-        display: none;
-    }
-    header nav.navbar .hamburger-label {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+ 
+    .hamburger-label {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    max-width: 250px;
+    background: rgba(20, 20, 30, 0.95);
+    border: 2px solid #15f4ee;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #15f4ee;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    padding: 10px 0;
+  }
+
+  .menu-checkbox:checked ~ .nav-links {
+    display: flex;
+  }
+
+  .nav-links li {
+    padding: 10px 15px;
+  }
+
+  .search-container {
+    margin-top: 20px;
+    align-self: center;
+  }
+
+  .search-container:hover .search-input {
+    width: 120px;
+  }
+
+  .hero {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+  }
+
+  .arrows {
+    font-size: 24px;
+  }
+
+  .card, .news-card {
+    max-width: 100%;
+    margin: 10px 0;
+  }
+
+  .destacados, .news {
+    padding: 40px 10px;
+  }
+
+  .footer {
+    font-size: 0.65rem;
+  }
+
+  .social-links a {
+    margin: 5px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+    
+  .title {
+    font-size: 28px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  .arrows {
+    font-size: 20px;
+  }
+
+  .destacados h2, .news h2 {
+    font-size: 28px;
+  }
+
+  .search-container:hover .search-input {
+    width: 100px;
+  }
+
+  .nav-links {
+    max-width: 200px;
+  }
+}
+
+@media(max-width: 1100px) {
+    .hamburger-label {
         display: block;
-        margin-top: 15px;
-    }
-    header nav.navbar .hamburger-menu {
-        display: none;
-    }
-    header nav.navbar #hamburger-menu:checked ~ .hamburger-menu {
-        display: block;
-    }
-      .footer {
-    font-size: 0.75rem;
-    }
-    .social-links a {
-    margin: 5px 8px;
     }
 }
