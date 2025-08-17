@@ -23,7 +23,7 @@ class PostForm(forms.ModelForm):
             'categoria': forms.Select(attrs={
                 'class': 'select-field',
                 'id': 'categoria',
-                'required': 'required',
+                # 'required': 'required',
             }),
             'imagen': forms.ClearableFileInput(attrs={
                 'class': 'file-input',

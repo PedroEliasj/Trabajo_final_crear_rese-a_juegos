@@ -35,8 +35,8 @@
             <ul class="nav-links">
               {% if request.user.is_authenticated and request.user.is_staff %}
                 <li><a href="{% url 'logout' %}">cerrar session</a></li>
-                <li><a href="{% url 'crear_resena' %}">Publicar Reseña</a></li>
-                <li><a href="{% url 'subir_juego' %}">Subir Juego</a></li>
+                <li><a href="{% url 'apps.blog:crear_resena' %}">Publicar Reseña</a></li>
+                <li><a href="#">Subir Juego</a></li>
                 <li><a href="{% url 'signup' %}">Registrar</a></li>
                 {% else %}
                 <li><a href="{% url 'descargar_juegos' %}">Descargar Juegos</a></li>
@@ -65,8 +65,8 @@
                     </li>
                     {% if request.user.is_authenticated and request.user.is_staff %}
                     <li><a href="{% url 'logout' %}">cerrar session</a></li>
-                    <li><a href="{% url 'crear_resena' %}">Publicar Reseña</a></li>
-                    <li><a href="{% url 'subir_juego' %}">Subir Juego</a></li>
+                    <li><a href="{% url 'apps.blog:crear_resena' %}">Publicar Reseña</a></li>
+                    <li><a href="#">Subir Juego</a></li>
                     <li><a href="{% url 'signup' %}">Registrar</a></li>
                     {% else %}
                     <li><a href="{% url 'descargar_juegos' %}">Descargar Juegos</a></li>

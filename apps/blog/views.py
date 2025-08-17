@@ -114,6 +114,11 @@ class CrearReseñaView(LoginRequiredMixin, CreateView):
         if nueva_categoria:
             categoria_obj, created = Categoria.objects.get_or_create(nombre=nueva_categoria)
             form.instance.categoria = categoria_obj
+        else:
+            # Si no se eligió nueva categoría ni del select
+            if not form.cleaned_data.get('categoria'):
+                form.add_error('categoria', 'Debes seleccionar o crear una categoría.')
+                return self.form_invalid(form)
 
         form.instance.autor = self.request.user  # 🔹 asignar autor logueado
         form.instance.archivo = None

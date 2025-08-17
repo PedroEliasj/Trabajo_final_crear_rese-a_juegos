@@ -71,5 +71,18 @@
         </div>
     </section>
 
+    <script>
+        // vista previa de imagen post
+    document.getElementById("post-pic-input").addEventListener("change", function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.querySelector(".img-posteo").src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    </script>
 </body>
 </html>

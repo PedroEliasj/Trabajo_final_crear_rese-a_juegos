@@ -15,7 +15,10 @@ class Juegos(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
     descripcion = models.TextField()
     fecha_agregado = models.DateField(auto_now_add=True)
-    imagen = models.ImageField(null=True, blank=True, upload_to='libros', default='libros/libro_default.png')
+    imagen = models.ImageField(upload_to='libros',
+                            null=True,
+                            blank=True,
+                            default='img/img_post_default.jpg')
     archivo = models.FileField(upload_to='juegos/', null=True, blank=True)
 # Muestra como se representa en la lista de libros
 
