@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     <link rel="icon" type="img/png" href="img/favicon-game.png">
+    <!-- <meta name="csrf-token" content="{{ csrf_token }}"> -->
+
     <script src="https://kit.fontawesome.com/cd10d9582d.js" crossorigin="anonymous"></script>
     <title>TGZ | Blog</title>
 </head>
@@ -176,18 +178,20 @@
 
                             <!-- Botón like -->
                             <form action="{% url 'apps.blog:like_post' juego.id %}" method="post" class="like-form">
-                                {% csrf_token %}
+                                <!-- CSRF global para los likes -->
+                                <input type="hidden" id="csrf-token" value="{{ csrf_token }}">
+
                                 <div class="like-container">
-                                    <!-- Checkbox oculto para mantener el estilo -->
+                                    <!-- Checkbox oculto (estado del like) -->
                                     <input type="checkbox"
                                         class="like-checkbox"
                                         id="like-{{ juego.id }}"
                                         {% if user.is_authenticated and user in juego.likes.all %}checked{% endif %}
-                                        style="display: none;">
+                                        style="display:none;">
 
                                     <!-- Label que actúa como botón -->
                                     <label class="like-label" for="like-{{ juego.id }}">
-                                        <i class="fas fa-heart"></i>
+                                        <i class="fas fa-heart {% if user.is_authenticated and user in juego.likes.all %}liked{% endif %}"></i>
                                         <span class="sr-only">Me gusta</span>
                                     </label>
 
@@ -252,7 +256,26 @@
             </div>
         </section>
 
-    <script src="/static/JS/blog.js"></script><!--enlace de javascript para boton-->
-    <script src="{% static 'blog/js/like.js' %}"></script> <!-- Enlace js like -->
+
+    <script>
+    function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    // Guardamos el CSRF token para que lo use like.js
+    window.csrfToken = "{{ csrf_token }}";
+    </script>
+    <script src="{% static 'JS/blog.js' %}"></script>
+    <script src="{% static 'JS/like.js' %}"></script>
 </body>
 </html>

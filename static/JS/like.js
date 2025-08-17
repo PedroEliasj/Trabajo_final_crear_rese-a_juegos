@@ -1,11 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+    const csrftoken = window.csrfToken;
 
-    document.querySelectorAll(".like-label").forEach(label => {
-        label.addEventListener("click", function (e) {
-            e.preventDefault();
-            const checkbox = this.previousElementSibling;
-            const postId = checkbox.id.split("-")[1];
+    document.querySelectorAll(".like-checkbox").forEach(checkbox => {
+        checkbox.addEventListener("change", function () {
+            const postId = this.dataset.id;
 
             fetch(`/like/${postId}/`, {
                 method: "POST",
@@ -14,19 +12,25 @@ document.addEventListener("DOMContentLoaded", () => {
                     "X-Requested-With": "XMLHttpRequest",
                 },
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) throw new Error("Error en la petición AJAX");
+                return response.json();
+            })
             .then(data => {
+                // Actualizar contador
                 const countEl = document.getElementById(`like-count-${postId}`);
                 if (countEl) {
                     countEl.textContent = data.total_likes;
                 }
 
+                // Cambiar estado del corazón
+                const label = document.querySelector(`label[for='like-${postId}'] i`);
                 if (data.liked) {
-                    checkbox.checked = true;
-                    this.querySelector("i").classList.add("liked");
+                    this.checked = true;
+                    if (label) label.classList.add("liked");
                 } else {
-                    checkbox.checked = false;
-                    this.querySelector("i").classList.remove("liked");
+                    this.checked = false;
+                    if (label) label.classList.remove("liked");
                 }
             })
             .catch(error => console.error("Error:", error));

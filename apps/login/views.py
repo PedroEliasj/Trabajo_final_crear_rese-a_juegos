@@ -85,7 +85,7 @@ def signin(request):
     # Login exitoso
     login(request, user)
     messages.success(request, f"✅ Bienvenido {user.username}, inicio de sesión exitoso.")
-    return redirect('apps.blog:blog')
+    return redirect('login/signin.html')
 
 @login_required
 def signout(request):
