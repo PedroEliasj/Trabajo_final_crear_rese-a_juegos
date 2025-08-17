@@ -23,6 +23,12 @@ class Juegos(models.Model):
 # Muestra como se representa en la lista de libros
 
     es_reseña = models.BooleanField(default=False)
+
+    likes = models.ManyToManyField(User, related_name="likes", blank=True)
+
     
     def __str__(self):
         return self.titulo
+    
+    def total_likes(self):
+        return self.likes.count()

@@ -175,14 +175,26 @@
                             </div> -->
 
                             <!-- Botón like -->
-                            <div class="like-container">
-                                <input type="checkbox" class="like-checkbox" id="like-{{ juego.id }}">
-                                <label class="like-label" for="like-{{ juego.id }}">
-                                    <i class="fas fa-heart"></i>
-                                    <span class="sr-only">Me gusta</span>
-                                </label>
-                                <span class="like-count">0</span>
-                            </div>
+                            <form action="{% url 'apps.blog:like_post' juego.id %}" method="post" class="like-form">
+                                {% csrf_token %}
+                                <div class="like-container">
+                                    <!-- Checkbox oculto para mantener el estilo -->
+                                    <input type="checkbox"
+                                        class="like-checkbox"
+                                        id="like-{{ juego.id }}"
+                                        {% if user.is_authenticated and user in juego.likes.all %}checked{% endif %}
+                                        style="display: none;">
+
+                                    <!-- Label que actúa como botón -->
+                                    <label class="like-label" for="like-{{ juego.id }}">
+                                        <i class="fas fa-heart"></i>
+                                        <span class="sr-only">Me gusta</span>
+                                    </label>
+
+                                    <!-- Contador dinámico -->
+                                    <span class="like-count" id="like-count-{{ juego.id }}">{{ juego.total_likes }}</span>
+                                </div>
+                            </form>
                         </div>
                     </div>
 
@@ -241,5 +253,6 @@
         </section>
 
     <script src="/static/JS/blog.js"></script><!--enlace de javascript para boton-->
+    <script src="{% static 'blog/js/like.js' %}"></script> <!-- Enlace js like -->
 </body>
 </html>

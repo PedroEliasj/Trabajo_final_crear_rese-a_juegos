@@ -11,6 +11,7 @@ from .views import (
     EliminarReseñaView,
     blog
 )
+from apps.blog import views
 app_name = 'apps.blog'
 
 
@@ -25,5 +26,5 @@ urlpatterns = [
     path('crear-resena/', CrearReseñaView.as_view(), name='crear_resena'),
     path('post/<int:pk>/editar/', EditarReseñaView.as_view(), name='editar_post'),
     path('post/<int:pk>/eliminar/', EliminarReseñaView.as_view(), name='eliminar_post'),
-
+    path('like/<int:id>/', views.like_post, name='like_post'),
 ]

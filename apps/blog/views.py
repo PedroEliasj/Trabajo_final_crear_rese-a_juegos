@@ -1,15 +1,18 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from apps.blog.forms import PostForm
 from apps.comentarios.forms import ComentarioForm
 from apps.comentarios.models import Comentario
 from apps.login.models import PerfilUsuario
 from .models import Categoria, Juegos
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, JsonResponse
 
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 
 class HomeView(ListView):
     model = Juegos
@@ -149,3 +152,20 @@ class EliminarReseñaView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         """El autor o un staff pueden eliminar"""
         juego = self.get_object()
         return juego.autor == self.request.user or self.request.user.is_staff
+
+@login_required
+@require_POST
+def like_post(request, id):
+    juego = get_object_or_404(Juegos, id=id)
+
+    if request.user in juego.likes.all():
+        juego.likes.remove(request.user)
+        liked = False
+    else:
+        juego.likes.add(request.user)
+        liked = True
+
+    return JsonResponse({
+        'liked': liked,
+        'total_likes': juego.total_likes(),
+    })
