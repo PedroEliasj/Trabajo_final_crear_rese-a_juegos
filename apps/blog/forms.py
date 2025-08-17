@@ -17,7 +17,7 @@ class PostForm(forms.ModelForm):
                 'class': 'descripcion',
                 'id': 'descripcion',
                 'rows': 5,
-                'placeholder': 'Escribe la reseña...',
+                # 'placeholder': 'Escribe la reseña...',
                 'required': 'required',
             }),
             'categoria': forms.Select(attrs={
