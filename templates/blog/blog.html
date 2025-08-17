@@ -25,15 +25,19 @@
             <div class="perfil-usuario">
                 <input type="checkbox" class="menu-checkbox" id="perfil-menu">
                 <label class="menu-label" for="perfil-menu">
-                    <img src="img/perfiles/perfil1.jpg" alt="Perfil de Juan Gamer">
-                    <span>Juan Gamer</span>
+                    {% if perfil and perfil.imagen %}
+                    <img src="{{perfil.imagen.url}}" alt="Perfil user logeado">
+                    {% else %}
+                    <img src="{% static 'img/perfiles/default.png' %}" alt="Perfil por defecto">
+                    {% endif %}
+                    <span>{{request.user.username}}</span>
                 </label>
-                <p>@juangamer1234</p>
+                <p></p>
                 <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">Ver Perfil</a>
+                    <a href="{% url 'perfil' %}" class="dropdown-item">Ver Perfil</a>
                     <a href="#" class="dropdown-item">Editar Perfil</a>
                     <a href="{% url 'apps.blog:crear_resena' %}" class="dropdown-item">Crear Posteo</a>
-                    <a href="#" class="dropdown-item">Cerrar Sesión</a>
+                    <a href="{% url 'logout' %}" class="dropdown-item">Cerrar Sesión</a>
                 </div>
             </div>
             <ul class="nav-links">
@@ -133,13 +137,13 @@
                     <!-- Usuario -->
                     <div class="post-usuario">
                         <a href="#">
-                            {% if juego.autor.perfil.imagen %}
-                                <img src="{{ juego.autor.perfil.imagen.url }}" alt="Perfil del Usuario" class="perfil-img">
+                            {% if juego.autor.perfilusuario and juego.autor.perfilusuario.imagen %}
+                                <img src="{{ juego.autor.perfilusuario.imagen.url }}" alt="Perfil del Usuario" class="perfil-img">
                             {% else %}
                                 <img src="{% static 'img/perfiles/default.png' %}" alt="Perfil del Usuario" class="perfil-img">
                             {% endif %}
-                            <span>{{ juego.autor.username }}</span>
-                            <div class="arroba">@{{ juego.autor.username|lower }}</div>
+                            <span>{{ juego.autor.perfil.name|default:juego.autor.username }}</span>
+                            <div class="arroba"></div>
                         </a>
                     </div>
 
@@ -147,11 +151,13 @@
                     <div class="content-container">
                         {% if juego.imagen %}
                             <img src="{{ juego.imagen.url }}" alt="{{ juego.titulo }}" class="main-img" loading="lazy">
+                        {% else %}
+                            <img src="{% static 'img/img_post_default.jpg' %}" alt="No hay imagen">
                         {% endif %}
                         <div class="text-content">
                             <h3>{{ juego.titulo }}</h3>
                             <span class="categoria">{{ juego.categoria }}</span>
-                            <span class="fecha-post">{{ juego.fecha_publicacion|date:"F d, Y - H:i" }}</span>
+                            <span class="fecha-post">{{ juego.fecha_agregado }}</span>
                             <p>{{ juego.descripcion }}</p>
 
                             {% if juego.archivo %}
@@ -161,12 +167,12 @@
                             {% endif %}
 
                             <!-- Ejemplo de calificación (puedes conectarlo a tu modelo si tienes rating) -->
-                            <div class="rating-container">
+                            <!-- <div class="rating-container">
                                 {% for i in "12345" %}
                                     <i class="fas fa-star filled"></i>
                                 {% endfor %}
                                 <span class="rating-score">5/5</span>
-                            </div>
+                            </div> -->
 
                             <!-- Botón like -->
                             <div class="like-container">
