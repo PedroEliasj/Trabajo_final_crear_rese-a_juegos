@@ -107,7 +107,7 @@
             <!-- edicion -->
 
                 {% for juego in juegos %}
-                <div class="card">
+                <div class="card" id="post-{{ juego.id }}">
 
                     <!-- Opciones del post -->
                     {% if user.is_authenticated and user == juego.autor or user.is_staff %}
@@ -168,18 +168,10 @@
                                 </a>
                             {% endif %}
 
-                            <!-- Ejemplo de calificación (puedes conectarlo a tu modelo si tienes rating) -->
-                            <!-- <div class="rating-container">
-                                {% for i in "12345" %}
-                                    <i class="fas fa-star filled"></i>
-                                {% endfor %}
-                                <span class="rating-score">5/5</span>
-                            </div> -->
-
                             <!-- Botón like -->
                             <form action="{% url 'apps.blog:like_post' juego.id %}" method="post" class="like-form">
                                 <!-- CSRF global para los likes -->
-                                <input type="hidden" id="csrf-token" value="{{ csrf_token }}">
+                                {% csrf_token %}
 
                                 <div class="like-container">
                                     <!-- Checkbox oculto (estado del like) -->
@@ -205,7 +197,10 @@
                     <!-- Formulario para nuevo comentario -->
                     <div class="comentario-container">
                     {% if user.is_authenticated %}
-                        <form action="{% url 'apps.comentarios:agregar_comentario' juego.id %}" method="post" class="com-form" id="com-form">
+                        <form action="{% url 'apps.comentarios:agregar_comentario' juego.id %}"
+                            method="post"
+                            class="com-form"
+                            id="com-form-{{ juego.id }}">
                             {% csrf_token %}
                             <label for="comentario-{{ juego.id }}" class="com-label">Comentar</label>
                             <input type="text" id="comentario-{{ juego.id }}" name="texto" placeholder="Escribe tu comentario...">
@@ -219,25 +214,23 @@
                     <!-- inicio comentarios -->
                     <div class="lista-com">
                         {% for item in juego.comentarios.all %}
-                            <div class="comentarios">
+                            <div class="comentarios" id="comentario-{{ item.id }}">
                                 <span>{{ item.usuario.user.username }}:</span> {{ item.texto }}
-                                <!-- <small class="opacity-50">{{ item.fecha|date:"d/m/Y H:i" }}</small> -->
                                 
                                 {% if user.is_authenticated and user.id == item.usuario.user.id or user.is_authenticated and user.is_staff %}
                                 <div class="comment-actions">
-                                    <input type="checkbox" class="menu-checkbox" id="menu-1">
-                                    <label class="menu-label" for="menu-1"><i class="fas fa-ellipsis-v"></i></label>
+                                    <input type="checkbox" class="menu-checkbox" id="menu-{{ item.pk }}">
+                                    <label class="menu-label" for="menu-{{ item.pk }}"><i class="fas fa-ellipsis-v"></i></label>
                                     <div class="dropdown-menu">
                                         <div class="dropdown-item">
                                             <form action="{% url 'apps.comentarios:modificar_comentario' item.pk %}" method="get">
                                                 <button type="submit" class="edit-btn" aria-label="Editar comentario"><i class="fas fa-edit"></i> Editar</button>
                                             </form>
-                                            <form action="{% url 'apps.comentarios:eliminar_comentario' item.pk %}" method="post">
+                                            <form action="{% url 'apps.comentarios:eliminar_comentario' item.pk %}" method="get">
                                                 <button type="submit" class="delete-btn" aria-label="Eliminar comentario"><i class="fas fa-trash"></i>Eliminar</button>
                                             </form>
                                         </div>
                                     </div>
-
                                 </div>
                                 {% endif %}
                             </div>

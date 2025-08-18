@@ -57,8 +57,14 @@ class ModificarComentario(LoginRequiredMixin, UpdateView):
             return Comentario.objects.all()
         return Comentario.objects.filter(usuario=self.request.user.perfilusuario)
 
+
     def get_success_url(self):
-        return reverse('perfil') + f"#post-{self.object.blog.id}"
+        # Revisar desde qué página vino el usuario
+        referer = self.request.META.get('HTTP_REFERER', '')
+        if 'perfil' in referer:
+            return reverse('perfil') + f"#comentario-{self.object.id}"
+        else:
+            return reverse('apps.blog:blog') + f"#comentario-{self.object.id}"
     
 class EliminarComentario(LoginRequiredMixin, DeleteView):
     model = Comentario
@@ -69,5 +75,18 @@ class EliminarComentario(LoginRequiredMixin, DeleteView):
             return Comentario.objects.all()
         return Comentario.objects.filter(usuario=self.request.user.perfilusuario)
 
-    def get_success_url(self):
-        return reverse('perfil') + f"#post-{self.object.blog.id}"
+    def post(self, request, *args, **kwargs):
+        # Obtengo el comentario
+        comentario = self.get_object()
+        blog_id = comentario.blog.id
+        comentario.delete()
+
+        # Detectar si venía del perfil o del blog
+        referer = request.META.get('HTTP_REFERER', '')
+
+        if 'perfil' in referer:
+            url = reverse('perfil') + f"#post-{blog_id}"
+        else:
+            url = reverse('apps.blog:blog') + f"#post-{blog_id}"
+
+        return redirect(url)
