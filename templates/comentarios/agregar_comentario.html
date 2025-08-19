@@ -19,7 +19,7 @@
             <!-- Checkbox efecto neón -->
             <input type="checkbox" class="input-check" id="input-check" hidden checked>
 
-            <h2>Deja tu comentario</h2>
+            <h2>{% if object %}Editar comentario{% else %}Agregar comentario{% endif %}</h2>
 
             <!-- Errores generales -->
             {% if form.non_field_errors %}
@@ -31,7 +31,7 @@
             {% endif %}
 
             <!-- Campo comentario -->
-            <div class="input-box">
+            <div type="hidden" name="next" value="{{ request.Get.next }}" class="input-box">
                 <span class="icon"><i class="fa-solid fa-comment"></i></span>
                 <textarea 
                     name="{{ form.texto.name }}" 
@@ -52,7 +52,7 @@
             <!-- Botón comentar -->
             <div>
                 {% if user.is_authenticated %}
-                    <button type="submit">Comentar</button>
+                    <button type="submit">{% if object %}Guardar cambios{% else %}Comentar{% endif %}</button>
                 {% else %}
                     <a href="{% url 'signin' %}" class="btn-link">Inicia sesión para comentar</a>
                 {% endif %}
@@ -62,3 +62,4 @@
 
 </body>
 </html>
+

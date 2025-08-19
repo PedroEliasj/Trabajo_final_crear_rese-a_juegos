@@ -233,10 +233,17 @@
                                     <div class="dropdown-menu">
                                         <div class="dropdown-item">
                                             <form action="{% url 'apps.comentarios:modificar_comentario' item.pk %}" method="get">
-                                                <button type="submit" class="edit-btn" aria-label="Editar comentario"><i class="fas fa-edit"></i> Editar</button>
+                                                <input type="hidden" name="next" value="{% url 'apps.blog:blog' %}#post-{{ item.blog.id }}">
+                                                <button type="submit" class="edit-btn" aria-label="Editar comentario">
+                                                    <i class="fas fa-edit"></i> Editar
+                                                </button>
                                             </form>
+
                                             <form action="{% url 'apps.comentarios:eliminar_comentario' item.pk %}" method="get">
-                                                <button type="submit" class="delete-btn" aria-label="Eliminar comentario"><i class="fas fa-trash"></i>Eliminar</button>
+                                                <input type="hidden" name="next" value="{% url 'apps.blog:blog' %}#post-{{ item.blog.id }}">
+                                                <button type="submit" class="delete-btn" aria-label="Eliminar comentario">
+                                                    <i class="fas fa-trash"></i>Eliminar
+                                                </button>
                                             </form>
                                         </div>
                                     </div>

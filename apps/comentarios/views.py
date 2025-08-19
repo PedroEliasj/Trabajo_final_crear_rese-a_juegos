@@ -1,14 +1,15 @@
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
-from django.views.generic.edit import UpdateView, DeleteView
-
+from django.views.generic.edit import UpdateView
+from django.views.generic import DeleteView
 from apps.blog.models import Juegos
 from apps.login.models import PerfilUsuario
 
 from .forms import ComentarioForm
-from .models import Comentario
+from apps.comentarios.models import Comentario
 
 # Create your views here.
 
@@ -57,15 +58,22 @@ class ModificarComentario(LoginRequiredMixin, UpdateView):
             return Comentario.objects.all()
         return Comentario.objects.filter(usuario=self.request.user.perfilusuario)
 
+    def _safe_next(self, next_url: str | None) -> str | None:
+        from django.utils.http import url_has_allowed_host_and_scheme
+        if not next_url:
+            return None
+        if url_has_allowed_host_and_scheme(next_url, allowed_hosts={self.request.get_host()}, require_https=self.request.is_secure()):
+            return next_url
+        return None
 
     def get_success_url(self):
-        # Revisar desde qué página vino el usuario
-        referer = self.request.META.get('HTTP_REFERER', '')
-        if 'perfil' in referer:
-            return reverse('perfil') + f"#comentario-{self.object.id}"
-        else:
-            return reverse('apps.blog:blog') + f"#comentario-{self.object.id}"
-    
+        # next puede venir en GET (form abierto) o POST (tras guardar)
+        raw_next = self.request.POST.get('next') or self.request.GET.get('next')
+        next_url = self._safe_next(raw_next)
+        if next_url:
+            return next_url
+        # Fallback: volver al blog en el post del comentario
+        return reverse('apps.blog:blog') + f"#post-{self.object.blog.id}"
 class EliminarComentario(LoginRequiredMixin, DeleteView):
     model = Comentario
     template_name = 'comentarios/confirmar_eliminacion.html'
@@ -75,18 +83,30 @@ class EliminarComentario(LoginRequiredMixin, DeleteView):
             return Comentario.objects.all()
         return Comentario.objects.filter(usuario=self.request.user.perfilusuario)
 
+    def _safe_next(self, next_url: str | None) -> str | None:
+        if not next_url:
+            return None
+        # Permite relativos o del mismo host
+        if url_has_allowed_host_and_scheme(next_url, allowed_hosts={self.request.get_host()}, require_https=self.request.is_secure()):
+            return next_url
+        return None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Tomamos next de GET (carga de confirmación) o POST (por si vuelve al template por error)
+        raw_next = self.request.GET.get('next') or self.request.POST.get('next')
+        context['next_url'] = self._safe_next(raw_next) or reverse('apps.blog:blog')
+        return context
+
     def post(self, request, *args, **kwargs):
-        # Obtengo el comentario
-        comentario = self.get_object()
-        blog_id = comentario.blog.id
-        comentario.delete()
+        self.object = self.get_object()
+        self.object.delete()
 
-        # Detectar si venía del perfil o del blog
-        referer = request.META.get('HTTP_REFERER', '')
+        # Recuperar next del POST (el hidden del template)
+        raw_next = request.POST.get('next') or request.GET.get('next')
+        next_url = self._safe_next(raw_next)
+        # Fallback por si no viene nada
+        if not next_url:
+            next_url = reverse('apps.blog:blog')
 
-        if 'perfil' in referer:
-            url = reverse('perfil') + f"#post-{blog_id}"
-        else:
-            url = reverse('apps.blog:blog') + f"#post-{blog_id}"
-
-        return redirect(url)
+        return redirect(next_url)
