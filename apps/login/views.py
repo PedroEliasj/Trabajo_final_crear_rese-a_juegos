@@ -48,7 +48,7 @@ def signup(request):
                 "form": form
             })
 
-    return render(request, "apps.blog:blog", {
+    return render(request, "login/signup.html", {
         "form": RegistroUsuarioForm()
     })
 

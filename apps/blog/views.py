@@ -14,6 +14,8 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 
+import sys
+
 class HomeView(ListView):
     model = Juegos
     template_name = 'blog/index.html'
@@ -154,18 +156,21 @@ class EliminarReseñaView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return juego.autor == self.request.user or self.request.user.is_staff
 
 @login_required
-@require_POST
-def like_post(request, id):
-    juego = get_object_or_404(Juegos, id=id)
+def like_post(request, juego_id):
+    print("Llegó request de like:", juego_id, file=sys.stdout)
+    juego = get_object_or_404(Juegos, id=juego_id)
+    user = request.user
 
-    if request.user in juego.likes.all():
-        juego.likes.remove(request.user)
+    if user in juego.likes.all():
+        # Si ya dio like, lo quitamos
+        juego.likes.remove(user)
         liked = False
     else:
-        juego.likes.add(request.user)
+        # Si no, lo agregamos
+        juego.likes.add(user)
         liked = True
 
     return JsonResponse({
-        'liked': liked,
-        'total_likes': juego.total_likes(),
+        "liked": liked,
+        "total_likes": juego.likes.count()
     })

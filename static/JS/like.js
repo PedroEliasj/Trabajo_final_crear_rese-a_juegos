@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".like-checkbox").forEach(checkbox => {
         checkbox.addEventListener("change", function () {
             const postId = this.dataset.id;
-
             fetch(`/like/${postId}/`, {
                 method: "POST",
                 headers: {
@@ -17,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return response.json();
             })
             .then(data => {
+                console.log("Respuesta del servidor:", data);  // 👈
                 // Actualizar contador
                 const countEl = document.getElementById(`like-count-${postId}`);
                 if (countEl) {
