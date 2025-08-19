@@ -92,26 +92,33 @@
     </div>
 
         <section class="blog">
-            <section class="filtros-container">
-                <h3>Filtrar por categoría</h3>
+            <section class="filtros-container"><!--COMIENZA FILTRO-->
+                <h3>Filtrar y ordenar</h3>
                 <div class="carrusel-filtros">
                     <button class="carrusel-btn prev-btn" aria-label="Deslizar hacia la izquierda">
                         <i class="fas fa-chevron-left"></i>
                     </button>
                     <div class="carrusel-track">
-                        <button class="filtro-btn" data-categoria="all">Todos</button>
+                        <!-- Filtro por categoría -->
+                        <button class="filtro-btn" data-filtro="categoria" data-categoria="all">Todos</button>
                         {% for categoria in categorias %}
-                            <button class="filtro-btn" data-categoria="{{ categoria.nombre }}">
+                            <button class="filtro-btn" data-filtro="categoria" data-categoria="{{ categoria.nombre }}">
                                 {{ categoria.nombre }}
                             </button>
                         {% endfor %}
+                        <!-- Filtros por fecha -->
+                        <button class="filtro-btn" data-filtro="fecha" data-orden="reciente">Más recientes</button>
+                        <button class="filtro-btn" data-filtro="fecha" data-orden="antiguo">Más antiguos</button>
+                        <!-- Filtros por comentarios -->
+                        <button class="filtro-btn" data-filtro="comentarios" data-orden="mas">Más comentados</button>
+                        <button class="filtro-btn" data-filtro="comentarios" data-orden="menos">Menos comentados</button>
                     </div>
-
                     <button class="carrusel-btn next-btn" aria-label="Deslizar hacia la derecha">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
-            </section>
+            </section><!--TERMINA FILTRO-->
+
 
             <!-- edicion -->
 

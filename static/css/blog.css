@@ -444,6 +444,7 @@ h2 {
     gap: 10px;
     padding: 10px 0;
     scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
+    flex-wrap: nowrap;
 }
 
 .carrusel-track::-webkit-scrollbar {

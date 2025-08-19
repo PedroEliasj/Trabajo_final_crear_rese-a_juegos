@@ -37,47 +37,115 @@ document.addEventListener('DOMContentLoaded', function () {
 //FILTRO
 
 // Carrusel
-const track = document.querySelector('.carrusel-track');
-const prevBtn = document.querySelector('.prev-btn');
-const nextBtn = document.querySelector('.next-btn');
-const filtroButtons = document.querySelectorAll('.filtro-btn');
+document.addEventListener('DOMContentLoaded', function () {
+    // Seleccionar elementos
+    const carruselTrack = document.querySelector('.carrusel-track');
+    const prevBtn = document.querySelector('.carrusel-btn.prev-btn');
+    const nextBtn = document.querySelector('.carrusel-btn.next-btn');
+    const filtroBotones = document.querySelectorAll('.filtro-btn');
+    const cards = document.querySelectorAll('.card');
 
-function updateButtons() {
-    const scrollLeft = track.scrollLeft;
-    const maxScroll = track.scrollWidth - track.clientWidth;
-    
-    prevBtn.disabled = scrollLeft <= 0;
-    nextBtn.disabled = scrollLeft >= maxScroll;
-}
+    // Manejo del carrusel
+    function updateCarruselButtons() {
+        const scrollLeft = carruselTrack.scrollLeft;
+        const maxScroll = carruselTrack.scrollWidth - carruselTrack.clientWidth;
 
-prevBtn.addEventListener('click', () => {
-    track.scrollBy({ left: -150, behavior: 'smooth' });
-    setTimeout(updateButtons, 300);
-});
+        prevBtn.disabled = scrollLeft <= 0;
+        nextBtn.disabled = scrollLeft >= maxScroll;
+    }
 
-nextBtn.addEventListener('click', () => {
-    track.scrollBy({ left: 150, behavior: 'smooth' });
-    setTimeout(updateButtons, 300);
-});
+    prevBtn.addEventListener('click', () => {
+        carruselTrack.scrollBy({ left: -100, behavior: 'smooth' });
+        updateCarruselButtons();
+    });
 
-track.addEventListener('scroll', updateButtons);
-updateButtons(); // Inicializa estado de botones
+    nextBtn.addEventListener('click', () => {
+        carruselTrack.scrollBy({ left: 100, behavior: 'smooth' });
+        updateCarruselButtons();
+    });
 
-// Filtrado
-filtroButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        // Remover clase active de todos los botones
-        filtroButtons.forEach(b => b.classList.remove('active'));
-        // Agregar clase active al botón clicado
-        btn.classList.add('active');
-        
-        const categoria = btn.getAttribute('data-categoria');
-        document.querySelectorAll('.card').forEach(card => {
-            const cardCategoria = card.querySelector('.categoria').textContent;
-            card.style.display = categoria === 'all' || cardCategoria === categoria ? 'block' : 'none';
+    carruselTrack.addEventListener('scroll', updateCarruselButtons);
+    updateCarruselButtons();
+
+    // Estado de los filtros
+    let filtroActivo = {
+        categoria: 'all', // Categoría seleccionada
+        fecha: null,      // Orden por fecha (reciente o antiguo)
+        comentarios: null // Orden por comentarios (mas o menos)
+    };
+
+    // Función para filtrar y ordenar las cards
+    function aplicarFiltros() {
+        // Obtener todas las cards
+        cards.forEach(card => {
+            const categoria = card.querySelector('.categoria').textContent.trim();
+            let mostrar = true;
+
+            // Filtrar por categoría
+            if (filtroActivo.categoria !== 'all' && categoria !== filtroActivo.categoria) {
+                mostrar = false;
+            }
+
+            // Mostrar u ocultar la card
+            card.style.display = mostrar ? 'flex' : 'none';
+        });
+
+        // Ordenar las cards visibles
+        let cardsVisibles = Array.from(cards).filter(card => card.style.display !== 'none');
+        if (filtroActivo.fecha) {
+            cardsVisibles.sort((a, b) => {
+                const fechaA = new Date(a.querySelector('.fecha-post').textContent.trim());
+                const fechaB = new Date(b.querySelector('.fecha-post').textContent.trim());
+                return filtroActivo.fecha === 'reciente' ? fechaB - fechaA : fechaA - fechaB;
+            });
+        } else if (filtroActivo.comentarios) {
+            cardsVisibles.sort((a, b) => {
+                const comentariosA = parseInt(a.querySelector('.lista-com').children.length) || 0;
+                const comentariosB = parseInt(b.querySelector('.lista-com').children.length) || 0;
+                return filtroActivo.comentarios === 'mas' ? comentariosB - comentariosA : comentariosA - comentariosB;
+            });
+        }
+
+        // Reordenar las cards en el DOM
+        const blog = document.querySelector('.blog');
+        cardsVisibles.forEach(card => blog.appendChild(card));
+    }
+
+    // Manejo de clics en los botones de filtro
+    filtroBotones.forEach(boton => {
+        boton.addEventListener('click', () => {
+            // Remover clase active de todos los botones del mismo tipo
+            const tipoFiltro = boton.dataset.filtro;
+            document.querySelectorAll(`.filtro-btn[data-filtro="${tipoFiltro}"]`).forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Agregar clase active al botón clicado
+            boton.classList.add('active');
+
+            // Actualizar estado del filtro
+            if (tipoFiltro === 'categoria') {
+                filtroActivo.categoria = boton.dataset.categoria;
+            } else if (tipoFiltro === 'fecha') {
+                filtroActivo.fecha = boton.dataset.orden;
+                filtroActivo.comentarios = null; // Desactivar filtro de comentarios
+                document.querySelectorAll('.filtro-btn[data-filtro="comentarios"]').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            } else if (tipoFiltro === 'comentarios') {
+                filtroActivo.comentarios = boton.dataset.orden;
+                filtroActivo.fecha = null; // Desactivar filtro de fecha
+                document.querySelectorAll('.filtro-btn[data-filtro="fecha"]').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            }
+
+            // Aplicar filtros y ordenamiento
+            aplicarFiltros();
         });
     });
-});
 
-// Marcar "Todos" como activo por defecto
-document.querySelector('.filtro-btn[data-categoria="all"]').classList.add('active');
+    // Establecer el filtro "Todos" como activo por defecto
+    document.querySelector('.filtro-btn[data-categoria="all"]').classList.add('active');
+    aplicarFiltros();
+});
