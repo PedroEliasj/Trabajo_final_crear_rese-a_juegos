@@ -33,7 +33,7 @@
                 {% csrf_token %}
                 <div class="btn-container">
                     <button type="submit" class="btn-edit">SÍ, ELIMINAR</button>
-                    <a href="{% url 'apps.blog:juego_detalle' object.id %}" class="btn-edit">CANCELAR</a>
+                    <a href="{% url 'apps.blog:blog' %}" class="btn-edit">CANCELAR</a>
                 </div>
             </form>
         </div>

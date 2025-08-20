@@ -493,7 +493,7 @@ h2 {
     justify-content: center;
     align-items: center;
     position: relative;
-    bottom: 140px;
+    bottom: 40px;
     left: 44%;
     height: 70px;
     width: 42px;
@@ -618,8 +618,11 @@ h2 {
 }*/
 
 .btn-container {
+    display: flex;
     text-align: center;
     margin-top: 20px;
+    flex-direction: column;
+    align-items: center;
 }
 
 .btn-edit {
@@ -630,7 +633,8 @@ h2 {
     background: transparent;
     color: #575757;
     cursor: pointer;
-    margin: 0 10px;
+    margin: 5px;
+    text-decoration: none;
 }
 
 .btn-edit:hover {

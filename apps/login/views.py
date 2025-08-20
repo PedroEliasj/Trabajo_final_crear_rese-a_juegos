@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Count
 from apps.blog.models import Juegos
 from apps.login.form import RegistroUsuarioForm
 from apps.login.funcionesMod import RegistroUsuario
@@ -152,7 +152,12 @@ def eliminar_usuario(request, user_id):
 def perfil_view(request):
     perfil = get_object_or_404(PerfilUsuario, user=request.user)
     juegos = Juegos.objects.filter(autor=request.user).prefetch_related('comentarios__usuario__user')
+    
+    # Total de likes en todos los juegos del usuario
+    total_likes = juegos.aggregate(total=Count("likes"))["total"] or 0
+
     return render(request, 'login/perfil.html', {
         'perfil': perfil,
-        'juegos': juegos
+        'juegos': juegos,
+        'total_likes': total_likes,
     })

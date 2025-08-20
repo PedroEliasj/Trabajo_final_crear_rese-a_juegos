@@ -157,7 +157,7 @@ class EliminarReseñaView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 @login_required
 def like_post(request, juego_id):
-    print("Llegó request de like:", juego_id, file=sys.stdout)
+
     juego = get_object_or_404(Juegos, id=juego_id)
     user = request.user
 

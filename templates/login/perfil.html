@@ -108,8 +108,8 @@
             <div class="arroba">@{{ request.user.username }}</div>
             <p class="biografia"></p>
             <div class="perfil-stats">
-                <span><strong>Posteos:</strong>{{ juegos.count }}</span>
-                <span><strong>Likes:</strong> 0</span>
+                <span><strong>Posteos:</strong> {{ juegos.count }}</span>
+                <span><strong>Likes:</strong> {{ total_likes }}</span>
             </div>
             <a href="{% url 'editar_usuario' user.id %}" class="btn">EDITAR PERFIL</a>
         </div>
@@ -137,7 +137,11 @@
                     </a>
                 </div>
                 <div class="content-container">
-                    <img src="{{ juego.imagen.url }}" alt="{{ juego.titulo }}" class="main-img">
+                    {% if juego.imagen %}
+                        <img src="{{ juego.imagen.url }}" alt="{{ juego.titulo }}" class="main-img">
+                    {% else %}
+                        <img src="{ static 'img/perfiles/default.png '}" alt="img predefinida" class="main-img">
+                    {% endif %}
                     <div class="text-content">
                         <h3>{{ juego.titulo }}</h3>
                         <span class="categoria">{{ juego.categoria }}</span>
@@ -148,68 +152,70 @@
                         {% if juego.archivo %}
                         <a href="{{ juego.archivo.url }}" class="btn-descarga"><i class="fas fa-download"></i> Descargar</a>
                         {% endif %}
-                        <div class="like-container">
-                            <input type="checkbox" class="like-checkbox" id="like-{{ juego.id }}">
-                            <label class="like-label" for="like-{{ juego.id }}">
-                                <i class="fas fa-heart"></i>
-                            </label>
-                            <span class="like-count">0</span>
+                        <!-- Like solo lectura -->
+                        <div class="like-container readonly">
+                            <!-- Ícono del corazón -->
+                            <i class="fas fa-heart {% if user.is_authenticated and user in juego.likes.all %}liked{% endif %}"></i>
+                            <span class="sr-only">Me gusta</span>
+
+                            <!-- Contador -->
+                            <span class="like-count" id="like-count-{{ juego.id }}">{{ juego.total_likes }}</span>
                         </div>
 
-                        <!--formulario inicio-->
-                        <div class="comentario-container">
-                        {% if user.is_authenticated %}
-                            <form action="{% url 'apps.comentarios:agregar_comentario' juego.id %}"
-                                method="post"
-                                class="com-form"
-                                id="com-form-{{ juego.id }}">
-                                {% csrf_token %}
-                                <label for="comentario-{{ juego.id }}" class="com-label">Comentar</label>
-                                <input type="text" id="comentario-{{ juego.id }}" name="texto" placeholder="Escribe tu comentario...">
-                                <button type="submit" class="com-btn">Enviar</button>
-                            </form>
-                            {% else %}
-                                <p><a href="{% url 'signin' %}">Inicia sesión</a> para comentar</p>
-                        {% endif %}
-                        </div>
-                        <!--COMENTARIOS inicio-->
-                        <div class="lista-com">
-                            {% for item in juego.comentarios.all %}
-                            <div class="comentarios" id="comentario-{{ item.id }}">
-                                <span>{{ item.usuario.user.username }}:</span> {{ item.texto }}                                
-                                {% if user.is_authenticated and user.id == item.usuario.user.id or user.is_authenticated and user.is_staff %}
-                                <div class="comment-actions">
-                                    <input type="checkbox" class="menu-checkbox" id="menu-{{ item.pk }}">
-                                    <label class="menu-label" for="menu-{{ item.pk }}"><i class="fas fa-ellipsis-v"></i></label>
-                                    <div class="dropdown-menu">
-                                        <div class="dropdown-item">
-
-                                            <form action="{% url 'apps.comentarios:modificar_comentario' item.pk %}" method="get">
-                                                <input type="hidden" name="next" value="{% url 'perfil' %}#post-{{ item.blog.id }}">
-                                                <button type="submit" class="edit-btn" aria-label="Editar comentario">
-                                                    <i class="fas fa-edit"></i> Editar
-                                                </button>
-                                            </form>
-
-                                            <form action="{% url 'apps.comentarios:eliminar_comentario' item.pk %}" method="get">
-                                                <input type="hidden" name="next" value="{% url 'perfil' %}#post-{{ item.blog.id }}">
-                                                <button type="submit" class="delete-btn" aria-label="Eliminar comentario">
-                                                    <i class="fas fa-trash"></i>Eliminar
-                                                </button>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endif %}
-                            </div>
-                            {% empty %}
-                            <p>No hay comentarios aún. ¡Sé el primero en opinar!</p>
-                        {% endfor %}
-                        </div>
-                    <!--COMMENTRIOS-->
                     </div>
                 </div>
+                <!--formulario inicio-->
+                <div class="comentario-container">
+                {% if user.is_authenticated %}
+                    <form action="{% url 'apps.comentarios:agregar_comentario' juego.id %}"
+                        method="post"
+                        class="com-form"
+                        id="com-form-{{ juego.id }}">
+                        {% csrf_token %}
+                        <label for="comentario-{{ juego.id }}" class="com-label">Comentar</label>
+                        <input type="text" id="comentario-{{ juego.id }}" name="texto" placeholder="Escribe tu comentario...">
+                        <button type="submit" class="com-btn">Enviar</button>
+                    </form>
+                {% else %}
+                        <p><a href="{% url 'signin' %}">Inicia sesión</a> para comentar</p>
+                {% endif %}
+                </div>
+                <!--COMENTARIOS inicio-->
+                <div class="lista-com">
+                    {% for item in juego.comentarios.all %}
+                    <div class="comentarios" id="comentario-{{ item.id }}">
+                        <span>{{ item.usuario.user.username }}:</span> {{ item.texto }}                                
+                        {% if user.is_authenticated and user.id == item.usuario.user.id or user.is_authenticated and user.is_staff %}
+                            <div class="comment-actions">
+                                <input type="checkbox" class="menu-checkbox" id="menu-{{ item.pk }}">
+                                <label class="menu-label" for="menu-{{ item.pk }}"><i class="fas fa-ellipsis-v"></i></label>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-item">
+
+                                        <form action="{% url 'apps.comentarios:modificar_comentario' item.pk %}" method="get">
+                                            <input type="hidden" name="next" value="{% url 'perfil' %}#post-{{ item.blog.id }}">
+                                            <button type="submit" class="edit-btn" aria-label="Editar comentario">
+                                                <i class="fas fa-edit"></i> Editar
+                                            </button>
+                                        </form>
+
+                                        <form action="{% url 'apps.comentarios:eliminar_comentario' item.pk %}" method="get">
+                                            <input type="hidden" name="next" value="{% url 'perfil' %}#post-{{ item.blog.id }}">
+                                            <button type="submit" class="delete-btn" aria-label="Eliminar comentario">
+                                                <i class="fas fa-trash"></i>Eliminar
+                                            </button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% empty %}
+                    <p>No hay comentarios aún. ¡Sé el primero en opinar!</p>
+                    {% endfor %}
+                </div>
+                <!--fin comentarios -->
             </div>
             {% empty %}
             <p>No tienes posteos todavía.</p>
