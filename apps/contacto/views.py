@@ -1,9 +1,15 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
+
+from apps.login.models import PerfilUsuario
 from .forms import ContactoForm
 from .models import Contacto
 from django.contrib import messages
 
 def contacto_view(request):
+    perfil = None
+    if request.user.is_authenticated:
+        perfil = get_object_or_404(PerfilUsuario, user=request.user)
+
     if request.method == 'POST':
         form = ContactoForm(request.POST)
         if form.is_valid():
@@ -13,8 +19,11 @@ def contacto_view(request):
                 mensaje=form.cleaned_data['mensaje']
             )
             messages.success(request, '¡Gracias por tu mensaje!')
-            return redirect('contacto')  # Reemplazá con el nombre de tu url
+            return redirect('contacto')
     else:
         form = ContactoForm()
 
-    return render(request, 'contacto/contacto.html', {'form': form})
+    return render(request, 'contacto/contacto.html', {
+        'form': form,
+        'perfil': perfil
+    })

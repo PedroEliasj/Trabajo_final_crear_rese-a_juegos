@@ -100,7 +100,14 @@ def signout(request):
 # @login_required
 def usuarios_list(request):
     usuarios = User.objects.all()
-    return render(request, 'login/usuarios_list.html', {'usuarios': usuarios})
+    perfil = None
+    if request.user.is_authenticated:
+        perfil = get_object_or_404(PerfilUsuario, user=request.user)
+
+    return render(request, 'login/usuarios_list.html', {
+        'usuarios': usuarios,
+        'perfil': perfil
+    })
 
 @login_required
 def editar_usuario(request, user_id):

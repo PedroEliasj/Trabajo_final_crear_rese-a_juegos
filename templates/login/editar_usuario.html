@@ -23,8 +23,12 @@
             <div class="perfil-usuario">
                 <input type="checkbox" class="menu-checkbox" id="perfil-menu">
                 <label class="menu-label" for="perfil-menu">
-                    <img src="{{ perfil.imagen.url }}" alt="Foto de perfil" class="img-perfil">
-                    <span>{{ request.user.username }}</span>
+                    {% if perfil and perfil.imagen %}
+                    <img src="{{perfil.imagen.url}}" alt="Perfil user logeado">
+                    {% else %}
+                    <img src="{% static 'img/perfiles/default.png' %}" alt="Perfil por defecto">
+                    {% endif %}
+                    <span>{{request.user.username}}</span>
                 </label>
                 <p></p>
                 <div class="dropdown-menu">

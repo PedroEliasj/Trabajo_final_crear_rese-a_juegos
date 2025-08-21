@@ -129,6 +129,15 @@ class CrearReseñaView(LoginRequiredMixin, CreateView):
         form.instance.archivo = None
         form.instance.es_reseña = True  # ✅ marcar como reseña
         return super().form_valid(form)
+    
+    # para mostrar foto de perfil
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        perfil = None
+        if self.request.user.is_authenticated:
+            perfil = get_object_or_404(PerfilUsuario, user=self.request.user)
+        context['perfil'] = perfil
+        return context
 
 class EditarReseñaView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Juegos
@@ -144,6 +153,17 @@ class EditarReseñaView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def form_valid(self, form):
         form.instance.es_reseña = True  # aseguramos que siga marcado como reseña
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        perfil = None
+        if self.request.user.is_authenticated:
+            try:
+                perfil = PerfilUsuario.objects.get(user=self.request.user)
+            except PerfilUsuario.DoesNotExist:
+                perfil = None
+        context['perfil'] = perfil
+        return context
     
 class EliminarReseñaView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Juegos
