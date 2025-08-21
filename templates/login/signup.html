@@ -59,6 +59,17 @@
                 <div class="input-line"></div>
             </div>
 
+            <!-- Requisitos de contraseña -->
+            <div class="password-requisitos">
+                <ul>
+                    <li id="req-length">Mínimo 8 caracteres</li>
+                    <li id="req-uppercase">Al menos una letra mayúscula</li>    
+                    <li id="req-number">Al menos un número</li>
+                    <li id="req-special">Al menos un carácter especial (!@#$%&*)</li>
+                    <li id="req-match">Las contraseñas deben coincidir</li>
+                </ul>
+            </div>
+
             <!-- Confirmar contraseña -->
             <div class="input-box">
                 <span class="icon"><i class="fa-solid fa-lock"></i></span>
@@ -102,7 +113,9 @@
             {% endif %}
 
             <button type="submit">Registrar</button>
-
+            <!-- Mensaje de error dinámico -->
+            <div id="password-error" class="password-error"></div>
+            
             <div class="register-link">
                 <p>¿Ya tenés cuenta? <a href="/login/signin/">Iniciar sesión</a></p>
             </div>
@@ -124,6 +137,7 @@
             }
         });
     </script>
-    <script src="blog.js"></script>
+    <script src="{% static 'js/blog.js' %}"></script>
+    <script src="{% static 'js/signup.js' %}"></script>
 </body>
 </html>

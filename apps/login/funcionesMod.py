@@ -15,10 +15,12 @@ class RegistroUsuario:
     def validar_contrasena(self):
         if len(self.password) < 8:
             return "La contraseña debe tener al menos 8 caracteres."
-        if not re.search(r"[A-Za-z]", self.password):
-            return "La contraseña debe contener al menos una letra."
+        if not re.search(r"[A-Z]", self.password):
+            return "La contraseña debe contener al menos una letra mayúscula."
         if not re.search(r"\d", self.password):
             return "La contraseña debe contener al menos un número."
+        if not re.search(r"[!@#$%&*]", self.password):
+            return "La contraseña debe contener al menos un carácter especial (!@#$%&*)."
         return None
 
     def crear_usuario(self):
