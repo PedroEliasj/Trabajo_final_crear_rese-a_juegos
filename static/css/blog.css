@@ -430,14 +430,14 @@ h2 {
 }
 
 /* Carrusel */
-.carrusel-filtros {
+.filtros-container .carrusel-filtros {
     position: relative;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.carrusel-track {
+.filtros-container .carrusel-track {
     display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
@@ -445,13 +445,14 @@ h2 {
     padding: 10px 0;
     scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
     flex-wrap: nowrap;
+    min-height: 40px;
 }
 
-.carrusel-track::-webkit-scrollbar {
+.filtros-container .carrusel-track::-webkit-scrollbar {
     display: none; /* Oculta la barra de desplazamiento en Chrome/Safari */
 }
 
-.filtro-btn {
+.filtros-container .filtro-btn {
     padding: 10px 20px;
     font-size: 14px;
     font-weight: 600;
@@ -466,14 +467,25 @@ h2 {
     transition: all 0.3s ease;
 }
 
-.filtro-btn:hover, .filtro-btn.active {
+.filtros-container .filtro-btn:hover, .filtro-btn.active {
     background: #15f4ee;
     color: #1a1a2e;
     text-shadow: none;
     transform: scale(1.05);
 }
 
-.carrusel-btn {
+.filtros-container .filtro-grupo {
+    display: none;
+    flex: 0 0 auto;
+    gap: 10px;
+    align-items: center;
+}
+
+.filtros-container .filtro-grupo.active {
+    display: flex;
+}
+
+.filtros-container .carrusel-btn {
     background: rgba(20, 20, 30, 0.8);
     border: 2px solid #15f4ee;
     border-radius: 50%;
@@ -488,16 +500,46 @@ h2 {
     transition: all 0.3s ease;
 }
 
-.carrusel-btn:hover {
+.filtros-container .carrusel-btn:hover {
     background: #15f4ee;
     color: #1a1a2e;
     text-shadow: none;
 }
 
-.carrusel-btn:disabled {
+.filtros-container .carrusel-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+.filtros-container .filtro-tipo-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.filtros-container .filtro-tipo-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Orbitron', sans-serif;
+    background: rgba(20, 20, 30, 0.8);
+    border: 2px solid #15f4ee;
+    border-radius: 8px;
+    color: #15f4ee;
+    text-shadow: 0 0 5px #15f4ee;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.filtros-container .filtro-tipo-btn:hover,
+.filtros-container .filtro-tipo-btn.active {
+    background: #15f4ee;
+    color: #1a1a2e;
+    text-shadow: none;
+    transform: scale(1.05);
+}
+
 
 /*------BOTON IR ARRIBA------*/
 

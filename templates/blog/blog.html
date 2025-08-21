@@ -98,39 +98,45 @@
     </div>
 
         <section class="blog">
-            <section class="filtros-container"><!--COMIENZA FILTRO-->
-                <h3>Filtrar y ordenar</h3>
-                <!-- Opciones para seleccionar filtrado -->
-                <!-- <div class="carrusel-track">
-                    <button class="filtro-btn" data-filtro="categoria" data-categoria="all">post</button>
-                    <button class="filtro-btn" data-filtro="categoria" data-categoria="all">comentario</button>
-                    <button class="filtro-btn" data-filtro="categoria" data-categoria="all">categorias</button>
-                </div>  -->
-                <div class="carrusel-filtros">
-                    <button class="carrusel-btn prev-btn" aria-label="Deslizar hacia la izquierda">
-                        <i class="fas fa-chevron-left"></i>
+            <section class="filtros-container"><!--COMINEZA FILTRO-->
+    <h3>Filtrar y ordenar</h3>
+    <!-- Botones de tipo de filtro -->
+    <div class="filtro-tipo-container">
+        <button class="filtro-tipo-btn active" data-tipo="categoria">Categorías</button>
+        <button class="filtro-tipo-btn" data-tipo="fecha">Post</button>
+        <button class="filtro-tipo-btn" data-tipo="comentarios">Comentarios</button>
+    </div>
+    <!-- Carrusel de filtros -->
+    <div class="carrusel-filtros">
+        <button class="carrusel-btn prev-btn" aria-label="Deslizar hacia la izquierda">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="carrusel-track">
+            <!-- Grupo de filtros: Categoría -->
+            <div class="filtro-grupo categoria active">
+                <button class="filtro-btn active" data-filtro="categoria" data-categoria="all">Todos</button>
+                {% for categoria in categorias %}
+                    <button class="filtro-btn" data-filtro="categoria" data-categoria="{{ categoria.nombre }}">
+                        {{ categoria.nombre }}
                     </button>
-
-                    <div class="carrusel-track">
-                        <!-- Filtro por categoría -->
-                        <button class="filtro-btn" data-filtro="categoria" data-categoria="all">Todos</button>
-                        {% for categoria in categorias %}
-                            <button class="filtro-btn" data-filtro="categoria" data-categoria="{{ categoria.nombre }}">
-                                {{ categoria.nombre }}
-                            </button>
-                        {% endfor %}
-                        <!-- Filtros por fecha -->
-                        <button class="filtro-btn" data-filtro="fecha" data-orden="reciente">Post Más recientes</button>
-                        <button class="filtro-btn" data-filtro="fecha" data-orden="antiguo">Post Más antiguos</button>
-                        <!-- Filtros por comentarios -->
-                        <button class="filtro-btn" data-filtro="comentarios" data-orden="mas">Más comentados</button>
-                        <button class="filtro-btn" data-filtro="comentarios" data-orden="menos">Menos comentados</button>
-                    </div>
-                    <button class="carrusel-btn next-btn" aria-label="Deslizar hacia la derecha">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-            </section><!--TERMINA FILTRO-->
+                {% endfor %}
+            </div>
+            <!-- Grupo de filtros: Fecha -->
+            <div class="filtro-grupo fecha">
+                <button class="filtro-btn" data-filtro="fecha" data-orden="reciente">Post Más recientes</button>
+                <button class="filtro-btn" data-filtro="fecha" data-orden="antiguo">Post Más antiguos</button>
+            </div>
+            <!-- Grupo de filtros: Comentarios -->
+            <div class="filtro-grupo comentarios">
+                <button class="filtro-btn" data-filtro="comentarios" data-orden="mas">Más comentados</button>
+                <button class="filtro-btn" data-filtro="comentarios" data-orden="menos">Menos comentados</button>
+            </div>
+        </div>
+        <button class="carrusel-btn next-btn" aria-label="Deslizar hacia la derecha">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</section><!--TERMINAFILTRO-->
 
 
             <!-- edicion -->
