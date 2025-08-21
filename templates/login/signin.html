@@ -14,18 +14,6 @@
     
     <div class="login-container">
 
-            <!-- inicio Mostrar mensajes -->
-        {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <p class="{% if message.tags %}{{ message.tags }}{% endif %}">
-                        {{ message }}
-                    </p>
-                {% endfor %}
-            </div>
-        {% endif %}
-        <!-- final Mostrar mensajes -->
-
         <form action="#" method="POST">
                 {% csrf_token %}
             <input type="checkbox" class="input-check" id="input-check">
@@ -63,6 +51,18 @@
 
             <button  onclick="window.history.back()">Volver</button>
 
+                        <!-- inicio Mostrar mensajes -->
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <p class="{% if message.tags %}{{ message.tags }}{% endif %} ">
+                            {{ message }}
+                        </p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <!-- final Mostrar mensajes -->
+        
             <div class="register-link">
                 <p>Don't have an account? <a href="/login/signup/">Sign Up</a></p>
             </div>

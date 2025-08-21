@@ -100,10 +100,17 @@
         <section class="blog">
             <section class="filtros-container"><!--COMIENZA FILTRO-->
                 <h3>Filtrar y ordenar</h3>
+                <!-- Opciones para seleccionar filtrado -->
+                <!-- <div class="carrusel-track">
+                    <button class="filtro-btn" data-filtro="categoria" data-categoria="all">post</button>
+                    <button class="filtro-btn" data-filtro="categoria" data-categoria="all">comentario</button>
+                    <button class="filtro-btn" data-filtro="categoria" data-categoria="all">categorias</button>
+                </div>  -->
                 <div class="carrusel-filtros">
                     <button class="carrusel-btn prev-btn" aria-label="Deslizar hacia la izquierda">
                         <i class="fas fa-chevron-left"></i>
                     </button>
+
                     <div class="carrusel-track">
                         <!-- Filtro por categoría -->
                         <button class="filtro-btn" data-filtro="categoria" data-categoria="all">Todos</button>
@@ -113,8 +120,8 @@
                             </button>
                         {% endfor %}
                         <!-- Filtros por fecha -->
-                        <button class="filtro-btn" data-filtro="fecha" data-orden="reciente">Más recientes</button>
-                        <button class="filtro-btn" data-filtro="fecha" data-orden="antiguo">Más antiguos</button>
+                        <button class="filtro-btn" data-filtro="fecha" data-orden="reciente">Post Más recientes</button>
+                        <button class="filtro-btn" data-filtro="fecha" data-orden="antiguo">Post Más antiguos</button>
                         <!-- Filtros por comentarios -->
                         <button class="filtro-btn" data-filtro="comentarios" data-orden="mas">Más comentados</button>
                         <button class="filtro-btn" data-filtro="comentarios" data-orden="menos">Menos comentados</button>

@@ -317,6 +317,12 @@ button:hover {
                 0 12px 10px -10px rgba(0, 0, 0, 0.05);
 }
 
+/* .messages{
+    color: #15f4ee;
+    color: black;
+    box-shadow: 0 0 12px #00e676, 0 0 24px #00e676;
+} */
+
 /*------BOTON VOLVER------*/
 /*button .volver {
     position: relative;
@@ -346,3 +352,4 @@ button:hover {
         left: 12%;
     }
 }
+

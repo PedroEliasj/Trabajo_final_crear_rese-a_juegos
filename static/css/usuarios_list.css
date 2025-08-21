@@ -653,3 +653,67 @@ td:nth-of-type(4) {
         gap: 8px;
     }
 }
+
+/* diferencia roles */
+.badge {
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 0 8px rgba(21, 244, 238, 0.8);
+}
+
+.badge.admin {
+    background: #ff1744;
+    color: white;
+    box-shadow: 0 0 12px #ff1744, 0 0 24px #ff1744;
+}
+
+.badge.staff {
+    background: #2979ff;
+    color: white;
+    box-shadow: 0 0 12px #2979ff, 0 0 24px #2979ff;
+}
+
+.badge.user {
+    background: #00e676;
+    color: black;
+    box-shadow: 0 0 12px #00e676, 0 0 24px #00e676;
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.badge i {
+    font-size: 1rem;
+}
+
+/* Admin - rojo brillante */
+.badge.admin {
+    background: #ff1744;
+    color: white;
+    box-shadow: 0 0 12px #ff1744, 0 0 24px #ff1744;
+}
+
+/* Staff - azul eléctrico */
+.badge.staff {
+    background: #2979ff;
+    color: white;
+    box-shadow: 0 0 12px #2979ff, 0 0 24px #2979ff;
+}
+
+/* Usuario normal - verde neón */
+.badge.user {
+    background: #00e676;
+    color: black;
+    box-shadow: 0 0 12px #00e676, 0 0 24px #00e676;
+}
