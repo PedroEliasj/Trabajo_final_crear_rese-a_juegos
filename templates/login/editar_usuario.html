@@ -14,11 +14,6 @@
 
 <body>
 
-    <label class="ir">
-        <input type="checkbox" class="toggle-neon">
-        <i class="arriba fa-solid fa-angles-up" aria-label="Volver al inicio"></i>
-    </label>
-
     <header>
         <nav class="navbar">
             <input type="checkbox" class="menu-checkbox" id="hamburger-menu">
@@ -28,22 +23,22 @@
             <div class="perfil-usuario">
                 <input type="checkbox" class="menu-checkbox" id="perfil-menu">
                 <label class="menu-label" for="perfil-menu">
-                    <img src="{{ perfil_logueado.imagen.url }}" alt="Foto de perfil" class="img-perfil">
+                    <img src="{{ perfil.imagen.url }}" alt="Foto de perfil" class="img-perfil">
                     <span>{{ request.user.username }}</span>
                 </label>
-                <p>#</p>
+                <p></p>
                 <div class="dropdown-menu">
-                    <a href="{% url 'perfil' %}" class="dropdown-item">Ver Perfil</a>
-                    <a href="{% url 'editar_usuario' user.id %}" class="dropdown-item">Editar</a>
                     <a href="{% url 'apps.blog:crear_resena' %}" class="dropdown-item">Crear Posteo</a>
+                    <a href="{% url 'perfil' %}" class="dropdown-item">Editar</a>
+                    <a href="{% url 'usuarios_list' %}" class="dropdown-item">Lista de Usuarios</a>
                     <a href="{% url 'logout' %}" class="dropdown-item">Cerrar Sesión</a>
                 </div>
             </div>
             <ul class="nav-links">
                 {% if request.user.is_authenticated and request.user.is_staff %}
-                <li><a href="{% url 'logout' %}">cerrar session</a></li>
-                <li><a href="{% url 'apps.blog:crear_resena' %}">Publicar Reseña</a></li>
-                <li><a href="{% url 'apps.blog:subir_juego' %}">Subir Juego</a></li>
+                <li><a href="{% url 'apps.blog:blog' %}">blog</a></li>
+                <li><a href="{% url 'contacto' %}">Contacto</a></li>
+                <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
                 <li><a href="{% url 'signup' %}">Registrar</a></li>
                 {% else %}
                 <li><a href="{% url 'descargar_juegos' %}">Descargar Juegos</a></li>
@@ -60,40 +55,35 @@
                         <label class="menu-label" for="perfil-menu-mobile">
                             <div class="perfil-usuario-mobile">
                                 <label class="menu-label" for="perfil-menu">
-                                    <img src="{{ perfil_logueado.imagen.url }}" alt="Foto de perfil" class="img-perfil">
+                                    <img src="{{ perfil.imagen.url }}" alt="Foto de perfil" class="img-perfil">
                                     <span>{{ request.user.username }}</span>
                                 </label>
                             </div>
                         </label>
                         <ul class="perfil-submenu">
-                            <a href="{% url 'perfil' %}" class="dropdown-item">Ver Perfil</a>
-                            <a href="{% url 'editar_usuario' user.id %}" class="dropdown-item">Editar</a>
                             <a href="{% url 'apps.blog:crear_resena' %}" class="dropdown-item">Crear Posteo</a>
+                            <!-- <a href="{% url 'editar_usuario' user.id %}" class="dropdown-item">Editar</a> -->
+                            <a href="{% url 'usuarios_list' %}" class="dropdown-item">Lista de Usuarios</a>
                             <a href="{% url 'logout' %}" class="dropdown-item">Cerrar Sesión</a>
                         </ul>
                     </li>
-                    {% if request.user.is_authenticated and request.user.is_staff %}
-                    <li><a href="{% url 'logout' %}">cerrar session</a></li>
-                    <li><a href="{% url 'apps.blog:crear_resena' %}">Publicar Reseña</a></li>
-                    <li><a href="{% url 'apps.blog:subir_juego' %}">Subir Juego</a></li>
-                    <li><a href="{% url 'signup' %}">Registrar</a></li>
-                    {% else %}
-                    <li><a href="#">Descargar Juegos</a></li>
-                    <li><a href="{% url 'contacto' %}">Contacto</a></li>
-                    <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
-                    <li><a href="{% url 'signin' %}">Iniciar sesion</a></li>
-                    <li><a href="{% url 'signup' %}">Registrar</a></li>
-                    {% endif %}
+                {% if request.user.is_authenticated and request.user.is_staff %}
+                <li><a href="{% url 'apps.blog:blog' %}">blog</a></li>
+                <li><a href="{% url 'contacto' %}">Contacto</a></li>
+                <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+
+                <li><a href="{% url 'signup' %}">Registrar</a></li>
+                {% else %}
+                <li><a href="{% url 'descargar_juegos' %}">Descargar Juegos</a></li>
+                <li><a href="{% url 'contacto' %}">Contacto</a></li>
+                <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+                <li><a href="{% url 'signin' %}">Iniciar sesion</a></li>
+                <li><a href="{% url 'signup' %}">Registrar</a></li>
+                {% endif %}
                 </ul>
             </div>
             <!--BARRA DE BUSQUEDA ENZO-->
-            <div class="search-container">
-                <label for="search-input" class="sr-only"></label><!--agregue un label-->
-                <button class="search-btn" aria-label="Buscar"><i
-                        class="fas fa-search"></i></button><!--agregue un aria label para mejorar la accebilidad y cambie el icono para que pegara con a estetica del blog-->
-                <input type="text" id="search-input" placeholder="Search..."
-                    class="search-input" /><!--agregue id para asociar label y facilitar javascript-->
-            </div>
+
             <!--BARRA DE BUSQUEDA ENZO-->
         </nav>
     </header>

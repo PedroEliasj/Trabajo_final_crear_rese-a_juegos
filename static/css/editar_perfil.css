@@ -418,7 +418,7 @@ h2 {
 }
 
 .img-perfil {
-    position: relative;
+    /* position: relative; */
     top: 40px;
     right: 21%;
     height: 150px;
