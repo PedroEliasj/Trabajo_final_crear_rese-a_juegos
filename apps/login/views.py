@@ -153,7 +153,7 @@ def eliminar_usuario(request, user_id):
         pass
 
     user.delete()
-    return redirect('login/usuarios_list')
+    return redirect('usuarios_list')
 
 @login_required
 def perfil_view(request):
