@@ -113,6 +113,9 @@
             {% endif %}
 
             <button type="submit">Registrar</button>
+
+                <button  onclick="window.history.back()">Volver</button>
+
             <!-- Mensaje de error dinámico -->
             <div id="password-error" class="password-error"></div>
             
@@ -124,6 +127,7 @@
                 <div style="color:white;text-align:center;margin-top:10px">{{ mensaje }}</div>
             {% endif %}
         </form>
+
     </div>
 
     <!-- Validación visual -->
